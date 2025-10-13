@@ -22,6 +22,7 @@ spec:
         path: '{{path}}'
         kustomize:
           enableHelm: true
+          kustomizeOptions: ["--enable-helm"]
 
       destination:
         server: "https://kubernetes.default.svc"
