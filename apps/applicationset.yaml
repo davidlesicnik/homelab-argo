@@ -20,7 +20,7 @@ spec:
         repoURL: https://github.com/davidlesicnik/homelab-argo.git
         targetRevision: master
         path: '{{path}}'
-        kustomize:
+        helm: {}
 
       destination:
         server: "https://kubernetes.default.svc"

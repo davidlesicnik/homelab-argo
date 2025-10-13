@@ -1,0 +1,7 @@
+apiVersion: v2
+name: actual-server
+description: A Helm chart for Actual Server
+type: application
+version: 0.1.0
+appVersion: "24.5.0"
+icon: https://actualbudget.github.io/docs/img/logo.png
