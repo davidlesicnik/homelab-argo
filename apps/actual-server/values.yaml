@@ -1,32 +1,27 @@
-# helm-values.yaml
+replicaCount: 1
 
-ingress:
-  enabled: true
-  className: "nginx"
-  hosts:
-    - host: actual-dev.lesicnik.eu
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
+strategy:
+  type: Recreate
 
-actualServer:
-  config: {}
-  extraEnvFrom:
-    - secretRef:
-        name: actual-server-oidc-secret
-  resources:
-    limits:
-      memory: 256Mi
-      cpu: 250m
-    requests:
-      memory: 128Mi
-      cpu: 100m
+files:
+  server: /data/server-files
+  user: /data/user-files
 
 persistence:
-  data:
-    enabled: true
-    accessMode: ReadWriteOnce
-    size: 1Gi
-    storageClassName: nfs-client-hdd
+  enabled: true
+  storageClass: nfs-client-hdd
+  size: 10Gi
+  existingClaim: ""  # leave empty to let Helm create the PVC
 
-replicaCount: 1
+login:
+  method: "openid"
+  openid:
+    enforce: true
+    providerName: "Authentic"
+    tokenExpiration: 3600
+    existingSecret:
+      name: "actual-server-oidc-secret"
+      clientIdKey: "ACTUAL_OPENID_CLIENT_ID"
+      clientSecretKey: ""   # not used
+      discoveryUrlKey: "ACTUAL_OPENID_DISCOVERY_URL"
+      serverHostnameKey: "ACTUAL_OPENID_SERVER_HOSTNAME"
