@@ -6,9 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://community-charts.github.io/helm-charts
-    chart: actualbudget
-    targetRevision: 1.8.3
+    repoURL: https://github.com/community-charts/helm-charts/releases/download/actualbudget-1.8.3/actualbudget-1.8.3.tgz
+    targetRevision: HEAD
+    chart: "" # Empty chart name when using a direct TGZ URL
     helm:
       valueFiles:
         - values.yaml
