@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "actual-budget.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "actual-budget.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "actual-budget.name" . }}
+    spec:
+      containers:
+        - name: actual-server
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: ACTUAL_OPENID_DISCOVERY_URL
+              value: {{ .Values.env.ACTUAL_OPENID_DISCOVERY_URL | quote }}
+            - name: ACTUAL_OPENID_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.existingSecret }}
+                  key: client_id
+            - name: ACTUAL_OPENID_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.existingSecret }}
+                  key: client_secret
+            - name: ACTUAL_OPENID_SERVER_HOSTNAME
+              value: {{ .Values.env.ACTUAL_OPENID_SERVER_HOSTNAME | quote }}
+          volumeMounts:
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: {{ .Values.volume.data | default (include "actual-budget.fullname" .) }}
+      restartPolicy: {{ .Values.restartPolicy }}
