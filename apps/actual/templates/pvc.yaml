@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.volume.data | default (include "actual-budget.fullname" .) }}
+  name: {{ .Values.volume.data.name }}
 spec:
   accessModes:
     - ReadWriteOnce
