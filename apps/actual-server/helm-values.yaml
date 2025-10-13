@@ -1,5 +1,3 @@
-# apps/actual-server/helm-values.yaml
-
 ingress:
   enabled: true
   className: "nginx"
