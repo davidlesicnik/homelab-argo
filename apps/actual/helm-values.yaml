@@ -1,0 +1,35 @@
+# apps/actual-server/helm-values.yaml
+
+ingress:
+  enabled: true
+  className: "nginx"
+  hosts:
+    - host: actual-dev.lesicnik.eu
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+
+actualServer:
+  config:
+    ACTUAL_OPENID_DISCOVERY_URL: "https://sso.lesicnik.eu"
+    ACTUAL_OPENID_CLIENT_ID: "actual"
+    ACTUAL_OPENID_SERVER_HOSTNAME: "https://actual-dev.lesicnik.eu"
+  
+  extraEnvFrom:
+    - secretRef:
+        name: actual-server-oidc-secret
+
+  resources:
+    limits:
+      memory: 256Mi
+      cpu: 250m 
+    requests:
+      memory: 128Mi
+      cpu: 100m
+
+persistence:
+  data:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    storageClassName: nfs-client-hdd
