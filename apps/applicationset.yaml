@@ -5,12 +5,12 @@ metadata:
   namespace: argocd
 spec:
   generators:
-  - git:
-      repoURL: https://github.com/davidlesicnik/homelab-argo.git
-      revision: master
-      directories:
-      - path: "apps/*"
-  
+    - git:
+        repoURL: https://github.com/davidlesicnik/homelab-argo.git
+        revision: master
+        directories:
+          - path: "apps/*"
+
   template:
     metadata:
       name: '{{path.basename}}'
@@ -20,13 +20,16 @@ spec:
         repoURL: https://github.com/davidlesicnik/homelab-argo.git
         targetRevision: master
         path: '{{path}}'
+        kustomize:
+          enableHelm: true
+
       destination:
         server: "https://kubernetes.default.svc"
         namespace: 'default'
-        
+
       syncPolicy:
         automated:
           selfHeal: true
           prune: true
         syncOptions:
-        - CreateNamespace=false
+          - CreateNamespace=false
