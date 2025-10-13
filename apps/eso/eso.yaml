@@ -13,7 +13,8 @@ spec:
       releaseName: external-secrets
       values: |
         installCRDs: true
-        watchNamespace: ""
+        controller:
+          watchNamespace: ""   # <--- this is the correct place
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: vault
