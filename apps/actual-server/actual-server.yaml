@@ -1,26 +1,23 @@
-apiVersion: external-secrets.io/v1beta1
-kind: ExternalSecret
+apiVersion: argoproj.io/v1alpha1
+kind: Application
 metadata:
-  name: actual-server-oidc-secret
-  namespace: default
+  name: actual-server
+  namespace: argocd
 spec:
-  refreshInterval: 1h
-  secretStoreRef:
-    name: vault-backend
-    kind: SecretStore
-  target:
-    name: actual-server-oidc-secret
-    creationPolicy: Owner
-  data:
-    - secretKey: ACTUAL_OPENID_CLIENT_ID
-      remoteRef:
-        key: secret/actual
-        property: client_id
-    - secretKey: ACTUAL_OPENID_DISCOVERY_URL
-      remoteRef:
-        key: secret/actual
-        property: discovery_url
-    - secretKey: ACTUAL_OPENID_SERVER_HOSTNAME
-      remoteRef:
-        key: secret/actual
-        property: server_hostname
+  project: default
+  source:
+    repoURL: https://github.com/davidlesicnik/homelab-argo.git
+    targetRevision: master
+    path: apps/actual-server  # path is relative to repo root
+    helm:
+      valueFiles:
+        - helm-values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: default
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+      - CreateNamespace=false
