@@ -1,4 +1,4 @@
-apiVersion: argoproj.io/v1alpha1
+apiVersion: argroj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: cluster-apps
@@ -10,11 +10,9 @@ spec:
       revision: master
       directories:
       - path: "apps/*"
-
+  
   template:
     metadata:
-      # Create an application name dynamically from the folder name.
-      # {{path.basename}} will be "eso", "grafana", etc.
       name: '{{path.basename}}'
     spec:
       project: "default"
@@ -24,10 +22,11 @@ spec:
         path: '{{path}}'
       destination:
         server: "https://kubernetes.default.svc"
-        namespace: '{{path.basename}}'
+        namespace: 'default'
+        
       syncPolicy:
         automated:
-          prune: true
           selfHeal: true
+          prune: true
         syncOptions:
-        - CreateNamespace=true
+        - CreateNamespace=false
