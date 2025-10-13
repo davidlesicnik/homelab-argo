@@ -14,14 +14,31 @@ persistence:
   existingClaim: ""  # leave empty to let Helm create the PVC
 
 login:
-  method: "openid"
+  method: openid
+  allowedLoginMethods:
+    - openid
   openid:
     enforce: true
     providerName: "Authentic"
-    tokenExpiration: 3600
-    existingSecret:
-      name: "actual-server-oidc-secret"
-      clientIdKey: "ACTUAL_OPENID_CLIENT_ID"
-      clientSecretKey: ""   # not used
-      discoveryUrlKey: "ACTUAL_OPENID_DISCOVERY_URL"
-      serverHostnameKey: "ACTUAL_OPENID_SERVER_HOSTNAME"
+    # Leave empty: pod will read from secret
+    clientId: ""
+    clientSecret: ""
+    discoveryUrl: ""
+
+# Inject the Kubernetes secret into the pod as environment variables
+extraEnv:
+  - name: ACTUAL_OPENID_CLIENT_ID
+    valueFrom:
+      secretKeyRef:
+        name: actual-server-oidc-secret
+        key: ACTUAL_OPENID_CLIENT_ID
+  - name: ACTUAL_OPENID_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: actual-server-oidc-secret
+        key: ACTUAL_OPENID_CLIENT_SECRET
+  - name: ACTUAL_OPENID_DISCOVERY_URL
+    valueFrom:
+      secretKeyRef:
+        name: actual-server-oidc-secret
+        key: ACTUAL_OPENID_DISCOVERY_URL
