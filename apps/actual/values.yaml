@@ -21,3 +21,12 @@ login:
       name: actual-server-oidc-secret
       clientIdKey: ACTUAL_OPENID_CLIENT_ID
       clientSecretKey: ACTUAL_OPENID_CLIENT_SECRET
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: actual-dev.lesicnik.eu
+      paths:
+        - path: /
+          pathType: Prefix
