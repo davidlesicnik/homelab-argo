@@ -1,44 +1,23 @@
 replicaCount: 1
-
 strategy:
   type: Recreate
-
 files:
   server: /data/server-files
   user: /data/user-files
-
 persistence:
   enabled: true
   storageClass: nfs-client-hdd
   size: 10Gi
-  existingClaim: ""  # leave empty to let Helm create the PVC
-
+  existingClaim: ""
 login:
   method: openid
   allowedLoginMethods:
     - openid
   openid:
     enforce: true
-    providerName: "Authentic"
-    # Leave empty: pod will read from secret
-    clientId: ""
-    clientSecret: ""
-    discoveryUrl: ""
-
-# Inject the Kubernetes secret into the pod as environment variables
-extraEnv:
-  - name: ACTUAL_OPENID_CLIENT_ID
-    valueFrom:
-      secretKeyRef:
-        name: actual-server-oidc-secret
-        key: ACTUAL_OPENID_CLIENT_ID
-  - name: ACTUAL_OPENID_CLIENT_SECRET
-    valueFrom:
-      secretKeyRef:
-        name: actual-server-oidc-secret
-        key: ACTUAL_OPENID_CLIENT_SECRET
-  - name: ACTUAL_OPENID_DISCOVERY_URL
-    valueFrom:
-      secretKeyRef:
-        name: actual-server-oidc-secret
-        key: ACTUAL_OPENID_DISCOVERY_URL
+    providerName: "Authentik"
+    discoveryUrl: "https://login.lesicnik.eu/application/o/actual/.well-known/openid-configuration"
+    existingSecret:
+      name: actual-server-oidc-secret
+      clientIdKey: ACTUAL_OPENID_CLIENT_ID
+      clientSecretKey: ACTUAL_OPENID_CLIENT_SECRET
