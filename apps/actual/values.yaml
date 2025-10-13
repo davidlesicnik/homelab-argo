@@ -18,7 +18,7 @@ login:
     providerName: "Authentic"
     discoveryUrl: "https://your-authentic-instance.com/.well-known/openid-configuration"
     existingSecret:
-      name: actual-actualbudget-openid-secret
+      name: actual-server-oidc-secret
       clientIdKey: ACTUAL_OPENID_CLIENT_ID
       clientSecretKey: ACTUAL_OPENID_CLIENT_SECRET
 ingress:
