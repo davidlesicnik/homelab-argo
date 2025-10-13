@@ -1,32 +1,31 @@
-actualbudget:
-  replicaCount: 1
-  strategy:
-    type: Recreate
-  files:
-    server: /data/server-files
-    user: /data/user-files
-  persistence:
-    enabled: true
-    storageClass: nfs-client-hdd
-    size: 10Gi
-    existingClaim: ""
-  login:
-    method: openid
-    allowedLoginMethods:
-      - openid
-    openid:
-      enforce: true
-      providerName: "Authentic"
-      discoveryUrl: "https://your-authentic-instance.com/.well-known/openid-configuration"
-      existingSecret:
-        name: actual-actualbudget-openid-secret
-        clientIdKey: ACTUAL_OPENID_CLIENT_ID
-        clientSecretKey: ACTUAL_OPENID_CLIENT_SECRET
-  ingress:
-    enabled: true
-    className: nginx
-    hosts:
-      - host: actual-dev.lesicnik.eu
-        paths:
-          - path: /
-            pathType: Prefix
+replicaCount: 1
+strategy:
+  type: Recreate
+files:
+  server: /data/server-files
+  user: /data/user-files
+persistence:
+  enabled: true
+  storageClass: nfs-client-hdd
+  size: 10Gi
+  existingClaim: ""
+login:
+  method: openid
+  allowedLoginMethods:
+    - openid
+  openid:
+    enforce: true
+    providerName: "Authentic"
+    discoveryUrl: "https://your-authentic-instance.com/.well-known/openid-configuration"
+    existingSecret:
+      name: actual-actualbudget-openid-secret
+      clientIdKey: ACTUAL_OPENID_CLIENT_ID
+      clientSecretKey: ACTUAL_OPENID_CLIENT_SECRET
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: actual-dev.lesicnik.eu
+      paths:
+        - path: /
+          pathType: Prefix
