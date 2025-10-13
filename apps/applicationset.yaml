@@ -21,8 +21,6 @@ spec:
         targetRevision: master
         path: '{{path}}'
         kustomize:
-          enableHelm: true
-          kustomizeOptions: ["--enable-helm"]
 
       destination:
         server: "https://kubernetes.default.svc"

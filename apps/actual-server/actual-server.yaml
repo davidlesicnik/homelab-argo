@@ -1,0 +1,26 @@
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: actual-server-oidc-secret
+  namespace: default
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: SecretStore
+  target:
+    name: actual-server-oidc-secret
+    creationPolicy: Owner
+  data:
+    - secretKey: ACTUAL_OPENID_CLIENT_ID
+      remoteRef:
+        key: secret/actual
+        property: client_id
+    - secretKey: ACTUAL_OPENID_DISCOVERY_URL
+      remoteRef:
+        key: secret/actual
+        property: discovery_url
+    - secretKey: ACTUAL_OPENID_SERVER_HOSTNAME
+      remoteRef:
+        key: secret/actual
+        property: server_hostname
