@@ -16,21 +16,9 @@ spec:
         - name: actual-server
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          env:
-            - name: ACTUAL_OPENID_DISCOVERY_URL
-              value: {{ .Values.env.ACTUAL_OPENID_DISCOVERY_URL | quote }}
-            - name: ACTUAL_OPENID_CLIENT_ID
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.existingSecret }}
-                  key: client_id
-            - name: ACTUAL_OPENID_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.existingSecret }}
-                  key: client_secret
-            - name: ACTUAL_OPENID_SERVER_HOSTNAME
-              value: {{ .Values.env.ACTUAL_OPENID_SERVER_HOSTNAME | quote }}
+          envFrom:
+            - secretRef:
+                name: {{ .Values.existingSecret }}
           volumeMounts:
             - name: data
               mountPath: /data
