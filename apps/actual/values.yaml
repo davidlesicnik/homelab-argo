@@ -26,8 +26,8 @@ ingress:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
   tls:
-    enabled: true
-    secretName: actual-dev-tls
+    enabled: false
+    #secretName: actual-dev-tls
 
 externalSecret:
   enabled: true
