@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nextcloud
+spec:
+  ports:
+    - port: {{ .Values.containerPort }}
+      targetPort: {{ .Values.containerPort }}
+  selector:
+    app: nextcloud

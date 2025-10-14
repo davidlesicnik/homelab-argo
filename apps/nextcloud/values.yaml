@@ -1,0 +1,36 @@
+nextcloud:
+  image: nextcloud:latest
+  replicas: 1
+  domain: nextcloud.lesicnik.eu
+
+  persistence:
+    storageClass: nfs-client-ssd
+    size: 50Gi
+    mountPath: /var/www/html
+
+postgres:
+  image: postgres:15
+  persistence:
+    size: 10Gi
+    storageClass: nfs-client-ssd
+  user: nextcloud
+  database: nextcloud
+
+redis:
+  image: redis:latest
+
+secrets:
+  vaultPath: secret/data/nextcloud
+
+containerPort: 80
+
+ingress:
+  enabled: true
+  hostname: nextcloud.lesicnik.eu
+  ingressClassName: nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+  tls:
+    enabled: false

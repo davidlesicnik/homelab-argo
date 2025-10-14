@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nextcloud
+spec:
+  replicas: {{ .Values.nextcloud.replicas }}
+  selector:
+    matchLabels:
+      app: nextcloud
+  template:
+    metadata:
+      labels:
+        app: nextcloud
+    spec:
+      containers:
+        - name: nextcloud
+          image: {{ .Values.nextcloud.image }}
+          ports:
+            - containerPort: 80
+          env:
+            - name: POSTGRES_HOST
+              value: postgres
+            - name: POSTGRES_DB
+              value: {{ .Values.postgres.database }}
+            - name: POSTGRES_USER
+              value: {{ .Values.postgres.user }}
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-secrets
+                  key: POSTGRES_PASSWORD
+            - name: NEXTCLOUD_ADMIN_USER
+              value: admin
+            - name: NEXTCLOUD_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud-secrets
+                  key: NEXTCLOUD_ADMIN_PASSWORD
+            - name: NEXTCLOUD_TRUSTED_DOMAINS
+              value: {{ .Values.nextcloud.domain }}
+            - name: APACHE_DISABLE_REWRITE_IP
+              value: "1"
+            - name: TRUSTED_PROXIES
+              value: "0.0.0.0/0"
+            - name: REDIS_HOST
+              value: redis
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.nextcloud.persistence.mountPath }}
+            {{- range .Values.nextcloud.extraMounts }}
+            - name: {{ .name }}
+              mountPath: {{ .mountPath }}
+            {{- end }}
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nextcloud-data
+        {{- range .Values.nextcloud.extraMounts }}
+        - name: {{ .name }}
+          persistentVolumeClaim:
+            claimName: {{ .existingClaim }}
+        {{- end }}
