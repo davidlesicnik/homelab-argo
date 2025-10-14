@@ -21,6 +21,7 @@ pvc:
 ingress:
   enabled: true
   hostname: actual-dev.lesicnik.eu
+  ingressClassName: nginx
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
