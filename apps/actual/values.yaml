@@ -32,6 +32,10 @@ pv:
   targetPortal: 192.168.10.9
   iqn: iqn.2025-03.com.ugreen:target-1.47475697ff
   lun: "0"
+  iscsiInterface: default
+  discoveryCHAPAuth: "false"
+  sessionCHAPAuth: "false"
+
 
 pvc:
   name: actual-pvc
