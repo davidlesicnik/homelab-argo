@@ -25,5 +25,5 @@ spec:
               service:
                 name: {{ include "actual-budget.fullname" . }}
                 port:
-                  number: {{ .Values.containerPort }}
+                  number: 3000
 {{- end }}
