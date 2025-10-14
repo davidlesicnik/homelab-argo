@@ -16,7 +16,7 @@ restartPolicy: Always
 pvc:
   name: actual-data
   size: 10Gi
-  storageClassName: nfs-client-ssd
+  storageClassName: iscsi-storage-class
 
 ingress:
   enabled: true
