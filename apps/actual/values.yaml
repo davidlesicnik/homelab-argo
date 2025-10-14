@@ -8,11 +8,9 @@ image:
 env:
   ACTUAL_OPENID_DISCOVERY_URL: https://sso.lesicnik.eu
   ACTUAL_OPENID_CLIENT_ID: actual
-  ACTUAL_OPENID_CLIENT_SECRET: # Will use existing secret
   ACTUAL_OPENID_SERVER_HOSTNAME: https://actual-dev.lesicnik.eu
 
 existingSecret: actual-server-oidc-secret
-
 restartPolicy: Always
 
 pvc:
@@ -29,3 +27,12 @@ ingress:
   tls:
     enabled: true
     secretName: actual-dev-tls
+
+externalSecret:
+  enabled: true
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  remoteRef:
+    key: secret/actual
