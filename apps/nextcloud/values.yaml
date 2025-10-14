@@ -24,6 +24,16 @@ secrets:
 
 containerPort: 80
 
+externalSecret:
+  enabled: true
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  remoteRef:
+    key: secret/nextcloud
+  existingSecret: nextcloud-secrets
+
 ingress:
   enabled: true
   hostname: nextcloud.lesicnik.eu
