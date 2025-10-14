@@ -37,3 +37,6 @@ externalSecret:
     kind: ClusterSecretStore
   remoteRef:
     key: secret/actual
+
+env:
+  ACTUAL_HTTPS: "true"
