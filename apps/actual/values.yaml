@@ -31,7 +31,7 @@ pv:
   fsType: ext4
   targetPortal: 192.168.10.9
   iqn: iqn.2025-03.com.ugreen:target-1.47475697ff
-  lun: "0"
+  lun: 0
 
 pvc:
   name: actual-pvc
