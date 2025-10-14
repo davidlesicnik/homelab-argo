@@ -30,7 +30,7 @@ pv:
   volumeHandle: actual-lun0
   fsType: ext4
   targetPortal: 192.168.10.9
-  iqn: iqn.2025-03.com.ugreen
+  iqn: iqn.2025-03.com.ugreen:target-1.79ec6d6ffd
   lun: "0"
   iscsiInterface: default
   discoveryCHAPAuth: "false"
