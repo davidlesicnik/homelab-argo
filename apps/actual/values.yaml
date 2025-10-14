@@ -5,13 +5,24 @@ image:
   tag: latest
   pullPolicy: IfNotPresent
 
-env:
-  ACTUAL_OPENID_DISCOVERY_URL: https://sso.lesicnik.eu
-  ACTUAL_OPENID_CLIENT_ID: actual
-  ACTUAL_OPENID_SERVER_HOSTNAME: https://actual-dev.lesicnik.eu
-
-existingSecret: actual-server-oidc-secret
+containerPort: 5006
 restartPolicy: Always
+
+env:
+  ACTUAL_HTTPS: "true"
+  ACTUAL_OPENID_DISCOVERY_URL: "https://sso.lesicnik.eu"
+  ACTUAL_OPENID_CLIENT_ID: actual
+  ACTUAL_OPENID_SERVER_HOSTNAME: "https://actual-dev.lesicnik.eu"
+
+externalSecret:
+  enabled: true
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  remoteRef:
+    key: secret/actual
+  existingSecret: actual-server-oidc-secret
 
 pv:
   name: actual-pv
@@ -26,7 +37,7 @@ pvc:
   name: actual-pvc
   size: 10Gi
   storageClassName: iscsi-csi
-  
+
 ingress:
   enabled: true
   hostname: actual-dev.lesicnik.eu
@@ -38,17 +49,3 @@ ingress:
   tls:
     enabled: false
     #secretName: actual-dev-tls
-
-containerPort: 5006
-
-externalSecret:
-  enabled: true
-  refreshInterval: 1h
-  secretStoreRef:
-    name: vault-backend
-    kind: ClusterSecretStore
-  remoteRef:
-    key: secret/actual
-
-env:
-  ACTUAL_HTTPS: "true"
