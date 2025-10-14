@@ -14,16 +14,9 @@ spec:
         app: postgres
     spec:
       securityContext:
-        fsGroup: 999
-        runAsUser: 999
-        runAsGroup: 999
-      initContainers:
-        - name: fix-permissions
-          image: busybox
-          command: ["sh", "-c", "chmod -R 777 /var/lib/postgresql/data"]
-          volumeMounts:
-            - name: data
-              mountPath: /var/lib/postgresql/data
+        fsGroup: 10
+        runAsUser: 1000
+        runAsGroup: 10
       containers:
         - name: postgres
           image: {{ .Values.postgres.image }}
