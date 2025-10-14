@@ -18,7 +18,7 @@ spec:
       targetPortal: "{{ .Values.pv.targetPortal }}"
       portals: "{{ .Values.pv.targetPortal }}"
       iqn: "{{ .Values.pv.iqn }}"
-      lun: "{{ .Values.pv.lun }}"
+      lun: {{ .Values.pv.lun }}
       iscsiInterface: "default"
       discoveryCHAPAuth: "false"
       sessionCHAPAuth: "false"
