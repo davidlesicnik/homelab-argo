@@ -23,7 +23,7 @@ spec:
           {{- end }}
           envFrom:
             - secretRef:
-                name: {{ .Values.existingSecret }}
+                name: {{ .Values.externalSecret.existingSecret  }}
           ports:
             - containerPort: {{ .Values.containerPort }}
           volumeMounts:
