@@ -13,11 +13,20 @@ env:
 existingSecret: actual-server-oidc-secret
 restartPolicy: Always
 
-pvc:
-  name: actual-data
+pv:
+  name: actual-pv
   size: 10Gi
-  storageClassName: iscsi-storage-class
+  volumeHandle: actual-lun0
+  fsType: ext4
+  targetPortal: 192.168.10.9
+  iqn: iqn.2025-03.com.ugreen:target-1.47475697ff
+  lun: "0"
 
+pvc:
+  name: actual-pvc
+  size: 10Gi
+  storageClassName: iscsi-csi
+  
 ingress:
   enabled: true
   hostname: actual-dev.lesicnik.eu
