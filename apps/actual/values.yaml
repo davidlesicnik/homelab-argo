@@ -30,6 +30,8 @@ ingress:
     enabled: false
     #secretName: actual-dev-tls
 
+containerPort: 3000
+
 externalSecret:
   enabled: true
   refreshInterval: 1h
