@@ -30,7 +30,7 @@ ingress:
     enabled: false
     #secretName: actual-dev-tls
 
-containerPort: 3000
+containerPort: 5006
 
 externalSecret:
   enabled: true
