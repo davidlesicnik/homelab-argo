@@ -13,10 +13,6 @@ spec:
       labels:
         app: postgres
     spec:
-      securityContext:
-        fsGroup: 10
-        runAsUser: 1000
-        runAsGroup: 10
       containers:
         - name: postgres
           image: {{ .Values.postgres.image }}

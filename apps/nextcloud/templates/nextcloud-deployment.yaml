@@ -12,10 +12,6 @@ spec:
       labels:
         app: nextcloud
     spec:
-      securityContext:
-        runAsUser: 1000    # matches NFS enforced UID
-        runAsGroup: 10     # matches NFS enforced GID
-        fsGroup: 10        # ensures writable subdirectories
       containers:
         - name: nextcloud
           image: {{ .Values.nextcloud.image }}
