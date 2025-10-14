@@ -31,4 +31,4 @@ spec:
           selfHeal: true
           prune: true
         syncOptions:
-          - CreateNamespace=false
+          - CreateNamespace=true
