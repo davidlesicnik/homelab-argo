@@ -20,7 +20,7 @@ redis:
   image: redis:latest
 
 secrets:
-  vaultPath: secret/data/nextcloud
+  vaultPath: kv/data/nextcloud
 
 containerPort: 80
 
@@ -31,7 +31,7 @@ externalSecret:
     name: vault-backend
     kind: ClusterSecretStore
   remoteRef:
-    key: secret/nextcloud
+    key: kv/nextcloud
   existingSecret: nextcloud-secrets
 
 ingress:
