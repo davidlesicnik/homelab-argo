@@ -15,7 +15,7 @@ spec:
         installCRDs: true
         crds:
           conversion:
-            enabled: true 
+            enabled: false
         controller:
           watchAllNamespaces: true
   destination:
