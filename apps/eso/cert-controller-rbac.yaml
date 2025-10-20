@@ -2,6 +2,8 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: external-secrets-cert-controller
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"  # After ESO, before ClusterSecretStore
 rules:
 - apiGroups: ["admissionregistration.k8s.io"]
   resources: ["validatingwebhookconfigurations"]

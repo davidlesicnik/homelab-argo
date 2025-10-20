@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: external-secrets
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "-2" # Ensure CRDs are installed before other apps
 spec:
   project: default
   source:
@@ -27,3 +29,9 @@ spec:
       selfHeal: true
     syncOptions:
       - ServerSideApply=true
+    retry:
+      limit: 5
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 3m
