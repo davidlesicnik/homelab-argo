@@ -9,7 +9,7 @@ nextcloud:
     mountPath: /var/www/html
 
 postgres:
-  image: postgres:15
+  image: postgres:18
   persistence:
     size: 10Gi
     storageClass: longhorn
