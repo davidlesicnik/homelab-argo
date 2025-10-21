@@ -1,0 +1,13 @@
+services:
+  immich:
+    enabled: true
+    host: photos.lesicnik.eu
+    ip: 192.168.10.21
+    port: 2283
+
+ingress:
+  className: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    enabled: true

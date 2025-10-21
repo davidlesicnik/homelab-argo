@@ -1,0 +1,6 @@
+apiVersion: v2
+name: external-services
+description: Reverse proxy entries for external services
+type: application
+version: 1.0.0
+appVersion: "1.0"
