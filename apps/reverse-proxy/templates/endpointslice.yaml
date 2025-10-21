@@ -6,6 +6,8 @@ kind: EndpointSlice
 metadata:
   name: {{ $name }}-external
   namespace: {{ $.Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-options: IgnoreExtraneous
   labels:
     kubernetes.io/service-name: {{ $name }}-external
     app: {{ $name }}
