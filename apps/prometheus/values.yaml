@@ -1,0 +1,55 @@
+kube-prometheus-stack:
+  prometheusOperator:
+    enabled: true
+  
+  prometheus:
+    enabled: true
+    prometheusSpec:
+      retention: 30d
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: longhorn
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 30Gi
+  
+  grafana:
+    enabled: true
+    # Use existing secret for admin password
+    admin:
+      existingSecret: grafana-admin-secret
+      userKey: username
+      passwordKey: password
+    
+    persistence:
+      enabled: true
+      storageClassName: longhorn
+      size: 5Gi
+    
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - grafana.local
+      path: /
+      pathType: Prefix
+  
+  alertmanager:
+    enabled: true
+    alertmanagerSpec:
+      storage:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: longhorn
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 5Gi
+  
+  nodeExporter:
+    enabled: true
+  
+  kubeStateMetrics:
+    enabled: true
