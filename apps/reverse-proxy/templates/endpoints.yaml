@@ -6,6 +6,8 @@ kind: Endpoints
 metadata:
   name: {{ $name }}-external
   namespace: {{ $.Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
   labels:
     app: {{ $name }}
     chart: {{ $.Chart.Name }}
