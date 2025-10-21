@@ -6,8 +6,6 @@ kind: EndpointSlice
 metadata:
   name: {{ $name }}-external
   namespace: {{ $.Release.Namespace }}
-  annotations:
-    argocd.argoproj.io/sync-options: IgnoreExtraneous
   labels:
     kubernetes.io/service-name: {{ $name }}-external
     app: {{ $name }}
@@ -20,5 +18,9 @@ ports:
 endpoints:
 - addresses:
   - {{ $config.ip }}
+  conditions:
+    ready: true
+    serving: true
+    terminating: false
 {{- end }}
 {{- end }}
