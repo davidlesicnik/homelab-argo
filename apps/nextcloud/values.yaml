@@ -36,7 +36,7 @@ externalSecret:
 
 ingress:
   enabled: true
-  hostname: nextcloud.lesicnik.eu
+  hostname: nextcloud1.lesicnik.eu
   ingressClassName: nginx
   annotations:
     kubernetes.io/ingress.class: nginx
