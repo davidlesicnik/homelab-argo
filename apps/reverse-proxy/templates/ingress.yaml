@@ -1,27 +1,35 @@
+{{- $enabledServices := dict }}
 {{- range $name, $config := .Values.services }}
 {{- if $config.enabled }}
+{{- $_ := set $enabledServices $name $config }}
+{{- end }}
+{{- end }}
+{{- if gt (len $enabledServices) 0 }}
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ $name }}-external
-  namespace: {{ $.Release.Namespace }}
+  name: reverse-proxy
+  namespace: {{ .Release.Namespace }}
   labels:
-    app: {{ $name }}
-    chart: {{ $.Chart.Name }}
-  {{- with $.Values.ingress.annotations }}
+    app: reverse-proxy
+    chart: {{ .Chart.Name }}
+  {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
-  ingressClassName: {{ $.Values.ingress.className }}
-  {{- if $.Values.ingress.tls.enabled }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- if .Values.ingress.tls.enabled }}
   tls:
   - hosts:
+    {{- range $name, $config := $enabledServices }}
     - {{ $config.host }}
-    secretName: {{ $.Values.ingress.tls.secretName }}
+    {{- end }}
+    secretName: {{ .Values.ingress.tls.secretName }}
   {{- end }}
   rules:
+  {{- range $name, $config := $enabledServices }}
   - host: {{ $config.host }}
     http:
       paths:
@@ -32,5 +40,5 @@ spec:
             name: {{ $name }}-external
             port:
               number: {{ $config.port }}
-{{- end }}
+  {{- end }}
 {{- end }}
