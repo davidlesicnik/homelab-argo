@@ -1,0 +1,34 @@
+authentik:
+  secret_key:
+    existingSecret: authentik-secrets
+    secretKey: secret_key
+  
+  postgresql:
+    enabled: true
+    auth:
+      existingSecret: authentik-secrets
+      secretKeys:
+        adminPasswordKey: postgres_root_password
+        userPasswordKey: postgres_password
+  
+  redis:
+    enabled: true
+    auth:
+      enabled: true
+      existingSecret: authentik-secrets
+      existingSecretPasswordKey: redis_password
+  
+  server:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - host: sso.lesicnik.eu
+          paths:
+            - path: /
+              pathType: Prefix
+      # Optional TLS
+      # tls:
+      #   - secretName: authentik-tls
+      #     hosts:
+      #       - authentik.yourdomain.com
