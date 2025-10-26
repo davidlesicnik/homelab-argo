@@ -8,27 +8,10 @@ server:
           - path: /
             pathType: Prefix
 
-global:
-  env:
-    - name: AUTHENTIK_SECRET_KEY
-      valueFrom:
-        secretKeyRef:
-          name: authentik-secrets
-          key: AUTHENTIK_SECRET_KEY
-
 postgresql:
-  enabled: true
-  auth:
-    username: authentik
-    database: authentik
-    existingSecret: authentik-secrets
-    secretKeys:
-      userPasswordKey: AUTHENTIK_POSTGRESQL__PASSWORD
-      adminPasswordKey: POSTGRES_PASSWORD
+  host: authentik-postgresql
+  database: authentik
+  user: authentik
 
 redis:
-  enabled: true
-  auth:
-    enabled: true
-    existingSecret: authentik-secrets
-    existingSecretPasswordKey: REDIS_PASSWORD
+  host: authentik-redis
