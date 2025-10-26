@@ -8,47 +8,27 @@ server:
           - path: /
             pathType: Prefix
 
-authentik:
-  # Use the secret as environment variables
+global:
   env:
     - name: AUTHENTIK_SECRET_KEY
       valueFrom:
         secretKeyRef:
           name: authentik-secrets
           key: AUTHENTIK_SECRET_KEY
-    - name: AUTHENTIK_POSTGRESQL__PASSWORD
-      valueFrom:
-        secretKeyRef:
-          name: authentik-secrets
-          key: AUTHENTIK_POSTGRESQL__PASSWORD
 
 postgresql:
   enabled: true
   auth:
-    password: ""  # Will be overridden
-    postgresPassword: ""  # Will be overridden
-  primary:
-    extraEnvVars:
-      - name: POSTGRES_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: authentik-secrets
-            key: POSTGRES_PASSWORD
-      - name: POSTGRES_POSTGRES_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: authentik-secrets
-            key: POSTGRES_PASSWORD
+    username: authentik
+    database: authentik
+    existingSecret: authentik-secrets
+    secretKeys:
+      userPasswordKey: AUTHENTIK_POSTGRESQL__PASSWORD
+      adminPasswordKey: POSTGRES_PASSWORD
 
 redis:
   enabled: true
   auth:
     enabled: true
-    password: ""  # Will be overridden
-  master:
-    extraEnvVars:
-      - name: REDIS_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: authentik-secrets
-            key: REDIS_PASSWORD
+    existingSecret: authentik-secrets
+    existingSecretPasswordKey: REDIS_PASSWORD
