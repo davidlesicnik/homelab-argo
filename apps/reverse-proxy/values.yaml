@@ -19,7 +19,11 @@ services:
     host: fuel.lesicnik.eu
     ip: 192.168.10.21
     port: 8080
- 
+  authentik:
+    enabled: true
+    host: login.lesicnik.eu
+    ip: 192.168.10.21
+    port: 9000
 
 ingress:
   className: nginx
