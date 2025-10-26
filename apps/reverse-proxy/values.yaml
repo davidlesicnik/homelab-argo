@@ -4,6 +4,11 @@ services:
     host: photos.lesicnik.eu
     ip: 192.168.10.21
     port: 2283
+  actual:
+    enabled: true
+    host: actual.lesicnik.eu
+    ip: 192.168.10.21
+    port: 5006
 
 ingress:
   className: nginx
