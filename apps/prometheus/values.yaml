@@ -5,6 +5,14 @@ kube-prometheus-stack:
   prometheus:
     enabled: true
     prometheusSpec:
+      additionalScrapeConfigs:
+        - job_name: 'talos-kubelet'
+          kubernetes_sd_configs:
+            - role: node
+          scheme: https
+          tls_config:
+            ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+          bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
       retention: 365d
       storageSpec:
         volumeClaimTemplate:
@@ -48,8 +56,9 @@ kube-prometheus-stack:
               requests:
                 storage: 5Gi
   
+kube-prometheus-stack:
   nodeExporter:
-    enabled: true
+    enabled: false 
   
   kubeStateMetrics:
     enabled: true
