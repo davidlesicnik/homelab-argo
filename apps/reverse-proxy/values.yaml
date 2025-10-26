@@ -27,3 +27,4 @@ ingress:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   tls:
     enabled: true
+    secretName: reverse-proxy-tls
