@@ -3,6 +3,14 @@ services:
     enabled: true
     host: argocd.local
     ip: 192.168.10.90
+  longhorn:
+    enabled: true
+    host: longhorn.local
+    ip: 192.168.10.90
+  vault:
+    enabled: true
+    host: vault.local
+    ip: 192.168.10.90
   beszel:
     enabled: true
     host: beszel.local
