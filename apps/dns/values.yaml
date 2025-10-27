@@ -14,7 +14,7 @@ services:
   beszel:
     enabled: true
     host: beszel.local
-    ip: 192.168.10.21
+    ip: 192.168.10.90
 
 upstream:
   primary: "1.1.1.1"
