@@ -24,6 +24,8 @@ services:
     host: login.lesicnik.eu
     ip: 192.168.10.21
     port: 9000
+
+internalServices:
   beszel:
     enabled: true
     host: beszel.local

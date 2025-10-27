@@ -1,0 +1,33 @@
+{{- $enabledServices := dict }}
+{{- range $name, $config := .Values.internalServices }}
+{{- if $config.enabled }}
+{{- $_ := set $enabledServices $name $config }}
+{{- end }}
+{{- end }}
+{{- if gt (len $enabledServices) 0 }}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: reverse-proxy-internal
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: reverse-proxy
+    chart: {{ .Chart.Name }}
+    type: internal
+spec:
+  ingressClassName: {{ .Values.ingress.className }}
+  rules:
+  {{- range $name, $config := $enabledServices }}
+  - host: {{ $config.host }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ $name }}-external
+            port:
+              number: {{ $config.port }}
+  {{- end }}
+{{- end }}

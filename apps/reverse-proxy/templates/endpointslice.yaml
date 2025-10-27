@@ -24,3 +24,30 @@ endpoints:
     terminating: false
 {{- end }}
 {{- end }}
+{{- range $name, $config := .Values.internalServices }}
+{{- if $config.enabled }}
+---
+apiVersion: discovery.k8s.io/v1
+kind: EndpointSlice
+metadata:
+  name: {{ $name }}-external
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    kubernetes.io/service-name: {{ $name }}-external
+    app: {{ $name }}
+    chart: {{ $.Chart.Name }}
+    type: internal
+addressType: IPv4
+ports:
+- name: http
+  port: {{ $config.port }}
+  protocol: TCP
+endpoints:
+- addresses:
+  - {{ $config.ip }}
+  conditions:
+    ready: true
+    serving: true
+    terminating: false
+{{- end }}
+{{- end }}

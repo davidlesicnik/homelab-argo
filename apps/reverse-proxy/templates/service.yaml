@@ -16,3 +16,22 @@ spec:
     targetPort: {{ $config.port }}
 {{- end }}
 {{- end }}
+{{- range $name, $config := .Values.internalServices }}
+{{- if $config.enabled }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}-external
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    app: {{ $name }}
+    chart: {{ $.Chart.Name }}
+    type: internal
+spec:
+  ports:
+  - protocol: TCP
+    port: {{ $config.port }}
+    targetPort: {{ $config.port }}
+{{- end }}
+{{- end }}
