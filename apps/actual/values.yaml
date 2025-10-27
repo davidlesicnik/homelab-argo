@@ -12,7 +12,7 @@ env:
   ACTUAL_HTTPS: "true"
   ACTUAL_OPENID_DISCOVERY_URL: "https://sso.lesicnik.eu"
   ACTUAL_OPENID_CLIENT_ID: actual
-  ACTUAL_OPENID_SERVER_HOSTNAME: "https://actual-dev.lesicnik.eu"
+  ACTUAL_OPENID_SERVER_HOSTNAME: "https://actual.lesicnik.eu"
 
 externalSecret:
   enabled: true
@@ -31,12 +31,12 @@ pvc:
 
 ingress:
   enabled: true
-  hostname: actual-dev.lesicnik.eu
+  hostname: actual.lesicnik.eu
   ingressClassName: nginx
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
   tls:
-    enabled: false
-    #secretName: actual-dev-tls
+    enabled: true
+    secretName: actual-dev-tls
