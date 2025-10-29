@@ -19,6 +19,27 @@ grafana:
   service:
     type: ClusterIP
     port: 80
+  grafana.ini:
+    server:
+      root_url: http://grafana.local
+      serve_from_sub_path: false
+    auth.generic_oauth:
+      enabled: true
+      name: Authentik
+      client_id: Jm3r0VomUFGablL7a3mZWvjEZj26R9xxATFPnLrE
+      client_secret: $__file{/etc/secrets/auth_generic_oauth/client_secret}
+      scopes: openid profile email
+      auth_url: https://sso.lesicnik.eu/application/o/authorize/
+      token_url: https://sso.lesicnik.eu/application/o/token/
+      api_url: https://sso.lesicnik.eu/application/o/userinfo/
+      allow_sign_up: true
+  extraSecretMounts:
+    - name: auth-generic-oauth-secret-mount
+      secretName: grafana-admin-secret
+      defaultMode: 0440
+      mountPath: /etc/secrets/auth_generic_oauth
+      readOnly: true
+      subPath: ""
   datasources:
     datasources.yaml:
       apiVersion: 1
