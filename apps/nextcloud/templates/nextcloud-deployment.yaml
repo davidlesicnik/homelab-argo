@@ -4,6 +4,8 @@ metadata:
   name: nextcloud
 spec:
   replicas: {{ .Values.nextcloud.replicas }}
+  strategy:
+    type: Recreate  
   selector:
     matchLabels:
       app: nextcloud
