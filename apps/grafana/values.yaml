@@ -34,6 +34,8 @@ grafana:
       api_url: https://sso.lesicnik.eu/application/o/userinfo/
       allow_sign_up: true
       role_attribute_path: contains(groups[*], 'authentik Admins') && 'Admin' || 'Viewer'
+    feature_toggles:
+      enable: provisioning kubernetesDashboards
   extraSecretMounts:
     - name: auth-generic-oauth-secret-mount
       secretName: grafana-admin-secret
