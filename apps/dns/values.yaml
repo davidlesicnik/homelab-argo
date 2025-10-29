@@ -11,6 +11,10 @@ services:
     enabled: true
     host: vault.local
     ip: 192.168.10.90
+  prometheus:
+    enabled: true
+    host: prometheus.local
+    ip: 192.168.10.90
   beszel:
     enabled: true
     host: beszel.local
