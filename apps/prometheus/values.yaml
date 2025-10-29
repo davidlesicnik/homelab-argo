@@ -57,7 +57,23 @@ prometheus:
         - job_name: 'prometheus'
           static_configs:
             - targets: ['localhost:9090']
-
+        - job_name: 'longhorn'
+          kubernetes_sd_configs:
+          - role: endpoints
+            namespaces:
+              names:
+              - longhorn-system
+          relabel_configs:
+          - source_labels: [__meta_kubernetes_service_name]
+            action: keep
+            regex: longhorn-backend
+          - source_labels: [__meta_kubernetes_endpoint_port_name]
+            action: keep
+            regex: manager
+          - source_labels: [__meta_kubernetes_pod_name]
+            target_label: pod
+          - source_labels: [__meta_kubernetes_namespace]
+            target_label: namespace
         - job_name: 'kubernetes-apiservers'
           kubernetes_sd_configs:
             - role: endpointslice
