@@ -33,6 +33,12 @@ prometheus:
       scrape_timeout: 10s
       evaluation_interval: 15s
     
+    extraSecretMounts:
+      - name: hass-token
+        secretName: prometheus-secret
+        mountPath: /etc/prometheus/secrets
+        readOnly: true
+    
   alertmanager:
     enabled: false
     
@@ -151,3 +157,15 @@ prometheus:
             - source_labels: [__meta_kubernetes_service_name]
               action: replace
               target_label: kubernetes_name
+        
+        - job_name: "hass"
+          scrape_interval: 60s
+          metrics_path: /api/prometheus
+          
+          # Reference the token from the mounted secret file
+          authorization:
+            credentials_file: /etc/prometheus/secrets/homeassistant-token
+          
+          scheme: https
+          static_configs:
+            - targets: ['ha.lesicnik.eu']
