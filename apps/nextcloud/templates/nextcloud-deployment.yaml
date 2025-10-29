@@ -21,7 +21,7 @@ spec:
             - containerPort: 80
           env:
             - name: POSTGRES_HOST
-              value: nextcloud-postgres
+              value: postgres
             - name: POSTGRES_DB
               value: {{ .Values.postgres.database }}
             - name: POSTGRES_USER
