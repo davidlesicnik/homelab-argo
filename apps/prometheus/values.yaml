@@ -1,0 +1,45 @@
+prometheus:
+  server:
+    enabled: true
+    
+    persistentVolume:
+      enabled: true
+      storageClass: "longhorn"
+      size: 30Gi
+      accessModes:
+        - ReadWriteOnce
+    
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+        - prometheus.local
+      paths:
+        - /
+      pathType: Prefix
+    
+    resources:
+      requests:
+        cpu: 500m
+        memory: 512Mi
+      limits:
+        cpu: 2000m
+        memory: 2Gi
+    
+    retention: "365d"
+    
+    serverFiles:
+      prometheus.yml:
+        {{ .Files.Get "prometheus.yaml" | nindent 8 }}
+    
+  alertmanager:
+    enabled: false
+    
+  kube-state-metrics:
+    enabled: true
+    
+  prometheus-node-exporter:
+    enabled: false
+    
+  prometheus-pushgateway:
+    enabled: false
