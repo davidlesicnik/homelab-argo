@@ -28,6 +28,11 @@ prometheus:
     
     retention: "365d"
     
+    global:
+      scrape_interval: 60s
+      scrape_timeout: 10s
+      evaluation_interval: 15s
+    
   alertmanager:
     enabled: false
     
@@ -42,11 +47,6 @@ prometheus:
   
   serverFiles:
     prometheus.yml:
-      global:
-        scrape_interval: 15s
-        scrape_timeout: 10s
-        evaluation_interval: 15s
-
       scrape_configs:
         - job_name: 'prometheus'
           static_configs:
