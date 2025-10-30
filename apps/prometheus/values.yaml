@@ -1,7 +1,10 @@
 prometheus:
   server:
     enabled: true
-    
+
+    extraFlags:
+      - web.enable-remote-write-receiver #enable remote write for recieving data from alloy
+
     persistentVolume:
       enabled: true
       storageClass: "longhorn"
