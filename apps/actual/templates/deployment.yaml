@@ -26,6 +26,8 @@ spec:
                 name: {{ .Values.externalSecret.existingSecret  }}
           ports:
             - containerPort: {{ .Values.containerPort }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
             - name: data
               mountPath: /data

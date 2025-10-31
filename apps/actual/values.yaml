@@ -8,6 +8,14 @@ image:
 containerPort: 5006
 restartPolicy: Always
 
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
 env:
   ACTUAL_HTTPS: "true"
   ACTUAL_OPENID_DISCOVERY_URL: "https://sso.lesicnik.eu"
