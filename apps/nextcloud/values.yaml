@@ -3,6 +3,14 @@ nextcloud:
   replicas: 1
   domain: nextcloud.lesicnik.eu
 
+  resources:
+    requests:
+      cpu: 500m
+      memory: 512Mi
+    limits:
+      cpu: 2000m
+      memory: 2Gi
+
   persistence:
     storageClass: longhorn
     size: 50Gi
@@ -10,6 +18,13 @@ nextcloud:
 
 postgres:
   image: postgres:18
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
   persistence:
     size: 10Gi
     storageClass: longhorn
@@ -18,6 +33,13 @@ postgres:
 
 redis:
   image: redis:latest
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
 
 secrets:
   vaultPath: secret/data/nextcloud

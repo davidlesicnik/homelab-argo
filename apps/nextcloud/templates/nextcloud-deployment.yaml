@@ -19,6 +19,8 @@ spec:
           image: {{ .Values.nextcloud.image }}
           ports:
             - containerPort: 80
+          resources:
+            {{- toYaml .Values.nextcloud.resources | nindent 12 }}
           env:
             - name: POSTGRES_HOST
               value: postgres

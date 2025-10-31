@@ -17,3 +17,5 @@ spec:
           image: {{ .Values.redis.image }}
           ports:
             - containerPort: 6379
+          resources:
+            {{- toYaml .Values.redis.resources | nindent 12 }}
