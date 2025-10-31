@@ -1,4 +1,11 @@
 server:
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 2000m
+      memory: 2Gi
   ingress:
     enabled: true
     hostname: sso.lesicnik.eu
@@ -12,10 +19,33 @@ server:
       enabled: true
       secretName: sso-lesicnik-eu-tls
 
+worker:
+  resources:
+    requests:
+      cpu: 500m
+      memory: 1Gi
+    limits:
+      cpu: 2000m
+      memory: 2Gi
+
 postgresql:
   host: authentik-postgresql
   database: authentik
   user: authentik
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
 
 redis:
   host: authentik-redis
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi

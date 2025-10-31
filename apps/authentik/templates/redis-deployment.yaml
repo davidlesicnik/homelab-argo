@@ -26,3 +26,5 @@ spec:
             secretKeyRef:
               name: authentik-secrets
               key: REDIS_PASSWORD
+        resources:
+          {{- toYaml .Values.redis.resources | nindent 10 }}
