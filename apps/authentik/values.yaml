@@ -1,11 +1,11 @@
 server:
   resources:
     requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
       cpu: 500m
       memory: 1Gi
-    limits:
-      cpu: 2000m
-      memory: 2Gi
   ingress:
     enabled: true
     hostname: sso.lesicnik.eu
@@ -22,11 +22,11 @@ server:
 worker:
   resources:
     requests:
+      cpu: 100m
+      memory: 512Mi
+    limits:
       cpu: 500m
       memory: 1Gi
-    limits:
-      cpu: 2000m
-      memory: 2Gi
 
 postgresql:
   host: authentik-postgresql
