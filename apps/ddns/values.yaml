@@ -19,10 +19,8 @@ ddns:
   token: "IoZktvA2LrFnfiQgw81e4IXIUA5IkY_tW3gB2mdc"
   domains:
     - actual.lesicnik.eu
-    - actual-dev.lesicnik.eu
     - sso.lesicnik.eu
     - fuel.lesicnik.eu
-    - docs.lesicnik.eu
     - ha.lesicnik.eu
     - nextcloud.lesicnik.eu
     - photos.lesicnik.eu
