@@ -21,7 +21,7 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-        - path: /signin-oidc
+        - path: /Login/RemoteAuth
           pathType: Prefix    
   tls:
     - secretName: fuel-lesicnik-eu-tls
