@@ -13,7 +13,6 @@ data:
           "provider": "cloudflare",
           "zone_identifier": "{{ .Values.ddns.zoneIdentifier }}",
           "domain": "{{ index .Values.ddns.domains 0 }}",
-          "host": "@",
           "ttl": 1,
           "proxied": true,
           "token": "file:///var/run/secrets/ddns/api-token"
@@ -24,7 +23,6 @@ data:
           "provider": "cloudflare",
           "zone_identifier": "{{ $.Values.ddns.zoneIdentifier }}",
           "domain": "{{ $domain }}",
-          "host": "@",
           "ttl": 1,
           "proxied": true,
           "token": "file:///var/run/secrets/ddns/api-token"

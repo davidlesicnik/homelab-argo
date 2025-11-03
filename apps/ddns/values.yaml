@@ -18,6 +18,7 @@ ddns:
   zoneIdentifier: "07492488333c2516382af2a54f294d56"
   domains:
     - actual.lesicnik.eu
+    - actual-dev.lesicnik.eu
     - sso.lesicnik.eu
     - fuel.lesicnik.eu
     - docs.lesicnik.eu
