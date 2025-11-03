@@ -2,6 +2,11 @@ service:
   type: ClusterIP
   port: 8080
 
+image:
+  repository: ghcr.io/hargata/lubelogger
+  tag: latest
+  pullPolicy: IfNotPresent
+
 ingress:
   enabled: true
   className: "nginx"
