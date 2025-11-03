@@ -23,9 +23,9 @@ services:
     enabled: true
     host: ddns.local
     ip: 192.168.10.90
-  beszel:
+  torrent:
     enabled: true
-    host: beszel.local
+    host: torrent.local
     ip: 192.168.10.90
 
 upstream:
