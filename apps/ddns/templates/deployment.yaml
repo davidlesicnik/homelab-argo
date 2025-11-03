@@ -18,6 +18,23 @@ spec:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
     spec:
       serviceAccountName: default
+      initContainers:
+      - name: config-init
+        image: busybox:latest
+        command:
+        - sh
+        - -c
+        - |
+          TOKEN=$(cat /var/run/secrets/ddns/api-token)
+          sed "s/CLOUDFLARE_TOKEN_PLACEHOLDER/$TOKEN/g" /config-template/config.json.tpl > /config/config.json
+        volumeMounts:
+        - name: config-template
+          mountPath: /config-template
+        - name: config
+          mountPath: /config
+        - name: secret
+          mountPath: /var/run/secrets/ddns
+          readOnly: true
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -28,8 +45,7 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: config
-          mountPath: /updater/data/config.json
-          subPath: config.json
+          mountPath: /updater/data
         - name: secret
           mountPath: /var/run/secrets/ddns
           readOnly: true
@@ -48,9 +64,11 @@ spec:
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
       volumes:
-      - name: config
+      - name: config-template
         configMap:
           name: {{ include "ddns-updater.fullname" . }}-config
+      - name: config
+        emptyDir: {}
       - name: secret
         secret:
           secretName: {{ include "ddns-updater.fullname" . }}-secrets

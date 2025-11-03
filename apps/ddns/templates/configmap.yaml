@@ -6,7 +6,7 @@ metadata:
   labels:
     {{- include "ddns-updater.labels" . | nindent 4 }}
 data:
-  config.json: |
+  config.json.tpl: |
     {
       "settings": [
         {
@@ -15,7 +15,7 @@ data:
           "domain": "{{ index .Values.ddns.domains 0 }}",
           "ttl": 1,
           "proxied": true,
-          "token_file": "/var/run/secrets/ddns/api-token"
+          "token": "CLOUDFLARE_TOKEN_PLACEHOLDER"
         }
         {{- range $index, $domain := .Values.ddns.domains }}
         {{- if ne $index 0 }}
@@ -25,7 +25,7 @@ data:
           "domain": "{{ $domain }}",
           "ttl": 1,
           "proxied": true,
-          "token_file": "/var/run/secrets/ddns/api-token"
+          "token": "CLOUDFLARE_TOKEN_PLACEHOLDER"
         }
         {{- end }}
         {{- end }}
