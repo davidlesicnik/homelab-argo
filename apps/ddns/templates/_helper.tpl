@@ -18,3 +18,4 @@ Create a default fully qualified app name.
 {{- else }}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
 {{- end }}
+{{- end }}
