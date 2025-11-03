@@ -27,8 +27,12 @@ ddns:
     - vpn.lesicnik.eu
     - beam.lesicnik.eu
 
-externalSecrets:
-  vault:
-    server: "http://vault.vault.svc.cluster.local:8200"
-    role: "ddns-role"
-    secretPath: "ddns/cloudflare"
+externalSecret:
+  enabled: true
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  remoteRef:
+    key: secret/ddns/cloudflare
+  existingSecret: ddns-updater-secrets
