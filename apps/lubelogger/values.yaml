@@ -23,6 +23,7 @@ ingress:
           pathType: Prefix
         - path: /signin-oidc
           pathType: Prefix    
+  tls:
     - secretName: fuel-lesicnik-eu-tls
       hosts:
         - fuel.lesicnik.eu
