@@ -1,0 +1,34 @@
+image:
+  repository: qmcgaw/ddns-updater
+  tag: latest
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+ingress:
+  enabled: true
+  host: ddns.local
+
+ddns:
+  zoneIdentifier: "07492488333c2516382af2a54f294d56"
+  domains:
+    - actual.lesicnik.eu
+    - sso.lesicnik.eu
+    - fuel.lesicnik.eu
+    - docs.lesicnik.eu
+    - ha.lesicnik.eu
+    - nextcloud.lesicnik.eu
+    - photos.lesicnik.eu
+    - vpn.lesicnik.eu
+    - beam.lesicnik.eu
+
+externalSecrets:
+  vault:
+    server: "http://vault.vault.svc.cluster.local:8200"
+    role: "ddns-role"
+    secretPath: "ddns/cloudflare"
