@@ -17,6 +17,14 @@ ingress:
       hosts:
         - fuel.lesicnik.eu
 
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
 persistence:
   storageClass: "longhorn"
   size: 2Gi

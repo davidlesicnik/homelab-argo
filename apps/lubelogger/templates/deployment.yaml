@@ -5,58 +5,43 @@ metadata:
   labels:
     {{- include "lubelogger.labels" . | nindent 4 }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
-  replicas: {{ .Values.replicaCount }}
-  {{- end }}
+  replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
       {{- include "lubelogger.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      {{- with .Values.podAnnotations }}
-      annotations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
       labels:
         {{- include "lubelogger.selectorLabels" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      serviceAccountName: {{ include "lubelogger.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        fsGroup: {{ .Values.podSecurityContext.fsGroup | default 1000 }}
       containers:
       - name: {{ .Chart.Name }}
         securityContext:
-          {{- toYaml .Values.securityContext | nindent 12 }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+          runAsNonRoot: {{ .Values.securityContext.runAsNonRoot | default true }}
+          runAsUser: {{ .Values.securityContext.runAsUser | default 1000 }}
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: false
+        image: "{{ .Values.image.repository | default "ghcr.io/hargata/lubelogger" }}:{{ .Values.image.tag | default "latest" }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent" }}
         ports:
         - name: http
           containerPort: 8080
           protocol: TCP
         env:
-        {{- range .Values.env }}
-        - name: {{ .name }}
-          {{- if .value }}
-          value: {{ .value | quote }}
-          {{- else if .valueFrom }}
-          valueFrom:
-            {{- toYaml .valueFrom | nindent 12 }}
-          {{- end }}
-        {{- end }}
+        - name: LANG
+          value: {{ .Values.env.LANG | default "en_US" | quote }}
+        - name: LC_ALL
+          value: {{ .Values.env.LC_ALL | default "en_US" | quote }}
         {{- if .Values.postgresql.enabled }}
         - name: POSTGRES_CONNECTION
           valueFrom:
             secretKeyRef:
               name: {{ include "lubelogger.fullname" . }}-postgresql-secret
               key: connection-string
-        {{- end }}
-        {{- with .Values.envFrom }}
-        envFrom:
-          {{- toYaml . | nindent 10 }}
         {{- end }}
         livenessProbe:
           httpGet:
@@ -75,7 +60,12 @@ spec:
           timeoutSeconds: 3
           failureThreshold: 3
         resources:
-          {{- toYaml .Values.resources | nindent 12 }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu | default "500m" }}
+            memory: {{ .Values.resources.limits.memory | default "512Mi" }}
+          requests:
+            cpu: {{ .Values.resources.requests.cpu | default "100m" }}
+            memory: {{ .Values.resources.requests.memory | default "128Mi" }}
         volumeMounts:
         - name: data
           mountPath: /App/config
@@ -93,21 +83,5 @@ spec:
           mountPath: /App/wwwroot/images
       volumes:
       - name: data
-        {{- if .Values.persistence.enabled }}
         persistentVolumeClaim:
-          claimName: {{ .Values.persistence.existingClaim | default (include "lubelogger.fullname" .) }}
-        {{- else }}
-        emptyDir: {}
-        {{- end }}
-      {{- with .Values.nodeSelector }}
-      nodeSelector:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.affinity }}
-      affinity:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
-      {{- with .Values.tolerations }}
-      tolerations:
-        {{- toYaml . | nindent 8 }}
-      {{- end }}
+          claimName: {{ include "lubelogger.fullname" . }}
