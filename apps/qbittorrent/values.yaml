@@ -1,0 +1,52 @@
+replicaCount: 1
+
+image:
+  repository: linuxserver/qbittorrent
+  tag: "4.6.2"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  webPort: 8080
+  torrentPort: 6881
+  torrentPortProtocol: TCP
+
+ingress:
+  enabled: true
+  hostname: torrent.local
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+  tls:
+    enabled: false
+
+# PVC for qBittorrent config
+pvc:
+  name: qbittorrent-config
+  storageClassName: longhorn
+  size: 1Gi
+  mountPath: /config
+
+# NFS mount for media storage
+nfs:
+  enabled: true
+  server: 192.168.10.9
+  path: /volume1/media
+  mountPath: /media
+
+env:
+  PUID: "1000"
+  PGID: "1000"
+  TZ: Europe/Ljubljana
+  WEBUI_PORT: "8080"
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: 2000m
+    memory: 2Gi
+
+securityContext:
+  fsGroup: 1000
