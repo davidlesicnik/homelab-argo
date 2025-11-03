@@ -15,12 +15,12 @@ spec:
         {{- include "lubelogger.selectorLabels" . | nindent 8 }}
     spec:
       securityContext:
-        fsGroup: {{ .Values.podSecurityContext.fsGroup | default 1000 }}
+        fsGroup: 1000
       containers:
       - name: {{ .Chart.Name }}
         securityContext:
-          runAsNonRoot: {{ .Values.securityContext.runAsNonRoot | default true }}
-          runAsUser: {{ .Values.securityContext.runAsUser | default 1000 }}
+          runAsNonRoot: true
+          runAsUser: 1000
           capabilities:
             drop:
             - ALL
