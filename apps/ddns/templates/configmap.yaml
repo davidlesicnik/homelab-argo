@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "ddns-updater.fullname" . }}-config
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "ddns-updater.labels" . | nindent 4 }}
+data:
+  config.json: |
+    {
+      "settings": [
+        {
+          "provider": "cloudflare",
+          "zone_identifier": "{{ .Values.ddns.zoneIdentifier }}",
+          "domain": "{{ index .Values.ddns.domains 0 }}",
+          "host": "@",
+          "ttl": 1,
+          "proxied": true,
+          "token": "file:///var/run/secrets/ddns/api-token"
+        }
+        {{- range $index, $domain := .Values.ddns.domains }}
+        {{- if ne $index 0 }}
+        ,{
+          "provider": "cloudflare",
+          "zone_identifier": "{{ $.Values.ddns.zoneIdentifier }}",
+          "domain": "{{ $domain }}",
+          "host": "@",
+          "ttl": 1,
+          "proxied": true,
+          "token": "file:///var/run/secrets/ddns/api-token"
+        }
+        {{- end }}
+        {{- end }}
+      ]
+    }

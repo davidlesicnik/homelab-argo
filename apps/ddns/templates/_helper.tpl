@@ -19,3 +19,24 @@ Create a default fully qualified app name.
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 {{- end }}
+{{- end }}
+
+{{/*
+Common labels
+*/}}
+{{- define "ddns-updater.labels" -}}
+helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+{{ include "ddns-updater.selectorLabels" . }}
+{{- if .Chart.AppVersion }}
+app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+{{- end }}
+
+{{/*
+Selector labels
+*/}}
+{{- define "ddns-updater.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "ddns-updater.name" . }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+{{- end }}
