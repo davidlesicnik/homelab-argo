@@ -26,6 +26,10 @@ ingress:
       hosts:
         - fuel.lesicnik.eu
 
+env:
+  LANG: "en_US"
+  LC_ALL: "en_US"
+
 resources:
   limits:
     cpu: 500m
