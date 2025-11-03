@@ -15,7 +15,7 @@ data:
           "domain": "{{ index .Values.ddns.domains 0 }}",
           "ttl": 1,
           "proxied": true,
-          "token": "{{ .Values.ddns.token }}"
+          "token_file": "/var/run/secrets/ddns/api-token"
         }
         {{- range $index, $domain := .Values.ddns.domains }}
         {{- if ne $index 0 }}
@@ -25,7 +25,7 @@ data:
           "domain": "{{ $domain }}",
           "ttl": 1,
           "proxied": true,
-          "token": "{{ $.Values.ddns.token }}"
+          "token_file": "/var/run/secrets/ddns/api-token"
         }
         {{- end }}
         {{- end }}

@@ -16,7 +16,6 @@ ingress:
 
 ddns:
   zoneIdentifier: "07492488333c2516382af2a54f294d56"
-  token: "IoZktvA2LrFnfiQgw81e4IXIUA5IkY_tW3gB2mdc"
   domains:
     - actual.lesicnik.eu
     - sso.lesicnik.eu
