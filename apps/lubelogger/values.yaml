@@ -31,6 +31,8 @@ ingress:
 env:
   LANG: "en_US"
   LC_ALL: "en_US"
+  ASPNETCORE_FORWARDEDHEADERS_ENABLED: "true"
+  ASPNETCORE_PREFER_FORWARDED_HOST_HEADERS: "true"
 
 resources:
   limits:
