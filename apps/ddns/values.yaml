@@ -34,5 +34,5 @@ externalSecret:
     name: vault-backend
     kind: ClusterSecretStore
   remoteRef:
-    key: secret/ddns/cloudflare
+    key: secret/ddns
   existingSecret: ddns-updater-secrets
