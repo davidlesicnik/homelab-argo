@@ -23,6 +23,7 @@ ddns:
     - ha.lesicnik.eu
     - nextcloud.lesicnik.eu
     - photos.lesicnik.eu
+    - immich.lesicnik.eu
     - vpn.lesicnik.eu
     - beam.lesicnik.eu
 
