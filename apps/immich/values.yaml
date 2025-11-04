@@ -78,7 +78,6 @@ postgresql:
   auth:
     username: immich
     database: immich
-    password: "immich-change-me-in-production"
   primary:
     persistence:
       storageClass: "longhorn"
@@ -90,6 +89,17 @@ postgresql:
     limits:
       cpu: 1000m
       memory: 2Gi
+
+# External Secret configuration
+externalSecret:
+  enabled: true
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  remoteRef:
+    key: secret/immich
+  existingSecret: immich-postgresql-secret
 
 # Redis configuration
 redis:

@@ -1,4 +1,5 @@
 {{- if .Values.postgresql.enabled }}
+{{- if not .Values.externalSecret.enabled }}
 ---
 apiVersion: v1
 kind: Secret
@@ -11,6 +12,8 @@ type: Opaque
 stringData:
   postgres-password: {{ .Values.postgresql.auth.password | quote }}
   password: {{ .Values.postgresql.auth.password | quote }}
+---
+{{- end }}
 ---
 apiVersion: v1
 kind: Service
