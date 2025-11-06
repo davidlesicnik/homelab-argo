@@ -34,10 +34,10 @@ env:
 
 resources:
   limits:
-    cpu: 500m
-    memory: 512Mi
+    cpu: 200m
+    memory: 256Mi
   requests:
-    cpu: 100m
+    cpu: 64m
     memory: 128Mi
 
 persistence:
@@ -66,3 +66,10 @@ postgresql:
     persistence:
       storageClass: "longhorn"
       size: 5Gi
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi

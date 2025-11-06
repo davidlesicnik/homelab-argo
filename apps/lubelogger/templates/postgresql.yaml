@@ -92,13 +92,10 @@ spec:
         volumeMounts:
         - name: data
           mountPath: /var/lib/postgresql/data
+        {{- if .Values.postgresql.resources }}
         resources:
-          limits:
-            cpu: 500m
-            memory: 512Mi
-          requests:
-            cpu: 100m
-            memory: 256Mi
+          {{- toYaml .Values.postgresql.resources | nindent 10 }}
+        {{- end }}
         livenessProbe:
           exec:
             command:

@@ -10,8 +10,8 @@ postgres:
       cpu: 500m
       memory: 512Mi
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 200m
+      memory: 256Mi
 
 grafana:
   persistence:
@@ -86,5 +86,5 @@ grafana:
       cpu: 500m
       memory: 512Mi
     requests:
-      cpu: 250m
-      memory: 256Mi
+      cpu: 100m
+      memory: 128Mi

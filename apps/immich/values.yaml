@@ -21,7 +21,7 @@ machineLearning:
       memory: 1Gi
     limits:
       cpu: 2000m
-      memory: 4Gi
+      memory: 3Gi
 
 service:
   type: ClusterIP
@@ -66,8 +66,8 @@ env:
 
 resources:
   requests:
-    cpu: 500m
-    memory: 1Gi
+    cpu: 256m
+    memory: 1.5Gi
   limits:
     cpu: 2000m
     memory: 4Gi
@@ -84,11 +84,11 @@ postgresql:
       size: 10Gi
   resources:
     requests:
-      cpu: 250m
-      memory: 512Mi
+      cpu: 100m
+      memory: 256Mi
     limits:
-      cpu: 1000m
-      memory: 2Gi
+      cpu: 500m
+      memory: 1Gi
 
 # External Secret configuration
 externalSecret:
@@ -106,8 +106,8 @@ redis:
   enabled: true
   resources:
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 50Mi
+      memory: 64Mi
     limits:
       cpu: 500m
       memory: 512Mi
