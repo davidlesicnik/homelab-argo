@@ -42,12 +42,17 @@ externalSecret:
     property: password 
 
 env:
-  # Web UI password - managed by ExternalSecret when enabled
-  # If externalSecret.enabled is false, set PASSWORD here manually
-  PASSWORD: ""
-
   # v15 requires INSECURE=true for HTTP access (non-HTTPS)
   INSECURE: "true"
+
+  INIT_ENABLED: "true"
+  INIT_USERNAME: "admin"
+  # INIT_PASSWORD is managed by ExternalSecret
+  INIT_PASSWORD: ""
+  INIT_HOST: "vpn.lesicnik.eu"  # External hostname/IP for VPN clients
+  INIT_PORT: "51820"
+  INIT_DNS: "1.1.1.1"
+  INIT_IPV4_CIDR: "10.8.0.0/24"
 
 resources:
   requests:

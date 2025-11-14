@@ -29,16 +29,6 @@ spec:
               containerPort: {{ .Values.service.vpnPort }}
               protocol: {{ .Values.service.vpnPortProtocol }}
           env:
-            {{- if .Values.externalSecret.enabled }}
-            - name: PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "wg-easy.fullname" . }}-secret
-                  key: PASSWORD
-            {{- else if .Values.env.PASSWORD }}
-            - name: PASSWORD
-              value: {{ .Values.env.PASSWORD | quote }}
-            {{- end }}
             {{- if .Values.env.INSECURE }}
             - name: INSECURE
               value: {{ .Values.env.INSECURE | quote }}
@@ -50,6 +40,44 @@ spec:
             {{- if .Values.env.HOST }}
             - name: HOST
               value: {{ .Values.env.HOST | quote }}
+            {{- end }}
+            {{- if .Values.env.INIT_ENABLED }}
+            - name: INIT_ENABLED
+              value: {{ .Values.env.INIT_ENABLED | quote }}
+            {{- end }}
+            {{- if .Values.env.INIT_USERNAME }}
+            - name: INIT_USERNAME
+              value: {{ .Values.env.INIT_USERNAME | quote }}
+            {{- end }}
+            {{- if .Values.externalSecret.enabled }}
+            - name: INIT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "wg-easy.fullname" . }}-secret
+                  key: INIT_PASSWORD
+            {{- else if .Values.env.INIT_PASSWORD }}
+            - name: INIT_PASSWORD
+              value: {{ .Values.env.INIT_PASSWORD | quote }}
+            {{- end }}
+            {{- if .Values.env.INIT_HOST }}
+            - name: INIT_HOST
+              value: {{ .Values.env.INIT_HOST | quote }}
+            {{- end }}
+            {{- if .Values.env.INIT_PORT }}
+            - name: INIT_PORT
+              value: {{ .Values.env.INIT_PORT | quote }}
+            {{- end }}
+            {{- if .Values.env.INIT_DNS }}
+            - name: INIT_DNS
+              value: {{ .Values.env.INIT_DNS | quote }}
+            {{- end }}
+            {{- if .Values.env.INIT_IPV4_CIDR }}
+            - name: INIT_IPV4_CIDR
+              value: {{ .Values.env.INIT_IPV4_CIDR | quote }}
+            {{- end }}
+            {{- if .Values.env.INIT_IPV6_CIDR }}
+            - name: INIT_IPV6_CIDR
+              value: {{ .Values.env.INIT_IPV6_CIDR | quote }}
             {{- end }}
           volumeMounts:
             - name: config
