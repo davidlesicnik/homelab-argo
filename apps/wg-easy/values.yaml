@@ -31,8 +31,6 @@ pvc:
   mountPath: /etc/wireguard
 
 # External Secret configuration for Vault integration
-# Note: v15 uses plain PASSWORD instead of PASSWORD_HASH
-# Update your Vault secret to store a plain text password
 externalSecret:
   enabled: true
   refreshInterval: 1h
@@ -41,25 +39,15 @@ externalSecret:
     kind: ClusterSecretStore
   remoteRef:
     key: secret/wg_easy
-    property: password  # Changed from password_hash to password for v15
+    property: password 
 
 env:
   # Web UI password - managed by ExternalSecret when enabled
   # If externalSecret.enabled is false, set PASSWORD here manually
-  # Note: v15 uses PASSWORD instead of PASSWORD_HASH
   PASSWORD: ""
 
   # v15 requires INSECURE=true for HTTP access (non-HTTPS)
   INSECURE: "true"
-
-  # Optional: PORT and HOST can be set if needed
-  # PORT: "51821"
-  # HOST: "0.0.0.0"
-
-  # Note: Most WireGuard settings (WG_HOST, WG_DEFAULT_ADDRESS, etc.)
-  # have been moved to the Admin Panel in v15 and are no longer
-  # configured via environment variables. Configure these through
-  # the web UI after initial setup.
 
 resources:
   requests:
