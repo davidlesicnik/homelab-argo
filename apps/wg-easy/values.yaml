@@ -38,7 +38,7 @@ externalSecret:
     name: vault-backend
     kind: ClusterSecretStore
   remoteRef:
-    key: secret/wg-easy
+    key: secret/wg_easy
     property: password_hash
 
 env:
