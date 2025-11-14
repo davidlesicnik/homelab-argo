@@ -27,6 +27,10 @@ services:
     enabled: true
     host: torrent.local
     ip: 192.168.10.90
+  wireguard:
+    enabled: true
+    host: wireguard.local
+    ip: 192.168.10.90
 
 upstream:
   primary: "1.1.1.1"
