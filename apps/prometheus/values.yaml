@@ -27,7 +27,7 @@ prometheus:
         memory: 512Mi
       limits:
         cpu: 500m
-        memory: 1024Gi
+        memory: 1024Mi
     
     retention: "365d"
     

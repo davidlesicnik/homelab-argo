@@ -9,7 +9,7 @@ nextcloud:
       memory: 256Mi
     limits:
       cpu: 1000m
-      memory: 1024Gi
+      memory: 1024Mi
 
   persistence:
     storageClass: longhorn
@@ -24,7 +24,7 @@ postgres:
       memory: 64Mi
     limits:
       cpu: 200m
-      memory: 256Gi
+      memory: 256Mi
   persistence:
     size: 10Gi
     storageClass: longhorn
