@@ -1,0 +1,45 @@
+replicaCount: 1
+
+strategy:
+  type: Recreate
+
+image:
+  repository: linuxserver/prowlarr
+  tag: "2.3.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 9696
+
+ingress:
+  enabled: true
+  hostname: prowlarr.local
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+  tls:
+    enabled: false
+
+# PVC for Prowlarr config
+pvc:
+  name: prowlarr-config
+  storageClassName: longhorn
+  size: 1Gi
+  mountPath: /config
+
+env:
+  PUID: "1000"
+  PGID: "1000"
+  TZ: Europe/Ljubljana
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+securityContext:
+  fsGroup: 1000
