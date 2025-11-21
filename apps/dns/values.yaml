@@ -31,6 +31,10 @@ services:
     enabled: true
     host: radarr.local
     ip: 192.168.10.90
+  sonarr:
+    enabled: true
+    host: sonarr.local
+    ip: 192.168.10.90
   wireguard:
     enabled: true
     host: wireguard.local

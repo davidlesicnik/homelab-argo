@@ -1,0 +1,67 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sonarr
+  namespace: {{ .Release.Namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  {{- with .Values.strategy }}
+  strategy:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: sonarr
+  template:
+    metadata:
+      labels:
+        app: sonarr
+    spec:
+      securityContext:
+        fsGroup: {{ .Values.securityContext.fsGroup }}
+      containers:
+        - name: sonarr
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: web
+              containerPort: {{ .Values.service.port }}
+              protocol: TCP
+          env:
+            - name: PUID
+              value: {{ .Values.env.PUID | quote }}
+            - name: PGID
+              value: {{ .Values.env.PGID | quote }}
+            - name: TZ
+              value: {{ .Values.env.TZ | quote }}
+          volumeMounts:
+            - name: config
+              mountPath: {{ .Values.pvc.mountPath }}
+            {{- if .Values.nfs.enabled }}
+            - name: media
+              mountPath: {{ .Values.nfs.mountPath }}
+            {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: web
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /ping
+              port: web
+            initialDelaySeconds: 10
+            periodSeconds: 5
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: {{ .Values.pvc.name }}
+        {{- if .Values.nfs.enabled }}
+        - name: media
+          nfs:
+            server: {{ .Values.nfs.server }}
+            path: {{ .Values.nfs.path }}
+        {{- end }}

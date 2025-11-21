@@ -1,0 +1,52 @@
+replicaCount: 1
+
+strategy:
+  type: Recreate
+
+image:
+  repository: linuxserver/sonarr
+  tag: "4.0.16"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8989
+
+ingress:
+  enabled: true
+  hostname: sonarr.local
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+  tls:
+    enabled: false
+
+# PVC for Sonarr config
+pvc:
+  name: sonarr-config
+  storageClassName: longhorn
+  size: 1Gi
+  mountPath: /config
+
+# NFS mount for media storage
+nfs:
+  enabled: true
+  server: 192.168.10.9
+  path: /volume1/media
+  mountPath: /media
+
+env:
+  PUID: "1000"
+  PGID: "1000"
+  TZ: Europe/Ljubljana
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+securityContext:
+  fsGroup: 1000
