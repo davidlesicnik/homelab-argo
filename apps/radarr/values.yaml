@@ -1,0 +1,52 @@
+replicaCount: 1
+
+strategy:
+  type: Recreate
+
+image:
+  repository: linuxserver/radarr
+  tag: "6.0.4"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 7878
+
+ingress:
+  enabled: true
+  hostname: radarr.local
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+  tls:
+    enabled: false
+
+# PVC for Radarr config
+pvc:
+  name: radarr-config
+  storageClassName: longhorn
+  size: 1Gi
+  mountPath: /config
+
+# NFS mount for media storage
+nfs:
+  enabled: true
+  server: 192.168.10.9
+  path: /volume1/media
+  mountPath: /media
+
+env:
+  PUID: "1000"
+  PGID: "1000"
+  TZ: Europe/Ljubljana
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+
+securityContext:
+  fsGroup: 1000
