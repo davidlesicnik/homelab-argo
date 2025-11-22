@@ -26,7 +26,7 @@ services:
   torrent:
     enabled: true
     host: torrent.local
-    ip: 192.168.10.90
+    ip: 192.168.10.93
   radarr:
     enabled: true
     host: radarr.local

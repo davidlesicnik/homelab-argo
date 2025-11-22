@@ -9,7 +9,8 @@ image:
   pullPolicy: IfNotPresent
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerIP: "192.168.10.93"
   webPort: 8080
   torrentPort: 6881
   torrentPortProtocol: TCP
