@@ -12,7 +12,7 @@ service:
   type: LoadBalancer
   loadBalancerIP: "192.168.10.93"
   webPort: 8080
-  torrentPort: 6881
+  torrentPort: 30054
   torrentPortProtocol: TCP
 
 ingress:
