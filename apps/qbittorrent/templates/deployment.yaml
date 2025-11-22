@@ -27,9 +27,16 @@ spec:
             - name: web
               containerPort: {{ .Values.service.webPort }}
               protocol: TCP
-            - name: torrent
+            {{- if .Values.service.torrentPortTCP }}
+            - name: torrent-tcp
               containerPort: {{ .Values.service.torrentPort }}
-              protocol: {{ .Values.service.torrentPortProtocol }}
+              protocol: TCP
+            {{- end }}
+            {{- if .Values.service.torrentPortUDP }}
+            - name: torrent-udp
+              containerPort: {{ .Values.service.torrentPort }}
+              protocol: UDP
+            {{- end }}
           env:
             - name: PUID
               value: {{ .Values.env.PUID | quote }}

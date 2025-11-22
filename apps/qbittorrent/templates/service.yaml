@@ -5,6 +5,9 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   type: {{ .Values.service.type }}
+  {{- if and (eq .Values.service.type "LoadBalancer") .Values.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.service.loadBalancerIP }}
+  {{- end }}
   selector:
     app: qbittorrent
   ports:
@@ -12,7 +15,15 @@ spec:
       port: {{ .Values.service.webPort }}
       targetPort: web
       protocol: TCP
-    - name: torrent
+    {{- if .Values.service.torrentPortTCP }}
+    - name: torrent-tcp
       port: {{ .Values.service.torrentPort }}
-      targetPort: torrent
-      protocol: {{ .Values.service.torrentPortProtocol }}
+      targetPort: torrent-tcp
+      protocol: TCP
+    {{- end }}
+    {{- if .Values.service.torrentPortUDP }}
+    - name: torrent-udp
+      port: {{ .Values.service.torrentPort }}
+      targetPort: torrent-udp
+      protocol: UDP
+    {{- end }}
