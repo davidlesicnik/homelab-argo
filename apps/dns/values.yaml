@@ -39,6 +39,10 @@ services:
     enabled: true
     host: prowlarr.local
     ip: 192.168.10.90
+  tautulli:
+    enabled: true
+    host: tautulli.local
+    ip: 192.168.10.90
   wireguard:
     enabled: true
     host: wireguard.local

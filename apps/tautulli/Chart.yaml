@@ -1,0 +1,6 @@
+apiVersion: v2
+name: tautulli
+description: Tautulli Plex monitoring and statistics
+type: application
+version: 1.0.0
+appVersion: "v2.16.0"
