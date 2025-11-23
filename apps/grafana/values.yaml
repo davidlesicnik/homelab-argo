@@ -23,10 +23,17 @@ grafana:
   ingress:
     enabled: true
     ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     hosts:
       - grafana.lesicnik.eu
     path: /
     pathType: Prefix
+    tls:
+      - secretName: grafana-lesicnik-eu-tls
+        hosts:
+          - grafana.lesicnik.eu
   admin:
     existingSecret: grafana-admin-secret
     userKey: admin-user
@@ -36,7 +43,7 @@ grafana:
     port: 80
   grafana.ini:
     server:
-      root_url: http://grafana.lesicnik.eu
+      root_url: https://grafana.lesicnik.eu
       serve_from_sub_path: false
     database:
       type: postgres

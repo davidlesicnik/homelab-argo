@@ -6,8 +6,15 @@ metadata:
   namespace: {{ .Release.Namespace }}
   labels:
     {{- include "ddns-updater.labels" . | nindent 4 }}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+  - secretName: ddns-lesicnik-eu-tls
+    hosts:
+      - {{ .Values.ingress.host }}
   rules:
   - host: {{ .Values.ingress.host | quote }}
     http:

@@ -15,8 +15,20 @@ metadata:
     app: reverse-proxy
     chart: {{ .Chart.Name }}
     type: internal
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
 spec:
   ingressClassName: {{ .Values.ingress.className }}
+  {{- if .Values.ingress.tls.enabled }}
+  tls:
+  {{- range $name, $config := $enabledServices }}
+  - secretName: {{ $name }}-{{ $.Values.ingress.tls.secretName }}
+    hosts:
+      - {{ $config.host }}
+  {{- end }}
+  {{- end }}
   rules:
   {{- range $name, $config := $enabledServices }}
   - host: {{ $config.host }}
