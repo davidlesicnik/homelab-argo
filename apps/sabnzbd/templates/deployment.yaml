@@ -34,6 +34,10 @@ spec:
               value: {{ .Values.env.PGID | quote }}
             - name: TZ
               value: {{ .Values.env.TZ | quote }}
+            {{- if .Values.env.HOST_WHITELIST_ENTRIES }}
+            - name: HOST_WHITELIST_ENTRIES
+              value: {{ .Values.env.HOST_WHITELIST_ENTRIES | quote }}
+            {{- end }}
           volumeMounts:
             - name: config
               mountPath: {{ .Values.pvc.mountPath }}
