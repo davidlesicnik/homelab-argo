@@ -14,7 +14,7 @@ service:
 
 ingress:
   enabled: true
-  hostname: radarr.local
+  hostname: radarr.lesicnik.eu
   ingressClassName: nginx
   annotations:
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"

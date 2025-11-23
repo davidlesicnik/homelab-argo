@@ -1,51 +1,51 @@
 services:
   argocd:
     enabled: true
-    host: argocd.local
+    host: argocd.lesicnik.eu
     ip: 192.168.10.90
   longhorn:
     enabled: true
-    host: longhorn.local
+    host: longhorn.lesicnik.eu
     ip: 192.168.10.90
   vault:
     enabled: true
-    host: vault.local
+    host: vault.lesicnik.eu
     ip: 192.168.10.90
   prometheus:
     enabled: true
-    host: prometheus.local
+    host: prometheus.lesicnik.eu
     ip: 192.168.10.90
   grafana:
     enabled: true
-    host: grafana.local
+    host: grafana.lesicnik.eu
     ip: 192.168.10.90
   ddns:
     enabled: true
-    host: ddns.local
+    host: ddns.lesicnik.eu
     ip: 192.168.10.90
   torrent:
     enabled: true
-    host: torrent.local
+    host: torrent.lesicnik.eu
     ip: 192.168.10.90
   radarr:
     enabled: true
-    host: radarr.local
+    host: radarr.lesicnik.eu
     ip: 192.168.10.90
   sonarr:
     enabled: true
-    host: sonarr.local
+    host: sonarr.lesicnik.eu
     ip: 192.168.10.90
   prowlarr:
     enabled: true
-    host: prowlarr.local
+    host: prowlarr.lesicnik.eu
     ip: 192.168.10.90
   tautulli:
     enabled: true
-    host: tautulli.local
+    host: tautulli.lesicnik.eu
     ip: 192.168.10.90
   wireguard:
     enabled: true
-    host: wireguard.local
+    host: wireguard.lesicnik.eu
     ip: 192.168.10.90
 
 upstream:

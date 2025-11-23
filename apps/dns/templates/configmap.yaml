@@ -5,29 +5,44 @@ metadata:
   namespace: {{ .Release.Namespace }}
 data:
   Corefile: |
-    .:53 {
+    # Split DNS for lesicnik.eu - internal resolution only
+    lesicnik.eu:53 {
         errors
-        health {
-          lameduck 5s
-        }
-        ready
-        
-        # Custom hosts
+
+        # Custom hosts for internal services
         hosts {
           {{- range $name, $config := .Values.services }}
           {{- if $config.enabled }}
           {{ $config.ip }} {{ $config.host }}
           {{- end }}
           {{- end }}
-          
+
           fallthrough
         }
-        
-        # Forward everything else to upstream DNS servers
+
+        # Forward non-matching lesicnik.eu queries to upstream
+        # This allows public DNS records to still work
         forward . {{ .Values.upstream.primary }} {{ .Values.upstream.secondary }} {
           max_concurrent 1000
         }
-        
+
+        cache 30
+        reload
+    }
+
+    # Handle all other DNS queries
+    .:53 {
+        errors
+        health {
+          lameduck 5s
+        }
+        ready
+
+        # Forward to upstream DNS servers
+        forward . {{ .Values.upstream.primary }} {{ .Values.upstream.secondary }} {
+          max_concurrent 1000
+        }
+
         cache 30
         loop
         reload

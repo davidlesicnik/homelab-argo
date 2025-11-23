@@ -12,7 +12,7 @@ resources:
 
 ingress:
   enabled: true
-  host: ddns.local
+  host: ddns.lesicnik.eu
 
 ddns:
   zoneIdentifier: "07492488333c2516382af2a54f294d56"

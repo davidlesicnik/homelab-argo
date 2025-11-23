@@ -24,7 +24,7 @@ grafana:
     enabled: true
     ingressClassName: nginx
     hosts:
-      - grafana.local
+      - grafana.lesicnik.eu
     path: /
     pathType: Prefix
   admin:
@@ -36,7 +36,7 @@ grafana:
     port: 80
   grafana.ini:
     server:
-      root_url: http://grafana.local
+      root_url: http://grafana.lesicnik.eu
       serve_from_sub_path: false
     database:
       type: postgres

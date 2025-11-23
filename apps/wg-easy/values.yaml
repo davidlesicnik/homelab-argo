@@ -17,7 +17,7 @@ service:
 
 ingress:
   enabled: true
-  hostname: wireguard.local
+  hostname: wireguard.lesicnik.eu
   ingressClassName: nginx
   annotations: {}
   tls:

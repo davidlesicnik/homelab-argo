@@ -14,7 +14,7 @@ service:
 
 ingress:
   enabled: true
-  hostname: tautulli.local
+  hostname: tautulli.lesicnik.eu
   ingressClassName: nginx
   annotations:
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"

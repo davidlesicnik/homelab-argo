@@ -16,7 +16,7 @@ prometheus:
       enabled: true
       ingressClassName: nginx
       hosts:
-        - prometheus.local
+        - prometheus.lesicnik.eu
       paths:
         - /
       pathType: Prefix
