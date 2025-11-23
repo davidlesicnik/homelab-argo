@@ -27,6 +27,10 @@ services:
     enabled: true
     host: torrent.lesicnik.eu
     ip: 192.168.10.90
+  usenet:
+    enabled: true
+    host: usenet.lesicnik.eu
+    ip: 192.168.10.90
   radarr:
     enabled: true
     host: radarr.lesicnik.eu
