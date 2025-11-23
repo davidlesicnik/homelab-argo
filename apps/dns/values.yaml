@@ -51,6 +51,30 @@ services:
     enabled: true
     host: wireguard.lesicnik.eu
     ip: 192.168.10.90
+  actual:
+    enabled: true
+    host: actual.lesicnik.eu
+    ip: 192.168.10.90
+  fuel:
+    enabled: true
+    host: fuel.lesicnik.eu
+    ip: 192.168.10.90
+  sso:
+    enabled: true
+    host: sso.lesicnik.eu
+    ip: 192.168.10.90
+  nextcloud:
+    enabled: true
+    host: nextcloud.lesicnik.eu
+    ip: 192.168.10.90
+  photos:
+    enabled: true
+    host: photos.lesicnik.eu
+    ip: 192.168.10.90
+  ha:
+    enabled: true
+    host: ha.lesicnik.eu
+    ip: 192.168.10.90
 
 upstream:
   primary: "1.1.1.1"
