@@ -19,9 +19,12 @@ ingress:
   enabled: true
   hostname: wireguard.lesicnik.eu
   ingressClassName: nginx
-  annotations: {}
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   tls:
-    enabled: false
+    enabled: true
+    secretName: wireguard-lesicnik-eu-tls
 
 # PVC for WireGuard config
 pvc:
@@ -43,7 +46,7 @@ externalSecret:
 
 env:
   # v15 requires INSECURE=true for HTTP access (non-HTTPS)
-  INSECURE: "true"
+  INSECURE: "false"
 
   INIT_ENABLED: "true"
   INIT_USERNAME: "admin"

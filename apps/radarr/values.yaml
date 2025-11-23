@@ -18,8 +18,11 @@ ingress:
   ingressClassName: nginx
   annotations:
     nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
   tls:
-    enabled: false
+    enabled: true
+    secretName: radarr-lesicnik-eu-tls
 
 # PVC for Radarr config
 pvc:
