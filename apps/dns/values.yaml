@@ -39,6 +39,10 @@ services:
     enabled: true
     host: sonarr.lesicnik.eu
     ip: 192.168.10.90
+  lidarr:
+    enabled: true
+    host: lidarr.lesicnik.eu
+    ip: 192.168.10.90
   prowlarr:
     enabled: true
     host: prowlarr.lesicnik.eu
