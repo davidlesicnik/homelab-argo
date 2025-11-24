@@ -1,0 +1,55 @@
+replicaCount: 1
+
+strategy:
+  type: Recreate
+
+image:
+  repository: linuxserver/lidarr
+  tag: "3.1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8686
+
+ingress:
+  enabled: true
+  hostname: lidarr.lesicnik.eu
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+  tls:
+    enabled: true
+    secretName: lidarr-lesicnik-eu-tls
+
+# PVC for Lidarr config
+pvc:
+  name: lidarr-config
+  storageClassName: longhorn
+  size: 1Gi
+  mountPath: /config
+
+# NFS mount for media storage
+nfs:
+  enabled: true
+  server: 192.168.10.9
+  path: /volume1/media
+  mountPath: /media
+
+env:
+  PUID: "1000"
+  PGID: "1000"
+  TZ: Europe/Ljubljana
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 256Mi
+  limits:
+    cpu: 100m
+    memory: 512Mi
+
+securityContext:
+  fsGroup: 1000
