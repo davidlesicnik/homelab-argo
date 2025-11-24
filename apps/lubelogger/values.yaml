@@ -33,12 +33,12 @@ env:
   LC_ALL: "sl_SI"
 
 resources:
-  limits:
-    cpu: 200m
-    memory: 256Mi
   requests:
-    cpu: 64m
+    cpu: 10m
     memory: 128Mi
+  limits:
+    cpu: 100m
+    memory: 200Mi
 
 persistence:
   storageClass: "longhorn"
@@ -67,9 +67,9 @@ postgresql:
       storageClass: "longhorn"
       size: 5Gi
   resources:
-    limits:
-      cpu: 200m
-      memory: 256Mi
     requests:
-      cpu: 50m
-      memory: 64Mi
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi

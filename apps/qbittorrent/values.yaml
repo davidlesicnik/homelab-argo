@@ -51,10 +51,10 @@ env:
 resources:
   requests:
     cpu: 50m
-    memory: 128Mi
+    memory: 1024Mi
   limits:
     cpu: 2000m
-    memory: 2Gi
+    memory: 3Gi
 
 securityContext:
   fsGroup: 1000

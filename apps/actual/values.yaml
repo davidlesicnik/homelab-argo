@@ -10,10 +10,10 @@ restartPolicy: Always
 
 resources:
   requests:
-    cpu: 50m
-    memory: 128Mi
+    cpu: 10m
+    memory: 100Mi
   limits:
-    cpu: 200m
+    cpu: 100m
     memory: 256Mi
 
 env:

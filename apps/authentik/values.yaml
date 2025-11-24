@@ -1,10 +1,10 @@
 server:
   resources:
     requests:
-      cpu: 100m
-      memory: 512Mi
+      cpu: 50m
+      memory: 650Mi
     limits:
-      cpu: 500m
+      cpu: 250m
       memory: 1Gi
   ingress:
     enabled: true
@@ -22,10 +22,10 @@ server:
 worker:
   resources:
     requests:
-      cpu: 100m
-      memory: 512Mi
+      cpu: 50m
+      memory: 650Mi
     limits:
-      cpu: 500m
+      cpu: 250m
       memory: 1Gi
 
 postgresql:
@@ -34,18 +34,18 @@ postgresql:
   user: authentik
   resources:
     requests:
-      cpu: 100m
+      cpu: 50m
       memory: 128Mi
     limits:
-      cpu: 500m
-      memory: 512Gi
+      cpu: 200m
+      memory: 256Gi
 
 redis:
   host: authentik-redis
   resources:
     requests:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 25m
+      memory: 10Mi
     limits:
-      cpu: 500m
-      memory: 512Mi
+      cpu: 100m
+      memory: 50Mi

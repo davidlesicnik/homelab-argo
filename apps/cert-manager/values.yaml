@@ -4,25 +4,28 @@ cert-manager:
   resources:
     requests:
       cpu: 10m
-      memory: 32Mi
+      memory: 75Mi
     limits:
+      cpu: 50m
       memory: 128Mi
   
   webhook:
     resources:
       requests:
         cpu: 10m
-        memory: 32Mi
+        memory: 64Mi
       limits:
-        memory: 128Mi
+        cpu: 50m
+        memory: 75Mi
   
   cainjector:
     resources:
       requests:
         cpu: 10m
-        memory: 32Mi
+        memory: 40Mi
       limits:
-        memory: 128Mi
+        cpu: 50m
+        memory: 75Mi
   
   prometheus:
     enabled: true

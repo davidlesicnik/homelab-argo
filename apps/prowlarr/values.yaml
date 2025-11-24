@@ -38,11 +38,11 @@ env:
 
 resources:
   requests:
-    cpu: 100m
+    cpu: 50m
     memory: 256Mi
   limits:
-    cpu: 1000m
-    memory: 1Gi
+    cpu: 200m
+    memory: 512Gi
 
 securityContext:
   fsGroup: 1000
