@@ -11,7 +11,7 @@ postgres:
       memory: 200Mi
     limits:
       cpu: 500m
-      memory: 512Mi
+      memory: 300Mi
 
 grafana:
   deploymentStrategy:
@@ -93,7 +93,7 @@ grafana:
   resources:
     requests:
       cpu: 175m
-      memory: 64Mi
+      memory: 128Mi
     limits:
       cpu: 250m
-      memory: 128Mi
+      memory: 512Mi
