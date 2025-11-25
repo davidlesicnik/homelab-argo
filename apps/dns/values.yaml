@@ -81,8 +81,8 @@ services:
     ip: 192.168.10.90
 
 upstream:
-  primary: "45.90.28.250"
-  secondary: "45.90.30.250"
+  primary: "76.76.2.140"
+  secondary: "76.76.10.140"
 
 image:
   repository: coredns/coredns
