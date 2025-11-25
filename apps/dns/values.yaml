@@ -55,6 +55,10 @@ services:
     enabled: true
     host: wireguard.lesicnik.eu
     ip: 192.168.10.90
+  books:
+    enabled: true
+    host: books.lesicnik.eu
+    ip: 192.168.10.90
   actual:
     enabled: true
     host: actual.lesicnik.eu
