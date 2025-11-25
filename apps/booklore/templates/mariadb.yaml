@@ -104,7 +104,7 @@ spec:
             command:
             - /bin/sh
             - -c
-            - mysqladmin ping -u root -p${MARIADB_ROOT_PASSWORD}
+            - mariadb -u root -p${MARIADB_ROOT_PASSWORD} -e "SELECT 1"
           initialDelaySeconds: 30
           periodSeconds: 10
         readinessProbe:
@@ -112,7 +112,7 @@ spec:
             command:
             - /bin/sh
             - -c
-            - mysqladmin ping -u root -p${MARIADB_ROOT_PASSWORD}
+            - mariadb -u root -p${MARIADB_ROOT_PASSWORD} -e "SELECT 1"
           initialDelaySeconds: 5
           periodSeconds: 5
       volumes:
