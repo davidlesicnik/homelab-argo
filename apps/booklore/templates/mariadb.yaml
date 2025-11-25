@@ -1,0 +1,122 @@
+{{- if .Values.mariadb.enabled }}
+{{- if not .Values.externalSecret.enabled }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: booklore-mariadb-secret
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "booklore.labels" . | nindent 4 }}
+type: Opaque
+stringData:
+  mariadb-password: {{ .Values.mariadb.auth.password | quote }}
+  mariadb-root-password: {{ .Values.mariadb.auth.rootPassword | quote }}
+---
+{{- end }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booklore-mariadb
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "booklore.labels" . | nindent 4 }}
+    app.kubernetes.io/component: mariadb
+spec:
+  type: ClusterIP
+  ports:
+    - name: mysql
+      port: 3306
+      targetPort: mysql
+  selector:
+    app.kubernetes.io/name: {{ include "booklore.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/component: mariadb
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: booklore-mariadb
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "booklore.labels" . | nindent 4 }}
+    app.kubernetes.io/component: mariadb
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: {{ .Values.mariadb.persistence.storageClass }}
+  resources:
+    requests:
+      storage: {{ .Values.mariadb.persistence.size }}
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: booklore-mariadb
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "booklore.labels" . | nindent 4 }}
+    app.kubernetes.io/component: mariadb
+spec:
+  serviceName: booklore-mariadb
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "booklore.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/component: mariadb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "booklore.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/component: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: "{{ .Values.mariadb.image.repository }}:{{ .Values.mariadb.image.tag }}"
+        ports:
+        - name: mysql
+          containerPort: 3306
+        env:
+        - name: MARIADB_USER
+          value: {{ .Values.mariadb.auth.username | quote }}
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: booklore-mariadb-secret
+              key: mariadb-password
+        - name: MARIADB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: booklore-mariadb-secret
+              key: mariadb-root-password
+        - name: MARIADB_DATABASE
+          value: {{ .Values.mariadb.auth.database | quote }}
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+        resources:
+          {{- toYaml .Values.mariadb.resources | nindent 10 }}
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - mysqladmin ping -u root -p${MARIADB_ROOT_PASSWORD}
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - mysqladmin ping -u root -p${MARIADB_ROOT_PASSWORD}
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: booklore-mariadb
+{{- end }}
