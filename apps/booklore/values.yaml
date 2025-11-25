@@ -14,7 +14,7 @@ mariadb:
       cpu: 50m
       memory: 256Mi
     limits:
-      cpu: 500m
+      cpu: 100m
       memory: 512Mi
 
 image:
@@ -63,11 +63,11 @@ ingress:
 
 resources:
   requests:
-    cpu: 100m
-    memory: 256Mi
-  limits:
-    cpu: 500m
+    cpu: 20m
     memory: 512Mi
+  limits:
+    cpu: 200m
+    memory: 768Mi
 
 livenessProbe:
   tcpSocket:
