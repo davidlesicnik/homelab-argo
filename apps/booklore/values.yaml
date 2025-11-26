@@ -12,10 +12,10 @@ mariadb:
   resources:
     requests:
       cpu: 50m
-      memory: 256Mi
+      memory: 512
     limits:
-      cpu: 100m
-      memory: 512Mi
+      cpu: 300m
+      memory: 768Mi
 
 image:
   repository: booklore/booklore
