@@ -88,8 +88,8 @@ postgresql:
       cpu: 10m
       memory: 200Mi
     limits:
-      cpu: 100m
-      memory: 512Mi
+      cpu: 300m
+      memory: 768Mi
 
 # External Secret configuration
 externalSecret:
