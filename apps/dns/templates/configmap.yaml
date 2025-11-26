@@ -8,6 +8,7 @@ data:
     # Split DNS for lesicnik.eu - internal resolution only
     lesicnik.eu:53 {
         errors
+        log
 
         # Custom hosts for internal services
         hosts {
@@ -33,6 +34,7 @@ data:
     # Handle all other DNS queries
     .:53 {
         errors
+        log
         health {
           lameduck 5s
         }
