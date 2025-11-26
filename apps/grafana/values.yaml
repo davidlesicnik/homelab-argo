@@ -14,6 +14,10 @@ postgres:
       memory: 300Mi
 
 grafana:
+  env:
+    GF_ANALYTICS_REPORTING_ENABLED: "false"
+    GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+    GF_ANALYTICS_CHECK_FOR_PLUGIN_UPDATES: "false"
   deploymentStrategy:
     type: Recreate
   persistence:
