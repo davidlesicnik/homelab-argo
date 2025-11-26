@@ -8,7 +8,6 @@ data:
     # Split DNS for lesicnik.eu - internal resolution only
     lesicnik.eu:53 {
         errors
-        log
 
         # Custom hosts for internal services
         hosts {
@@ -34,7 +33,6 @@ data:
     # Block telemetry domains
     stats.grafana.org:53 {
         errors
-        log
         template IN A {
           rcode NXDOMAIN
         }
@@ -46,7 +44,6 @@ data:
     # Handle all other DNS queries
     .:53 {
         errors
-        log
         health {
           lameduck 5s
         }
