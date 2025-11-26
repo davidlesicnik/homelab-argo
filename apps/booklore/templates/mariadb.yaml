@@ -107,14 +107,16 @@ spec:
             - mariadb -u root -p${MARIADB_ROOT_PASSWORD} -e "SELECT 1"
           initialDelaySeconds: 30
           periodSeconds: 10
+          timeoutSeconds: 5
         readinessProbe:
           exec:
             command:
             - /bin/sh
             - -c
             - mariadb -u root -p${MARIADB_ROOT_PASSWORD} -e "SELECT 1"
-          initialDelaySeconds: 5
+          initialDelaySeconds: 30
           periodSeconds: 5
+          timeoutSeconds: 5
       volumes:
       - name: data
         persistentVolumeClaim:
