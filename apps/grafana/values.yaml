@@ -54,6 +54,7 @@ grafana:
       user: grafana
       password: $__file{/etc/secrets/postgres/postgres-password}
     analytics:
+      enabled: false
       reporting_enabled: false
       check_for_updates: false
       check_for_plugin_updates: false
