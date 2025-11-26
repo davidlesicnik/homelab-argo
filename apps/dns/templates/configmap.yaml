@@ -31,6 +31,18 @@ data:
         reload
     }
 
+    # Block telemetry domains
+    stats.grafana.org:53 {
+        errors
+        log
+        template IN A {
+          rcode NXDOMAIN
+        }
+        template IN AAAA {
+          rcode NXDOMAIN
+        }
+    }
+
     # Handle all other DNS queries
     .:53 {
         errors
