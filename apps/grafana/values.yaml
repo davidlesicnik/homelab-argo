@@ -53,6 +53,11 @@ grafana:
       name: grafana
       user: grafana
       password: $__file{/etc/secrets/postgres/postgres-password}
+    analytics:
+      reporting_enabled: false
+      check_for_updates: false
+      check_for_plugin_updates: false
+      feedback_links_enabled: false
     auth.generic_oauth:
       enabled: true
       name: Authentik
