@@ -28,7 +28,7 @@ ingress:
 pvc:
   name: lidarr-config
   storageClassName: longhorn
-  size: 1Gi
+  size: 5Gi
   mountPath: /config
 
 # NFS mount for media storage
