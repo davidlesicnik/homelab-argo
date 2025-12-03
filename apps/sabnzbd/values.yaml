@@ -5,7 +5,7 @@ strategy:
 
 image:
   repository: linuxserver/sabnzbd
-  tag: "4.5.0"
+  tag: "4.5.5"
   pullPolicy: IfNotPresent
 
 service:
