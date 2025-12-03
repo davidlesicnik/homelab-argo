@@ -1,6 +1,253 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended"
+    "config:recommended",
+    ":semanticCommits",
+    ":dependencyDashboard"
+  ],
+  "timezone": "Europe/Ljubljana",
+  "schedule": [
+    "after 10pm every weekday",
+    "before 5am every weekday",
+    "every weekend"
+  ],
+  "prConcurrentLimit": 3,
+  "prHourlyLimit": 2,
+  "labels": ["renovate", "dependencies"],
+  "separateMajorMinor": true,
+  "separateMultipleMajor": true,
+  "automerge": false,
+  "platformAutomerge": false,
+  "commitMessagePrefix": "chore(deps):",
+  "commitMessageAction": "update",
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "rebaseWhen": "conflicted",
+  "stabilityDays": 3,
+  "minimumReleaseAge": "3 days",
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"],
+    "stabilityDays": 0,
+    "minimumReleaseAge": null
+  },
+  "helm-values": {
+    "fileMatch": ["apps/.+/values\\.yaml$"]
+  },
+  "argocd": {
+    "fileMatch": ["apps/.+/.*\\.yaml$"]
+  },
+  "kubernetes": {
+    "fileMatch": ["apps/.+/.*\\.yaml$"]
+  },
+  "regexManagers": [
+    {
+      "description": "Update appVersion in Chart.yaml for actual",
+      "fileMatch": ["^apps/actual/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "actualbudget/actual-server"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for immich",
+      "fileMatch": ["^apps/immich/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "ghcr.io/immich-app/immich-server"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for sonarr",
+      "fileMatch": ["^apps/sonarr/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "linuxserver/sonarr"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for radarr",
+      "fileMatch": ["^apps/radarr/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "linuxserver/radarr"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for prowlarr",
+      "fileMatch": ["^apps/prowlarr/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "linuxserver/prowlarr"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for lidarr",
+      "fileMatch": ["^apps/lidarr/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "linuxserver/lidarr"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for sabnzbd",
+      "fileMatch": ["^apps/sabnzbd/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "linuxserver/sabnzbd"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for tautulli",
+      "fileMatch": ["^apps/tautulli/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "tautulli/tautulli"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for qbittorrent",
+      "fileMatch": ["^apps/qbittorrent/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "linuxserver/qbittorrent"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for wg-easy",
+      "fileMatch": ["^apps/wg-easy/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "ghcr.io/wg-easy/wg-easy"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for lubelogger",
+      "fileMatch": ["^apps/lubelogger/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "ghcr.io/hargata/lubelogger"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for ddns",
+      "fileMatch": ["^apps/ddns/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "qmcgaw/ddns-updater"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for dns",
+      "fileMatch": ["^apps/dns/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "coredns/coredns"
+    },
+    {
+      "description": "Update appVersion in Chart.yaml for nextcloud",
+      "fileMatch": ["^apps/nextcloud/Chart\\.yaml$"],
+      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "datasourceTemplate": "docker",
+      "depNameTemplate": "nextcloud"
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Group all *arr apps (Sonarr, Radarr, Prowlarr, Lidarr) together",
+      "groupName": "arr-stack",
+      "matchDatasources": ["docker", "helm"],
+      "matchPackagePatterns": [
+        "linuxserver/(sonarr|radarr|prowlarr|lidarr)"
+      ],
+      "schedule": ["before 5am on monday"]
+    },
+    {
+      "description": "Group Immich multi-container updates",
+      "groupName": "immich",
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["immich-app/immich"],
+      "schedule": ["before 5am on tuesday"]
+    },
+    {
+      "description": "Group monitoring stack (Prometheus, Grafana)",
+      "groupName": "monitoring-stack",
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["prometheus", "grafana"],
+      "schedule": ["before 5am on wednesday"]
+    },
+    {
+      "description": "Group infrastructure components",
+      "groupName": "infrastructure",
+      "matchDatasources": ["helm"],
+      "matchPackageNames": ["cert-manager", "external-secrets"],
+      "schedule": ["before 5am on thursday"],
+      "labels": ["infrastructure", "renovate"]
+    },
+    {
+      "description": "Pin latest tags to digest for stability",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["digest"],
+      "matchCurrentVersion": "latest",
+      "enabled": true,
+      "pinDigests": true
+    },
+    {
+      "description": "Slower cadence for apps using latest tag",
+      "matchDatasources": ["docker"],
+      "matchCurrentVersion": "latest",
+      "matchPackagePatterns": [
+        "qmcgaw/ddns-updater",
+        "ghcr.io/hargata/lubelogger",
+        "nextcloud",
+        "redis"
+      ],
+      "schedule": ["before 5am on saturday"],
+      "minimumReleaseAge": "7 days"
+    },
+    {
+      "description": "Security updates - immediate with reduced stability",
+      "matchUpdateTypes": ["patch"],
+      "matchDatasources": ["docker", "helm"],
+      "matchPackagePatterns": [".*"],
+      "labels": ["security", "renovate"],
+      "stabilityDays": 1
+    },
+    {
+      "description": "Major updates require manual review",
+      "matchUpdateTypes": ["major"],
+      "matchDatasources": ["docker", "helm"],
+      "labels": ["major-update", "renovate"],
+      "stabilityDays": 7,
+      "schedule": ["before 5am on saturday"]
+    },
+    {
+      "description": "Minor and patch updates for stable apps",
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": [
+        "actualbudget/actual-server",
+        "linuxserver/qbittorrent",
+        "linuxserver/sabnzbd",
+        "tautulli/tautulli",
+        "ghcr.io/wg-easy/wg-easy",
+        "coredns/coredns"
+      ],
+      "groupName": "stable-apps",
+      "schedule": ["before 5am on friday"]
+    },
+    {
+      "description": "Database images - extra caution",
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["postgres", "mariadb", "redis"],
+      "groupName": "databases",
+      "separateMajorMinor": true,
+      "separateMinorPatch": true,
+      "stabilityDays": 7,
+      "minimumReleaseAge": "7 days",
+      "labels": ["database", "renovate"],
+      "schedule": ["before 5am on saturday"]
+    },
+    {
+      "description": "LinuxServer.io images - generally stable",
+      "matchDatasources": ["docker"],
+      "matchPackagePatterns": ["^linuxserver/"],
+      "separateMinorPatch": false,
+      "stabilityDays": 3
+    }
+  ],
+  "ignoreDeps": [],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/bower_components/**",
+    ".git/**"
   ]
 }
