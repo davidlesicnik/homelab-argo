@@ -13,7 +13,10 @@
   ],
   "prConcurrentLimit": 3,
   "prHourlyLimit": 2,
-  "labels": ["renovate", "dependencies"],
+  "labels": [
+    "renovate",
+    "dependencies"
+  ],
   "separateMajorMinor": true,
   "separateMultipleMajor": true,
   "automerge": false,
@@ -23,119 +26,195 @@
   "commitMessageTopic": "{{depName}}",
   "commitMessageExtra": "to {{newVersion}}",
   "rebaseWhen": "conflicted",
-  "stabilityDays": 3,
   "minimumReleaseAge": "3 days",
   "vulnerabilityAlerts": {
     "enabled": true,
-    "labels": ["security"],
-    "stabilityDays": 0,
+    "labels": [
+      "security"
+    ],
     "minimumReleaseAge": null
   },
   "helm-values": {
-    "fileMatch": ["apps/.+/values\\.yaml$"]
+    "managerFilePatterns": [
+      "/apps/.+/values\\.yaml$/"
+    ]
   },
   "argocd": {
-    "fileMatch": ["apps/.+/.*\\.yaml$"]
+    "managerFilePatterns": [
+      "/apps/.+/.*\\.yaml$/"
+    ]
   },
   "kubernetes": {
-    "fileMatch": ["apps/.+/.*\\.yaml$"]
+    "managerFilePatterns": [
+      "/apps/.+/.*\\.yaml$/"
+    ]
   },
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for actual",
-      "fileMatch": ["^apps/actual/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/actual/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "actualbudget/actual-server"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for immich",
-      "fileMatch": ["^apps/immich/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/immich/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "ghcr.io/immich-app/immich-server"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for sonarr",
-      "fileMatch": ["^apps/sonarr/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/sonarr/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "linuxserver/sonarr"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for radarr",
-      "fileMatch": ["^apps/radarr/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/radarr/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "linuxserver/radarr"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for prowlarr",
-      "fileMatch": ["^apps/prowlarr/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/prowlarr/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "linuxserver/prowlarr"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for lidarr",
-      "fileMatch": ["^apps/lidarr/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/lidarr/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "linuxserver/lidarr"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for sabnzbd",
-      "fileMatch": ["^apps/sabnzbd/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/sabnzbd/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "linuxserver/sabnzbd"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for tautulli",
-      "fileMatch": ["^apps/tautulli/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/tautulli/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "tautulli/tautulli"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for qbittorrent",
-      "fileMatch": ["^apps/qbittorrent/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/qbittorrent/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "linuxserver/qbittorrent"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for wg-easy",
-      "fileMatch": ["^apps/wg-easy/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/wg-easy/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "ghcr.io/wg-easy/wg-easy"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for lubelogger",
-      "fileMatch": ["^apps/lubelogger/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/lubelogger/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "ghcr.io/hargata/lubelogger"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for ddns",
-      "fileMatch": ["^apps/ddns/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/ddns/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "qmcgaw/ddns-updater"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for dns",
-      "fileMatch": ["^apps/dns/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/dns/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "coredns/coredns"
     },
     {
+      "customType": "regex",
       "description": "Update appVersion in Chart.yaml for nextcloud",
-      "fileMatch": ["^apps/nextcloud/Chart\\.yaml$"],
-      "matchStrings": ["appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"],
+      "managerFilePatterns": [
+        "/^apps/nextcloud/Chart\\.yaml$/"
+      ],
+      "matchStrings": [
+        "appVersion:\\s*[\"']?(?<currentValue>[^\"'\\s]+)[\"']?"
+      ],
       "datasourceTemplate": "docker",
       "depNameTemplate": "nextcloud"
     }
@@ -144,104 +223,181 @@
     {
       "description": "Group all *arr apps (Sonarr, Radarr, Prowlarr, Lidarr) together",
       "groupName": "arr-stack",
-      "matchDatasources": ["docker", "helm"],
-      "matchPackagePatterns": [
-        "linuxserver/(sonarr|radarr|prowlarr|lidarr)"
+      "matchDatasources": [
+        "docker",
+        "helm"
       ],
-      "schedule": ["before 5am on monday"]
+      "schedule": [
+        "before 5am on monday"
+      ],
+      "matchPackageNames": [
+        "/linuxserver/(sonarr|radarr|prowlarr|lidarr)/"
+      ]
     },
     {
       "description": "Group Immich multi-container updates",
       "groupName": "immich",
-      "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["immich-app/immich"],
-      "schedule": ["before 5am on tuesday"]
+      "matchDatasources": [
+        "docker"
+      ],
+      "schedule": [
+        "before 5am on tuesday"
+      ],
+      "matchPackageNames": [
+        "/immich-app/immich/"
+      ]
     },
     {
       "description": "Group monitoring stack (Prometheus, Grafana)",
       "groupName": "monitoring-stack",
-      "matchDatasources": ["helm"],
-      "matchPackageNames": ["prometheus", "grafana"],
-      "schedule": ["before 5am on wednesday"]
+      "matchDatasources": [
+        "helm"
+      ],
+      "matchPackageNames": [
+        "prometheus",
+        "grafana"
+      ],
+      "schedule": [
+        "before 5am on wednesday"
+      ]
     },
     {
       "description": "Group infrastructure components",
       "groupName": "infrastructure",
-      "matchDatasources": ["helm"],
-      "matchPackageNames": ["cert-manager", "external-secrets"],
-      "schedule": ["before 5am on thursday"],
-      "labels": ["infrastructure", "renovate"]
+      "matchDatasources": [
+        "helm"
+      ],
+      "matchPackageNames": [
+        "cert-manager",
+        "external-secrets"
+      ],
+      "schedule": [
+        "before 5am on thursday"
+      ],
+      "labels": [
+        "infrastructure",
+        "renovate"
+      ]
     },
     {
       "description": "Pin latest tags to digest for stability",
-      "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["digest"],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "digest"
+      ],
       "matchCurrentVersion": "latest",
       "enabled": true,
       "pinDigests": true
     },
     {
       "description": "Slower cadence for apps using latest tag",
-      "matchDatasources": ["docker"],
-      "matchCurrentVersion": "latest",
-      "matchPackagePatterns": [
-        "qmcgaw/ddns-updater",
-        "ghcr.io/hargata/lubelogger",
-        "nextcloud",
-        "redis"
+      "matchDatasources": [
+        "docker"
       ],
-      "schedule": ["before 5am on saturday"],
-      "minimumReleaseAge": "7 days"
+      "matchCurrentVersion": "latest",
+      "schedule": [
+        "before 5am on saturday"
+      ],
+      "minimumReleaseAge": "7 days",
+      "matchPackageNames": [
+        "/qmcgaw/ddns-updater/",
+        "/ghcr.io/hargata/lubelogger/",
+        "/nextcloud/",
+        "/redis/"
+      ]
     },
     {
       "description": "Security updates - immediate with reduced stability",
-      "matchUpdateTypes": ["patch"],
-      "matchDatasources": ["docker", "helm"],
-      "matchPackagePatterns": [".*"],
-      "labels": ["security", "renovate"],
-      "stabilityDays": 1
+      "matchUpdateTypes": [
+        "patch"
+      ],
+      "matchDatasources": [
+        "docker",
+        "helm"
+      ],
+      "labels": [
+        "security",
+        "renovate"
+      ],
+      "minimumReleaseAge": "1 day",
+      "matchPackageNames": [
+        "/.*/"
+      ]
     },
     {
       "description": "Major updates require manual review",
-      "matchUpdateTypes": ["major"],
-      "matchDatasources": ["docker", "helm"],
-      "labels": ["major-update", "renovate"],
-      "stabilityDays": 7,
-      "schedule": ["before 5am on saturday"]
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchDatasources": [
+        "docker",
+        "helm"
+      ],
+      "labels": [
+        "major-update",
+        "renovate"
+      ],
+      "minimumReleaseAge": "7 days",
+      "schedule": [
+        "before 5am on saturday"
+      ]
     },
     {
       "description": "Minor and patch updates for stable apps",
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchDatasources": ["docker"],
-      "matchPackagePatterns": [
-        "actualbudget/actual-server",
-        "linuxserver/qbittorrent",
-        "linuxserver/sabnzbd",
-        "tautulli/tautulli",
-        "ghcr.io/wg-easy/wg-easy",
-        "coredns/coredns"
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "matchDatasources": [
+        "docker"
       ],
       "groupName": "stable-apps",
-      "schedule": ["before 5am on friday"]
+      "schedule": [
+        "before 5am on friday"
+      ],
+      "matchPackageNames": [
+        "/actualbudget/actual-server/",
+        "/linuxserver/qbittorrent/",
+        "/linuxserver/sabnzbd/",
+        "/tautulli/tautulli/",
+        "/ghcr.io/wg-easy/wg-easy/",
+        "/coredns/coredns/"
+      ]
     },
     {
       "description": "Database images - extra caution",
-      "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["postgres", "mariadb", "redis"],
+      "matchDatasources": [
+        "docker"
+      ],
       "groupName": "databases",
       "separateMajorMinor": true,
       "separateMinorPatch": true,
-      "stabilityDays": 7,
       "minimumReleaseAge": "7 days",
-      "labels": ["database", "renovate"],
-      "schedule": ["before 5am on saturday"]
+      "labels": [
+        "database",
+        "renovate"
+      ],
+      "schedule": [
+        "before 5am on saturday"
+      ],
+      "matchPackageNames": [
+        "/postgres/",
+        "/mariadb/",
+        "/redis/"
+      ]
     },
     {
       "description": "LinuxServer.io images - generally stable",
-      "matchDatasources": ["docker"],
-      "matchPackagePatterns": ["^linuxserver/"],
+      "matchDatasources": [
+        "docker"
+      ],
       "separateMinorPatch": false,
-      "stabilityDays": 3
+      "minimumReleaseAge": "3 days",
+      "matchPackageNames": [
+        "/^linuxserver//"
+      ]
     }
   ],
   "ignoreDeps": [],
