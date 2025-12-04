@@ -3,4 +3,4 @@ name: wg-easy
 description: WireGuard VPN with easy web UI
 type: application
 version: 1.0.0
-appVersion: "13"
+appVersion: "14"
