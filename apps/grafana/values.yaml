@@ -1,5 +1,5 @@
 postgres:
-  image: postgres:16
+  image: postgres:18
   database: grafana
   user: grafana
   persistence:
