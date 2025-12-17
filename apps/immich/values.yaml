@@ -5,7 +5,7 @@ strategy:
 
 image:
   repository: ghcr.io/immich-app/immich-server
-  tag: "v2.2.2"
+  tag: "v2.3.1"
   pullPolicy: IfNotPresent
 
 # Immich machine learning service
@@ -13,7 +13,7 @@ machineLearning:
   enabled: true
   image:
     repository: ghcr.io/immich-app/immich-machine-learning
-    tag: "v2.2.2"
+    tag: "v2.3.1"
     pullPolicy: IfNotPresent
   resources:
     requests:

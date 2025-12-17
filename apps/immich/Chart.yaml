@@ -3,4 +3,4 @@ name: immich
 description: Self-hosted photo and video management solution
 type: application
 version: 1.0.0
-appVersion: "v2.2.2"
+appVersion: "v2.3.1"
