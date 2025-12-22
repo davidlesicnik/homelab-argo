@@ -66,8 +66,6 @@ spec:
               subPath: config.yaml
             - name: crowdsec-config
               mountPath: /etc/crowdsec/hub
-            - name: crowdsec-config
-              mountPath: /etc/crowdsec/patterns
       containers:
         - name: crowdsec
           image: {{ .Values.crowdsec.image.repository }}:{{ .Values.crowdsec.image.tag }}
@@ -145,8 +143,6 @@ spec:
               mountPath: /var/lib/crowdsec/data
             - name: crowdsec-config
               mountPath: /etc/crowdsec/hub
-            - name: crowdsec-config
-              mountPath: /etc/crowdsec/patterns
       volumes:
         - name: crowdsec-config-files
           configMap:
