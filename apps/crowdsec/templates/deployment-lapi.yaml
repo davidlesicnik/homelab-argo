@@ -147,8 +147,8 @@ spec:
               mountPath: /etc/crowdsec/hub
             - name: crowdsec-patterns
               mountPath: /etc/crowdsec/patterns
-            - name: docker-socket
-              mountPath: /run/containerd/containerd.sock
+            - name: traefik-logs
+              mountPath: /var/log/traefik
               readOnly: true
       volumes:
         - name: crowdsec-config-files
@@ -158,10 +158,10 @@ spec:
           emptyDir: {}
         - name: crowdsec-patterns
           emptyDir: {}
-        - name: docker-socket
+        - name: traefik-logs
           hostPath:
-            path: /run/containerd/containerd.sock
-            type: Socket
+            path: /var/log/traefik
+            type: DirectoryOrCreate
         - name: crowdsec-data
           {{- if .Values.crowdsec.persistence.enabled }}
           persistentVolumeClaim:

@@ -9,11 +9,10 @@ metadata:
 data:
   acquis.yaml: |
     ---
-    # Read Traefik logs via containerd (Talos Linux)
-    source: docker
-    docker_host: "unix:///run/containerd/containerd.sock"
-    container_name_regexp:
-      - "traefik.*"
+    # Read Traefik access logs from shared volume
+    # Note: Traefik must be configured to write logs to /var/log/traefik/access.log
+    filenames:
+      - /var/log/traefik/access.log
     labels:
       type: traefik
 
