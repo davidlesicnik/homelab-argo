@@ -76,6 +76,7 @@ data:
     api:
       client:
         insecure_skip_verify: false
+        credentials_path: /var/lib/crowdsec/data/local_api_credentials.yaml
       server:
         log_level: info
         listen_uri: 0.0.0.0:8080
