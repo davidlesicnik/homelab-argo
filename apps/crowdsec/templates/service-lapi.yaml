@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: crowdsec-lapi
+  namespace: crowdsec
+  labels:
+    app.kubernetes.io/name: crowdsec
+    app.kubernetes.io/component: lapi
+spec:
+  type: {{ .Values.service.lapi.type }}
+  ports:
+    - name: lapi
+      port: {{ .Values.service.lapi.port }}
+      targetPort: lapi
+      protocol: TCP
+    - name: metrics
+      port: 6060
+      targetPort: metrics
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: crowdsec
+    app.kubernetes.io/component: lapi

@@ -1,0 +1,133 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crowdsec-lapi
+  namespace: crowdsec
+  labels:
+    app.kubernetes.io/name: crowdsec
+    app.kubernetes.io/component: lapi
+spec:
+  replicas: {{ .Values.crowdsec.replicas }}
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: crowdsec
+      app.kubernetes.io/component: lapi
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: crowdsec
+        app.kubernetes.io/component: lapi
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "6060"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: crowdsec-lapi
+      initContainers:
+        # Install collections, parsers, and scenarios
+        - name: install-collections
+          image: {{ .Values.crowdsec.image.repository }}:{{ .Values.crowdsec.image.tag }}
+          command:
+            - sh
+            - -c
+            - |
+              set -e
+              echo "Installing CrowdSec collections and parsers..."
+
+              # Update hub
+              cscli hub update
+
+              # Install collections
+              {{- range .Values.crowdsec.collections }}
+              echo "Installing collection: {{ . }}"
+              cscli collections install {{ . }} --force
+              {{- end }}
+
+              # Install parsers
+              {{- range .Values.crowdsec.parsers }}
+              echo "Installing parser: {{ . }}"
+              cscli parsers install {{ . }} --force
+              {{- end }}
+
+              echo "Installation complete!"
+          env:
+            - name: COLLECTIONS
+              value: {{ join " " .Values.crowdsec.collections | quote }}
+          volumeMounts:
+            - name: crowdsec-config
+              mountPath: /etc/crowdsec
+            - name: crowdsec-data
+              mountPath: /var/lib/crowdsec/data
+      containers:
+        - name: crowdsec
+          image: {{ .Values.crowdsec.image.repository }}:{{ .Values.crowdsec.image.tag }}
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: COLLECTIONS
+              value: {{ join " " .Values.crowdsec.collections | quote }}
+            - name: PARSERS
+              value: {{ join " " .Values.crowdsec.parsers | quote }}
+            - name: TZ
+              value: UTC
+            - name: DISABLE_ONLINE_API
+              value: "false"
+          ports:
+            - name: lapi
+              containerPort: 8080
+              protocol: TCP
+            - name: metrics
+              containerPort: 6060
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: lapi
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: lapi
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            {{- toYaml .Values.crowdsec.lapi.resources | nindent 12 }}
+          volumeMounts:
+            - name: crowdsec-config-files
+              mountPath: /etc/crowdsec/acquis.yaml
+              subPath: acquis.yaml
+            - name: crowdsec-config-files
+              mountPath: /etc/crowdsec/profiles.yaml
+              subPath: profiles.yaml
+            - name: crowdsec-config-files
+              mountPath: /etc/crowdsec/config.yaml
+              subPath: config.yaml
+            - name: crowdsec-data
+              mountPath: /var/lib/crowdsec/data
+            - name: crowdsec-config
+              mountPath: /etc/crowdsec/hub
+            - name: crowdsec-secrets
+              mountPath: /etc/crowdsec/online_api_credentials.yaml
+              subPath: online_api_credentials.yaml
+      volumes:
+        - name: crowdsec-config-files
+          configMap:
+            name: crowdsec-lapi-config
+        - name: crowdsec-secrets
+          secret:
+            secretName: crowdsec-lapi-secrets
+        - name: crowdsec-config
+          emptyDir: {}
+        - name: crowdsec-data
+          {{- if .Values.crowdsec.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: crowdsec-lapi-data
+          {{- else }}
+          emptyDir: {}
+          {{- end }}

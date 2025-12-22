@@ -1,0 +1,6 @@
+apiVersion: v2
+name: crowdsec
+description: CrowdSec security engine with Traefik bouncer integration
+type: application
+version: 1.0.0
+appVersion: "v1.6.3"

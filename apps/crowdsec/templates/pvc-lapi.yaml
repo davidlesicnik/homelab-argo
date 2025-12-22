@@ -1,0 +1,19 @@
+{{- if .Values.crowdsec.persistence.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: crowdsec-lapi-data
+  namespace: crowdsec
+  labels:
+    app.kubernetes.io/name: crowdsec
+    app.kubernetes.io/component: lapi
+spec:
+  accessModes:
+    - ReadWriteOnce
+  {{- if .Values.crowdsec.persistence.storageClass }}
+  storageClassName: {{ .Values.crowdsec.persistence.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.crowdsec.persistence.size }}
+{{- end }}

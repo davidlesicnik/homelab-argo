@@ -1,0 +1,45 @@
+---
+# ServiceAccount for CrowdSec LAPI to read Traefik logs from Kubernetes API
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: crowdsec-lapi
+  namespace: crowdsec
+  labels:
+    app.kubernetes.io/name: crowdsec
+    app.kubernetes.io/component: lapi
+---
+# ClusterRole to allow reading pod logs from traefik namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: crowdsec-lapi
+  labels:
+    app.kubernetes.io/name: crowdsec
+    app.kubernetes.io/component: lapi
+rules:
+  - apiGroups: [""]
+    resources:
+      - pods
+      - pods/log
+    verbs:
+      - get
+      - list
+      - watch
+---
+# ClusterRoleBinding to bind the ClusterRole to the ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: crowdsec-lapi
+  labels:
+    app.kubernetes.io/name: crowdsec
+    app.kubernetes.io/component: lapi
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: crowdsec-lapi
+subjects:
+  - kind: ServiceAccount
+    name: crowdsec-lapi
+    namespace: crowdsec
