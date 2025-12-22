@@ -64,8 +64,9 @@ spec:
             - name: crowdsec-config-files
               mountPath: /etc/crowdsec/config.yaml
               subPath: config.yaml
-            - name: crowdsec-config
+            - name: crowdsec-data
               mountPath: /etc/crowdsec/hub
+              subPath: hub
             - name: crowdsec-patterns
               mountPath: /etc/crowdsec/patterns
       containers:
@@ -143,8 +144,9 @@ spec:
               subPath: config.yaml
             - name: crowdsec-data
               mountPath: /var/lib/crowdsec/data
-            - name: crowdsec-config
+            - name: crowdsec-data
               mountPath: /etc/crowdsec/hub
+              subPath: hub
             - name: crowdsec-patterns
               mountPath: /etc/crowdsec/patterns
             - name: traefik-logs
@@ -154,14 +156,12 @@ spec:
         - name: crowdsec-config-files
           configMap:
             name: crowdsec-lapi-config
-        - name: crowdsec-config
-          emptyDir: {}
         - name: crowdsec-patterns
           emptyDir: {}
         - name: traefik-logs
-          hostPath:
-            path: /var/log/traefik
-            type: DirectoryOrCreate
+          persistentVolumeClaim:
+            claimName: traefik-logs
+            readOnly: true
         - name: crowdsec-data
           {{- if .Values.crowdsec.persistence.enabled }}
           persistentVolumeClaim:
