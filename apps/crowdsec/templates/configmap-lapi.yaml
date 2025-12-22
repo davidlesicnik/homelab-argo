@@ -44,6 +44,10 @@ data:
     # Set to true to enable simulation mode (no actual bans)
     simulation: false
 
+  # Empty patterns file - actual patterns come from hub installations
+  init-patterns: |
+    # Placeholder - patterns are loaded from hub
+
   config.yaml: |
     ---
     common:
