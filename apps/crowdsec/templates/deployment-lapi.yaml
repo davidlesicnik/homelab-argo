@@ -51,6 +51,13 @@ spec:
               cscli parsers install {{ . }} --force
               {{- end }}
 
+              # Copy base patterns if patterns directory is empty
+              if [ ! -f /etc/crowdsec/patterns/.installed ]; then
+                echo "Copying base patterns..."
+                cp -r /staging/etc/crowdsec/patterns/* /etc/crowdsec/patterns/ 2>/dev/null || true
+                touch /etc/crowdsec/patterns/.installed
+              fi
+
               echo "Installation complete!"
 
               # Create empty online_api_credentials.yaml file if it doesn't exist
@@ -79,6 +86,9 @@ spec:
             - name: crowdsec-data
               mountPath: /etc/crowdsec/postoverflows
               subPath: postoverflows
+            - name: crowdsec-data
+              mountPath: /etc/crowdsec/patterns
+              subPath: patterns
       containers:
         - name: crowdsec
           image: {{ .Values.crowdsec.image.repository }}:{{ .Values.crowdsec.image.tag }}
@@ -169,6 +179,9 @@ spec:
             - name: crowdsec-data
               mountPath: /etc/crowdsec/postoverflows
               subPath: postoverflows
+            - name: crowdsec-data
+              mountPath: /etc/crowdsec/patterns
+              subPath: patterns
             - name: traefik-logs
               mountPath: /var/log/traefik
               readOnly: true
