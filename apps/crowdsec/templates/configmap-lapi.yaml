@@ -75,7 +75,7 @@ data:
         listen_uri: 0.0.0.0:8080
         profiles_path: /etc/crowdsec/profiles.yaml
         online_client:
-          credentials_path: /etc/crowdsec/online_api_credentials.yaml
+          credentials_path: /var/lib/crowdsec/data/online_api_credentials.yaml
         tls:
           cert_file: ""
           key_file: ""

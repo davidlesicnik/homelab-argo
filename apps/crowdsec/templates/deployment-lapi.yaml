@@ -52,17 +52,20 @@ spec:
               {{- end }}
 
               echo "Installation complete!"
+
+              # Create empty online_api_credentials.yaml file if it doesn't exist
+              touch /var/lib/crowdsec/data/online_api_credentials.yaml
           env:
             - name: COLLECTIONS
               value: {{ join " " .Values.crowdsec.collections | quote }}
           volumeMounts:
+            - name: crowdsec-data
+              mountPath: /var/lib/crowdsec/data
             - name: crowdsec-config-files
               mountPath: /etc/crowdsec/config.yaml
               subPath: config.yaml
             - name: crowdsec-config
               mountPath: /etc/crowdsec/hub
-            - name: crowdsec-data
-              mountPath: /var/lib/crowdsec/data
       containers:
         - name: crowdsec
           image: {{ .Values.crowdsec.image.repository }}:{{ .Values.crowdsec.image.tag }}
