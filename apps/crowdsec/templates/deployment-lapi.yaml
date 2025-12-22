@@ -67,6 +67,18 @@ spec:
             - name: crowdsec-data
               mountPath: /etc/crowdsec/hub
               subPath: hub
+            - name: crowdsec-data
+              mountPath: /etc/crowdsec/collections
+              subPath: collections
+            - name: crowdsec-data
+              mountPath: /etc/crowdsec/parsers
+              subPath: parsers
+            - name: crowdsec-data
+              mountPath: /etc/crowdsec/scenarios
+              subPath: scenarios
+            - name: crowdsec-data
+              mountPath: /etc/crowdsec/postoverflows
+              subPath: postoverflows
             - name: crowdsec-patterns
               mountPath: /etc/crowdsec/patterns
       containers:
@@ -147,6 +159,18 @@ spec:
             - name: crowdsec-data
               mountPath: /etc/crowdsec/hub
               subPath: hub
+            - name: crowdsec-data
+              mountPath: /etc/crowdsec/collections
+              subPath: collections
+            - name: crowdsec-data
+              mountPath: /etc/crowdsec/parsers
+              subPath: parsers
+            - name: crowdsec-data
+              mountPath: /etc/crowdsec/scenarios
+              subPath: scenarios
+            - name: crowdsec-data
+              mountPath: /etc/crowdsec/postoverflows
+              subPath: postoverflows
             - name: crowdsec-patterns
               mountPath: /etc/crowdsec/patterns
             - name: traefik-logs
