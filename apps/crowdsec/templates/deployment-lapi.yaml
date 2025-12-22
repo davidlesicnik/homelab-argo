@@ -77,9 +77,9 @@ spec:
               set -e
 
               # Register local agent if not already registered
-              if ! cscli machines list | grep -q "crowdsec-agent"; then
+              if ! cscli machines list 2>/dev/null | grep -q "crowdsec-agent"; then
                 echo "Registering local agent..."
-                cscli machines add crowdsec-agent --password crowdsec-agent-password --auto
+                cscli machines add crowdsec-agent --password crowdsec-agent-password --auto --file /var/lib/crowdsec/data/local_api_credentials.yaml
               fi
 
               # Start crowdsec
