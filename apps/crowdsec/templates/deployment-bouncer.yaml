@@ -31,7 +31,7 @@ spec:
             - name: CROWDSEC_AGENT_HOST
               value: "crowdsec-lapi.crowdsec.svc.cluster.local:8080"
             - name: CROWDSEC_BOUNCER_LOG_LEVEL
-              value: "INFO"
+              value: "info"
             - name: GIN_MODE
               value: "release"
             # Bouncer behavior configuration

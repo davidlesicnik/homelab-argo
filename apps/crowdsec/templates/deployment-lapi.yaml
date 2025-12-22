@@ -56,8 +56,11 @@ spec:
             - name: COLLECTIONS
               value: {{ join " " .Values.crowdsec.collections | quote }}
           volumeMounts:
+            - name: crowdsec-config-files
+              mountPath: /etc/crowdsec/config.yaml
+              subPath: config.yaml
             - name: crowdsec-config
-              mountPath: /etc/crowdsec
+              mountPath: /etc/crowdsec/hub
             - name: crowdsec-data
               mountPath: /var/lib/crowdsec/data
       containers:
