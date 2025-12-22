@@ -112,16 +112,10 @@ spec:
               mountPath: /var/lib/crowdsec/data
             - name: crowdsec-config
               mountPath: /etc/crowdsec/hub
-            - name: crowdsec-secrets
-              mountPath: /etc/crowdsec/online_api_credentials.yaml
-              subPath: online_api_credentials.yaml
       volumes:
         - name: crowdsec-config-files
           configMap:
             name: crowdsec-lapi-config
-        - name: crowdsec-secrets
-          secret:
-            secretName: crowdsec-lapi-secrets
         - name: crowdsec-config
           emptyDir: {}
         - name: crowdsec-data
