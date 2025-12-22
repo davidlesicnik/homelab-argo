@@ -79,6 +79,14 @@ spec:
               value: UTC
             - name: DISABLE_ONLINE_API
               value: "false"
+            - name: LOCAL_API_URL
+              value: "http://127.0.0.1:8080"
+            - name: DISABLE_LOCAL_API
+              value: "false"
+            - name: AGENT_USERNAME
+              value: "crowdsec-agent"
+            - name: AGENT_PASSWORD
+              value: "crowdsec-agent-password"
           ports:
             - name: lapi
               containerPort: 8080
