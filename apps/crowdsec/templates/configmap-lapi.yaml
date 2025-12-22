@@ -9,23 +9,12 @@ metadata:
 data:
   acquis.yaml: |
     ---
-    # Configuration for reading Traefik access logs
-    {{- if .Values.crowdsec.traefik.useLogFile }}
-    # Read from log file (if logs are shared via volume)
-    filenames:
-      - {{ .Values.crowdsec.traefik.accessLogPath }}
+    # Read Traefik logs from stdin via docker logs
+    source: docker
+    container_name_regexp:
+      - "traefik.*"
     labels:
       type: traefik
-    {{- else }}
-    # Read from Traefik pod logs via Kubernetes API
-    source: kubernetes
-    labels:
-      type: traefik
-    kubernetes:
-      container_name: traefik
-      pod_name_pattern: "^traefik-.*"
-      namespace: {{ .Values.crowdsec.traefik.namespace }}
-    {{- end }}
 
   profiles.yaml: |
     ---

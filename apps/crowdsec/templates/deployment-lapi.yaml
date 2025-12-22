@@ -147,6 +147,9 @@ spec:
               mountPath: /etc/crowdsec/hub
             - name: crowdsec-patterns
               mountPath: /etc/crowdsec/patterns
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+              readOnly: true
       volumes:
         - name: crowdsec-config-files
           configMap:
@@ -155,6 +158,10 @@ spec:
           emptyDir: {}
         - name: crowdsec-patterns
           emptyDir: {}
+        - name: docker-socket
+          hostPath:
+            path: /var/run/docker.sock
+            type: Socket
         - name: crowdsec-data
           {{- if .Values.crowdsec.persistence.enabled }}
           persistentVolumeClaim:
