@@ -70,6 +70,20 @@ spec:
         - name: crowdsec
           image: {{ .Values.crowdsec.image.repository }}:{{ .Values.crowdsec.image.tag }}
           imagePullPolicy: IfNotPresent
+          command:
+            - /bin/sh
+            - -c
+            - |
+              set -e
+
+              # Register local agent if not already registered
+              if ! cscli machines list | grep -q "crowdsec-agent"; then
+                echo "Registering local agent..."
+                cscli machines add crowdsec-agent --password crowdsec-agent-password --auto
+              fi
+
+              # Start crowdsec
+              exec crowdsec -c /etc/crowdsec/config.yaml
           env:
             - name: COLLECTIONS
               value: {{ join " " .Values.crowdsec.collections | quote }}
