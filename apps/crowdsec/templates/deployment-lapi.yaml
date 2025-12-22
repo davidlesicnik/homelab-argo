@@ -79,8 +79,6 @@ spec:
             - name: crowdsec-data
               mountPath: /etc/crowdsec/postoverflows
               subPath: postoverflows
-            - name: crowdsec-patterns
-              mountPath: /etc/crowdsec/patterns
       containers:
         - name: crowdsec
           image: {{ .Values.crowdsec.image.repository }}:{{ .Values.crowdsec.image.tag }}
@@ -171,8 +169,6 @@ spec:
             - name: crowdsec-data
               mountPath: /etc/crowdsec/postoverflows
               subPath: postoverflows
-            - name: crowdsec-patterns
-              mountPath: /etc/crowdsec/patterns
             - name: traefik-logs
               mountPath: /var/log/traefik
               readOnly: true
@@ -180,8 +176,6 @@ spec:
         - name: crowdsec-config-files
           configMap:
             name: crowdsec-lapi-config
-        - name: crowdsec-patterns
-          emptyDir: {}
         - name: traefik-logs
           persistentVolumeClaim:
             claimName: traefik-logs
