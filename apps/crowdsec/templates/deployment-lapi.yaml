@@ -134,6 +134,9 @@ spec:
               mountPath: /etc/crowdsec/profiles.yaml
               subPath: profiles.yaml
             - name: crowdsec-config-files
+              mountPath: /etc/crowdsec/simulation.yaml
+              subPath: simulation.yaml
+            - name: crowdsec-config-files
               mountPath: /etc/crowdsec/config.yaml
               subPath: config.yaml
             - name: crowdsec-data

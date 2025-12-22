@@ -38,6 +38,12 @@ data:
        duration: 4h
     on_success: break
 
+  simulation.yaml: |
+    ---
+    # Simulation mode configuration
+    # Set to true to enable simulation mode (no actual bans)
+    simulation: false
+
   config.yaml: |
     ---
     common:
