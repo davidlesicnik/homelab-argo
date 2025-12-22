@@ -148,7 +148,7 @@ spec:
             - name: crowdsec-patterns
               mountPath: /etc/crowdsec/patterns
             - name: docker-socket
-              mountPath: /var/run/docker.sock
+              mountPath: /run/containerd/containerd.sock
               readOnly: true
       volumes:
         - name: crowdsec-config-files
@@ -160,7 +160,7 @@ spec:
           emptyDir: {}
         - name: docker-socket
           hostPath:
-            path: /var/run/docker.sock
+            path: /run/containerd/containerd.sock
             type: Socket
         - name: crowdsec-data
           {{- if .Values.crowdsec.persistence.enabled }}
