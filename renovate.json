@@ -7,7 +7,7 @@
   ],
   "timezone": "Europe/Ljubljana",
   "schedule": [
-    "at 12:00am every day"
+    "before 1am"
   ],
   "prConcurrentLimit": 3,
   "prHourlyLimit": 2,
@@ -33,19 +33,13 @@
     "minimumReleaseAge": null
   },
   "helm-values": {
-    "fileMatch": [
-      "apps/.+/values\\.yaml$"
-    ]
+    "fileMatch": ["apps/.+/values\\.yaml$"]
   },
   "argocd": {
-    "fileMatch": [
-      "apps/.+/.*\\.yaml$"
-    ]
+    "fileMatch": ["apps/.+/.*\\.yaml$"]
   },
   "kubernetes": {
-    "fileMatch": [
-      "apps/.+/.*\\.yaml$"
-    ]
+    "fileMatch": ["apps/.+/.*\\.yaml$"]
   },
   "ignoreDeps": [],
   "ignorePaths": [
