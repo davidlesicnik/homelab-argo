@@ -33,18 +33,18 @@
     "minimumReleaseAge": null
   },
   "helm-values": {
-    "managerFilePatterns": [
-      "/apps/.+/values\\.yaml$/"
+    "fileMatch": [
+      "apps/.+/values\\.yaml$"
     ]
   },
   "argocd": {
-    "managerFilePatterns": [
-      "/apps/.+/.*\\.yaml$/"
+    "fileMatch": [
+      "apps/.+/.*\\.yaml$"
     ]
   },
   "kubernetes": {
-    "managerFilePatterns": [
-      "/apps/.+/.*\\.yaml$/"
+    "fileMatch": [
+      "apps/.+/.*\\.yaml$"
     ]
   },
   "ignoreDeps": [],
