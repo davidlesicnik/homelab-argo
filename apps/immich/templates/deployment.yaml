@@ -86,9 +86,9 @@ spec:
               containerPort: 3000
               protocol: TCP
           env:
-            - name: IMMICH_URL
+            - name: KIOSK_IMMICH_URL
               value: "http://localhost:2283"
-            - name: IMMICH_API_KEY
+            - name: KIOSK_IMMICH_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: immich-kiosk-secret
