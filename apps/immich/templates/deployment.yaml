@@ -105,6 +105,14 @@ spec:
               value: "true"
             - name: KIOSK_CACHE
               value: "true"
+            - name: KIOSK_SHOW_TIME
+              value: "true"
+            - name: KIOSK_TIME_FORMAT
+              value: "24"
+            - name: KIOSK_SHOW_DATE
+              value: "true"
+            - name: KIOSK_DATE_FORMAT
+              value: "DDDD DD MMMM YYYY"
           resources:
             {{- toYaml .Values.kiosk.resources | nindent 12 }}
           livenessProbe:
