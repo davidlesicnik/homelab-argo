@@ -1,0 +1,33 @@
+{{- if and .Values.kiosk.enabled .Values.kiosk.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: immich-kiosk
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "immich.labels" . | nindent 4 }}
+    app.kubernetes.io/component: kiosk
+  annotations:
+{{- range $key, $value := .Values.kiosk.ingress.annotations }}
+    {{ $key }}: {{ $value | quote }}
+{{- end }}
+spec:
+  ingressClassName: {{ .Values.kiosk.ingress.className | quote }}
+{{- if .Values.kiosk.ingress.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.kiosk.ingress.hostname | quote }}
+      secretName: {{ .Values.kiosk.ingress.tls.secretName | quote }}
+{{- end }}
+  rules:
+    - host: {{ .Values.kiosk.ingress.hostname | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: immich-server
+                port:
+                  number: {{ .Values.kiosk.service.port }}
+{{- end }}

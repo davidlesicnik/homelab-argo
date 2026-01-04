@@ -115,3 +115,30 @@ redis:
   persistence:
     storageClass: "longhorn"
     size: 1Gi
+
+# Immich Kiosk configuration
+kiosk:
+  enabled: true
+  image:
+    repository: damongolding/immich-kiosk
+    tag: "latest"
+    pullPolicy: Always
+  service:
+    port: 3000
+  ingress:
+    enabled: true
+    className: "nginx"
+    hostname: kiosk.lesicnik.eu
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    tls:
+      enabled: true
+      secretName: immich-kiosk-tls
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi

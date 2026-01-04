@@ -79,6 +79,10 @@ services:
     enabled: true
     host: photos.lesicnik.eu
     ip: 192.168.10.90
+  kiosk:
+    enabled: true
+    host: kiosk.lesicnik.eu
+    ip: 192.168.10.90
   ha:
     enabled: true
     host: ha.lesicnik.eu

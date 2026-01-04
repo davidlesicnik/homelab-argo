@@ -17,6 +17,12 @@ spec:
       port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
+{{- if .Values.kiosk.enabled }}
+    - name: kiosk
+      port: {{ .Values.kiosk.service.port }}
+      targetPort: kiosk
+      protocol: TCP
+{{- end }}
 ---
 {{- if .Values.machineLearning.enabled }}
 apiVersion: v1

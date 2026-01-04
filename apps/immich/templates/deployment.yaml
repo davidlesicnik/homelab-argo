@@ -77,6 +77,41 @@ spec:
             initialDelaySeconds: 30
             periodSeconds: 10
             timeoutSeconds: 5
+{{- if .Values.kiosk.enabled }}
+        - name: immich-kiosk
+          image: "{{ .Values.kiosk.image.repository }}:{{ .Values.kiosk.image.tag }}"
+          imagePullPolicy: {{ .Values.kiosk.image.pullPolicy }}
+          ports:
+            - name: kiosk
+              containerPort: 3000
+              protocol: TCP
+          env:
+            - name: IMMICH_URL
+              value: "http://localhost:2283"
+            - name: IMMICH_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: immich-kiosk-secret
+                  key: api-key
+            - name: TZ
+              value: {{ .Values.env.TZ | quote }}
+          resources:
+            {{- toYaml .Values.kiosk.resources | nindent 12 }}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: kiosk
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: kiosk
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 5
+{{- end }}
       volumes:
         - name: data
           persistentVolumeClaim:
