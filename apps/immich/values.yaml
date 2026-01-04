@@ -135,6 +135,10 @@ kiosk:
     tls:
       enabled: true
       secretName: immich-kiosk-tls
+  # Kiosk display settings
+  album: "b763a854-58fb-4cbb-9d7f-808c22a0421e"
+  duration: "600"  # 10 minutes per image (in seconds)
+  disableScreensaver: "true"
   resources:
     requests:
       cpu: 10m

@@ -95,6 +95,12 @@ spec:
                   key: api-key
             - name: TZ
               value: {{ .Values.env.TZ | quote }}
+            - name: KIOSK_ALBUM
+              value: {{ .Values.kiosk.album | quote }}
+            - name: KIOSK_DURATION
+              value: {{ .Values.kiosk.duration | quote }}
+            - name: KIOSK_DISABLE_SCREENSAVER
+              value: {{ .Values.kiosk.disableScreensaver | quote }}
           resources:
             {{- toYaml .Values.kiosk.resources | nindent 12 }}
           livenessProbe:
