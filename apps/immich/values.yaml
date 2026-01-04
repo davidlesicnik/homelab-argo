@@ -120,7 +120,7 @@ redis:
 kiosk:
   enabled: true
   image:
-    repository: damongolding/immich-kiosk
+    repository: ghcr.io/damongolding/immich-kiosk
     tag: "latest"
     pullPolicy: Always
   service:
