@@ -95,7 +95,7 @@ spec:
                   key: api-key
             - name: TZ
               value: {{ .Values.env.TZ | quote }}
-            - name: KIOSK_ALBUM
+            - name: KIOSK_ALBUMS
               value: {{ .Values.kiosk.album | quote }}
             - name: KIOSK_DURATION
               value: {{ .Values.kiosk.duration | quote }}
