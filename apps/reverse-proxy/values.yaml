@@ -6,11 +6,17 @@ services:
     port: 8123
 
 internalServices:
-  beszel:
+  ugi:
     enabled: true
-    host: beszel.lesicnik.eu
-    ip: 192.168.10.21
-    port: 8090
+    host: ugi.lesicnik.eu
+    ip: 192.168.10.9
+    port: 443
+
+  pve:
+    enabled: true
+    host: pve.lesicnik.eu
+    ip: 192.168.10.10
+    port: 443
 
 ingress:
   className: nginx

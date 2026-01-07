@@ -87,6 +87,14 @@ services:
     enabled: true
     host: ha.lesicnik.eu
     ip: 192.168.10.90
+  pve:
+    enabled: true
+    host: pve.lesicnik.eu
+    ip: 192.168.10.90
+  ugi:
+    enabled: true
+    host: ugi.lesicnik.eu
+    ip: 192.168.10.90
 
 upstream:
   primary: "94.140.14.49"
