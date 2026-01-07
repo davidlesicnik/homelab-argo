@@ -39,9 +39,9 @@ prometheus:
     retention: "90d"
     
     global:
-      scrape_interval: 15s
+      scrape_interval: 30s
       scrape_timeout: 10s
-      evaluation_interval: 15s
+      evaluation_interval: 30s
     
     extraSecretMounts:
       - name: hass-token
