@@ -19,7 +19,7 @@ internalServices:
     enabled: true
     host: pve.lesicnik.eu
     ip: 192.168.10.10
-    port: 443
+    port: 8006
 
 ingress:
   className: nginx
