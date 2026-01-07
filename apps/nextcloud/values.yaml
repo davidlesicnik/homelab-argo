@@ -6,10 +6,10 @@ nextcloud:
   resources:
     requests:
       cpu: 50m
-      memory: 512Mi
+      memory: 10Gi
     limits:
       cpu: 500m
-      memory: 1024Mi
+      memory: 2Gi
 
   persistence:
     storageClass: longhorn
