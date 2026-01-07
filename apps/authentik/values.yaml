@@ -1,10 +1,10 @@
 server:
   resources:
     requests:
-      cpu: 50m
+      cpu: 100m
       memory: 650Mi
     limits:
-      cpu: 250m
+      cpu: 500m
       memory: 1Gi
   ingress:
     enabled: true
