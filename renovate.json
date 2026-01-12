@@ -7,7 +7,7 @@
   ],
   "timezone": "Europe/Ljubljana",
   "schedule": [
-    "before 1am"
+    "at any time"
   ],
   "prConcurrentLimit": 3,
   "prHourlyLimit": 2,
