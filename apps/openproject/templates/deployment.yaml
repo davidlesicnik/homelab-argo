@@ -23,6 +23,8 @@ spec:
             - name: {{ $key }}
               value: {{ $value | quote }}
           {{- end }}
+            - name: OPENPROJECT_DATABASE_ADAPTER
+              value: "postgresql"
             - name: OPENPROJECT_DATABASE_HOST
               value: "openproject-postgres"
             - name: OPENPROJECT_DATABASE_PORT
