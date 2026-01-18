@@ -1,6 +1,6 @@
 image:
   repository: qmcgaw/ddns-updater
-  tag: latest
+  tag: v2.9.0
 
 resources:
   requests:

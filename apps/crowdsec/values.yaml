@@ -46,7 +46,7 @@ crowdsec:
 bouncer:
   image:
     repository: fbonalair/traefik-crowdsec-bouncer
-    tag: latest
+    tag: v0.5.0
   replicas: 1
 
   # Bouncer mode: can be 'stream' or 'live'
