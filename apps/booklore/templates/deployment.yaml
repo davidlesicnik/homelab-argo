@@ -5,6 +5,8 @@ metadata:
   labels:
     {{- include "booklore.labels" . | nindent 4 }}
 spec:
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       {{- include "booklore.selectorLabels" . | nindent 6 }}
