@@ -24,6 +24,21 @@ env:
   OPENPROJECT_HTTPS: "true"
   OPENPROJECT_DEFAULT__LANGUAGE: "en"
 
+postgres:
+  image: postgres:16
+  resources:
+    requests:
+      cpu: 10m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 256Mi
+  persistence:
+    size: 5Gi
+    storageClass: longhorn
+  user: openproject
+  database: openproject
+
 externalSecret:
   enabled: true
   refreshInterval: 1h
