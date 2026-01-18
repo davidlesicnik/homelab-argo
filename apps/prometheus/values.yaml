@@ -62,13 +62,13 @@ prometheus:
     enabled: false
 
   serverFiles:
-    # Override the entire prometheus.yml to prevent duplicate scrape configs
-    prometheus.yml:
-      global:
-        scrape_interval: 30s
-        scrape_timeout: 10s
-        evaluation_interval: 30s
+    # Completely override prometheus.yml - set empty defaults to prevent Helm chart merging
+    alerting_rules.yml: {}
+    recording_rules.yml: {}
+    rules: {}
+    alerts: {}
 
+    prometheus.yml:
       rule_files:
         - /etc/config/recording_rules.yml
         - /etc/config/alerting_rules.yml
