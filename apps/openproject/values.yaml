@@ -1,0 +1,54 @@
+replicaCount: 1
+
+strategy:
+  type: Recreate
+
+image:
+  repository: openproject/openproject
+  tag: 15-slim
+  pullPolicy: IfNotPresent
+
+containerPort: 8080
+restartPolicy: Always
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    cpu: 500m
+    memory: 2Gi
+
+env:
+  OPENPROJECT_HOST__NAME: "project.lesicnik.eu"
+  OPENPROJECT_HTTPS: "true"
+  OPENPROJECT_DEFAULT__LANGUAGE: "en"
+
+externalSecret:
+  enabled: true
+  refreshInterval: 1h
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  remoteRef:
+    key: secret/openproject
+  existingSecret: openproject-secrets
+
+pvc:
+  name: openproject-pvc
+  size: 20Gi
+  storageClassName: longhorn
+
+ingress:
+  enabled: true
+  hostname: project.lesicnik.eu
+  ingressClassName: nginx
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  tls:
+    enabled: true
+    secretName: project-lesicnik-eu-tls
