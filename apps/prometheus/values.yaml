@@ -60,9 +60,21 @@ prometheus:
     
   prometheus-pushgateway:
     enabled: false
-  
+
   serverFiles:
+    # Override the entire prometheus.yml to prevent duplicate scrape configs
     prometheus.yml:
+      global:
+        scrape_interval: 30s
+        scrape_timeout: 10s
+        evaluation_interval: 30s
+
+      rule_files:
+        - /etc/config/recording_rules.yml
+        - /etc/config/alerting_rules.yml
+        - /etc/config/rules
+        - /etc/config/alerts
+
       scrape_configs:
         - job_name: 'longhorn'
           kubernetes_sd_configs:
@@ -184,11 +196,16 @@ prometheus:
         - job_name: "hass"
           scrape_interval: 60s
           metrics_path: /api/prometheus
-          
+
           # Reference the token from the mounted secret file
           authorization:
             credentials_file: /etc/prometheus/secrets/homeassistant-token
-          
+
           scheme: https
           static_configs:
             - targets: ['ha.lesicnik.eu']
+
+        # Prometheus self-monitoring
+        - job_name: 'prometheus'
+          static_configs:
+            - targets: ['localhost:9090']

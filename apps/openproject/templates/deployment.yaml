@@ -23,8 +23,19 @@ spec:
             - name: {{ $key }}
               value: {{ $value | quote }}
           {{- end }}
-            - name: DATABASE_URL
-              value: "postgres://{{ .Values.postgres.user }}:$(POSTGRES_PASSWORD)@openproject-postgres:5432/{{ .Values.postgres.database }}"
+            - name: OPENPROJECT_DATABASE_HOST
+              value: "openproject-postgres"
+            - name: OPENPROJECT_DATABASE_PORT
+              value: "5432"
+            - name: OPENPROJECT_DATABASE_NAME
+              value: {{ .Values.postgres.database | quote }}
+            - name: OPENPROJECT_DATABASE_USERNAME
+              value: {{ .Values.postgres.user | quote }}
+            - name: OPENPROJECT_DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalSecret.existingSecret }}
+                  key: POSTGRES_PASSWORD
           envFrom:
             - secretRef:
                 name: {{ .Values.externalSecret.existingSecret }}
