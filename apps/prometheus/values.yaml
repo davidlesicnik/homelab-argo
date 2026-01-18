@@ -11,7 +11,7 @@ prometheus:
       size: 50Gi
       accessModes:
         - ReadWriteOnce
-    
+
     ingress:
       enabled: true
       ingressClassName: nginx
@@ -27,7 +27,7 @@ prometheus:
         - secretName: prometheus-lesicnik-eu-tls
           hosts:
             - prometheus.lesicnik.eu
-    
+
     resources:
       requests:
         cpu: 10m
@@ -35,34 +35,33 @@ prometheus:
       limits:
         cpu: 300m
         memory: 1024Mi
-    
+
     retention: "90d"
-    
+
     global:
       scrape_interval: 30s
       scrape_timeout: 10s
       evaluation_interval: 30s
-    
+
     extraSecretMounts:
       - name: hass-token
         secretName: prometheus-secret
         mountPath: /etc/prometheus/secrets
         readOnly: true
-    
+
   alertmanager:
     enabled: false
-    
+
   kube-state-metrics:
     enabled: true
-    
+
   prometheus-node-exporter:
     enabled: false
-    
+
   prometheus-pushgateway:
     enabled: false
 
   serverFiles:
-    # Completely override prometheus.yml - set empty defaults to prevent Helm chart merging
     alerting_rules.yml: {}
     recording_rules.yml: {}
     rules: {}
@@ -75,7 +74,12 @@ prometheus:
         - /etc/config/rules
         - /etc/config/alerts
 
+      # Custom scrape configs - replaces all Helm chart defaults
       scrape_configs:
+        - job_name: 'prometheus'
+          static_configs:
+            - targets: ['localhost:9090']
+
         - job_name: 'longhorn'
           kubernetes_sd_configs:
           - role: endpoints
@@ -93,6 +97,7 @@ prometheus:
             target_label: pod
           - source_labels: [__meta_kubernetes_namespace]
             target_label: namespace
+
         - job_name: 'kubernetes-apiservers'
           kubernetes_sd_configs:
             - role: endpointslice
@@ -192,20 +197,12 @@ prometheus:
             - source_labels: [__meta_kubernetes_service_name]
               action: replace
               target_label: kubernetes_name
-        
+
         - job_name: "hass"
           scrape_interval: 60s
           metrics_path: /api/prometheus
-
-          # Reference the token from the mounted secret file
           authorization:
             credentials_file: /etc/prometheus/secrets/homeassistant-token
-
           scheme: https
           static_configs:
             - targets: ['ha.lesicnik.eu']
-
-        # Prometheus self-monitoring
-        - job_name: 'prometheus'
-          static_configs:
-            - targets: ['localhost:9090']
