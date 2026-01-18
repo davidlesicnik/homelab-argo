@@ -14,6 +14,23 @@ spec:
       labels:
         app: {{ include "openproject.name" . }}
     spec:
+      initContainers:
+        - name: db-migrate
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          command: ["bundle", "exec", "rails", "db:migrate"]
+          env:
+          {{- range $key, $value := .Values.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+          {{- end }}
+            - name: DATABASE_URL
+              value: "postgresql://{{ .Values.postgres.user }}@openproject-postgres:5432/{{ .Values.postgres.database }}?password=$(POSTGRES_PASSWORD)"
+          envFrom:
+            - secretRef:
+                name: {{ .Values.externalSecret.existingSecret }}
+          volumeMounts:
+            - name: data
+              mountPath: /var/openproject/assets
       containers:
         - name: openproject
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
