@@ -93,15 +93,18 @@ spec:
               value: "preferred_username"
             - name: IDM_CREATE_DEMO_USERS
               value: "false"
-            # CSP settings to allow external IdP
-            - name: PROXY_CSP_CONNECT_SRC
-              value: "'self' https://sso.lesicnik.eu"
-            - name: PROXY_CSP_FRAME_SRC
-              value: "'self' https://sso.lesicnik.eu"
+            # CSP config file to allow external IdP
+            - name: PROXY_CSP_CONFIG_FILE_LOCATION
+              value: "/etc/ocis/csp.yaml"
             {{- end }}
           volumeMounts:
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
+            {{- if .Values.oidc.enabled }}
+            - name: csp-config
+              mountPath: /etc/ocis
+              readOnly: true
+            {{- end }}
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
@@ -125,3 +128,8 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: ocis-data
+        {{- if .Values.oidc.enabled }}
+        - name: csp-config
+          configMap:
+            name: ocis-csp-config
+        {{- end }}
