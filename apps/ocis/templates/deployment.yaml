@@ -81,6 +81,8 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.externalSecret.existingSecret }}
                   key: OIDC_CLIENT_ID
+            - name: WEB_OIDC_SCOPE
+              value: "openid profile email groups"
             - name: PROXY_OIDC_ISSUER
               value: {{ .Values.oidc.issuer | quote }}
             - name: PROXY_OIDC_REWRITE_WELLKNOWN
