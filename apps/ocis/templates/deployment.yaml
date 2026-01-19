@@ -81,11 +81,6 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.externalSecret.existingSecret }}
                   key: OIDC_CLIENT_ID
-            - name: OCIS_OIDC_CLIENT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.externalSecret.existingSecret }}
-                  key: OIDC_CLIENT_SECRET
             - name: PROXY_OIDC_ISSUER
               value: {{ .Values.oidc.issuer | quote }}
             - name: PROXY_OIDC_REWRITE_WELLKNOWN
