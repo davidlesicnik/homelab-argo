@@ -93,6 +93,11 @@ spec:
               value: "preferred_username"
             - name: IDM_CREATE_DEMO_USERS
               value: "false"
+            # CSP settings to allow external IdP
+            - name: PROXY_CSP_CONNECT_SRC
+              value: "'self' https://sso.lesicnik.eu"
+            - name: PROXY_CSP_FRAME_SRC
+              value: "'self' https://sso.lesicnik.eu"
             {{- end }}
           volumeMounts:
             - name: data
