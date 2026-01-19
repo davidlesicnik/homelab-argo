@@ -27,7 +27,7 @@ env:
 # Authentik OIDC SSO Configuration
 oidc:
   enabled: true
-  issuer: "https://sso.lesicnik.eu/application/o/ocis/"
+  issuer: "https://sso.lesicnik.eu/application/o/owncloud/"
   # clientId is stored in Vault as oidc_client_id
 
 containerPort: 9200
