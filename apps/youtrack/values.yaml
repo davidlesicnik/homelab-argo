@@ -2,7 +2,7 @@ youtrack:
   image:
     repository: jetbrains/youtrack
     pullPolicy: IfNotPresent
-    tag: 2025.3.114121
+    tag: 2025.3.116116
 
   podSecurityContext:
     fsGroup: 13001
