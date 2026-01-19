@@ -95,6 +95,10 @@ services:
     enabled: true
     host: ugi.lesicnik.eu
     ip: 192.168.10.90
+  track:
+    enabled: true
+    host: track.lesicnik.eu
+    ip: 192.168.10.90
 
 upstream:
   primary: "94.140.14.49"

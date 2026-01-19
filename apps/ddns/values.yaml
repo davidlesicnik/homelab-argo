@@ -26,7 +26,7 @@ ddns:
     - immich.lesicnik.eu
     - vpn.lesicnik.eu
     - beam.lesicnik.eu
-    - project.lesicnik.eu
+    - track.lesicnik.eu
 
 externalSecret:
   enabled: true
