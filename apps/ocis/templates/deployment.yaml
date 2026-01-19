@@ -16,6 +16,29 @@ spec:
       labels:
         app: ocis
     spec:
+      initContainers:
+        - name: ocis-init
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - |
+              if [ ! -f {{ .Values.persistence.mountPath }}/config/ocis.yaml ]; then
+                mkdir -p {{ .Values.persistence.mountPath }}/config
+                ocis init --config-path {{ .Values.persistence.mountPath }}/config
+              fi
+          env:
+            - name: OCIS_URL
+              value: {{ .Values.env.OCIS_URL | quote }}
+            - name: IDM_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalSecret.existingSecret }}
+                  key: IDM_ADMIN_PASSWORD
+          volumeMounts:
+            - name: data
+              mountPath: {{ .Values.persistence.mountPath }}
       containers:
         - name: ocis
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -34,26 +57,15 @@ spec:
               value: {{ .Values.env.PROXY_TLS | quote }}
             - name: OCIS_INSECURE
               value: {{ .Values.env.OCIS_INSECURE | quote }}
+            - name: OCIS_CONFIG_DIR
+              value: {{ .Values.persistence.mountPath }}/config
+            - name: OCIS_BASE_DATA_PATH
+              value: {{ .Values.persistence.mountPath }}
             - name: IDM_ADMIN_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.externalSecret.existingSecret }}
                   key: IDM_ADMIN_PASSWORD
-            - name: OCIS_JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.externalSecret.existingSecret }}
-                  key: OCIS_JWT_SECRET
-            - name: OCIS_TRANSFER_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.externalSecret.existingSecret }}
-                  key: OCIS_TRANSFER_SECRET
-            - name: OCIS_MACHINE_AUTH_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.externalSecret.existingSecret }}
-                  key: OCIS_MACHINE_AUTH_API_KEY
           volumeMounts:
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
