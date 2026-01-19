@@ -33,7 +33,8 @@ spec:
               fi
               # Add OIDC role mapping if not present
               if ! grep -q "role_assignment:" "$CONFIG_FILE"; then
-                sed -i '/^proxy:/a\  role_assignment:\n    driver: oidc\n    oidc_role_mapper:\n      role_claim: groups\n      role_mapping:\n        - role_name: admin\n          claim_value: authentik Admins\n        - role_name: user\n          claim_value: ".*"' "$CONFIG_FILE"
+                awk '/^proxy:/{print; print "  role_assignment:"; print "    driver: oidc"; print "    oidc_role_mapper:"; print "      role_claim: groups"; print "      role_mapping:"; print "        - role_name: admin"; print "          claim_value: authentik Admins"; print "        - role_name: user"; print "          claim_value: \".*\""; next}1' "$CONFIG_FILE" > /tmp/ocis.yaml.new
+                cp /tmp/ocis.yaml.new "$CONFIG_FILE"
               fi
           env:
             - name: OCIS_URL
@@ -100,11 +101,6 @@ spec:
               value: "preferred_username"
             - name: IDM_CREATE_DEMO_USERS
               value: "false"
-            # Role assignment from OIDC groups claim
-            - name: PROXY_ROLE_ASSIGNMENT_DRIVER
-              value: "oidc"
-            - name: PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM
-              value: "groups"
             # CSP config file to allow external IdP
             - name: PROXY_CSP_CONFIG_FILE_LOCATION
               value: "/etc/ocis/csp.yaml"
@@ -113,10 +109,6 @@ spec:
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
             {{- if .Values.oidc.enabled }}
-            - name: proxy-config
-              mountPath: /etc/ocis/proxy.yaml
-              subPath: proxy.yaml
-              readOnly: true
             - name: csp-config
               mountPath: /etc/ocis/csp.yaml
               subPath: csp.yaml
@@ -146,9 +138,6 @@ spec:
           persistentVolumeClaim:
             claimName: ocis-data
         {{- if .Values.oidc.enabled }}
-        - name: proxy-config
-          configMap:
-            name: ocis-proxy-config
         - name: csp-config
           configMap:
             name: ocis-csp-config
