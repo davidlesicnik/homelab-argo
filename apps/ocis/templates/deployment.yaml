@@ -16,6 +16,8 @@ spec:
       labels:
         app: ocis
     spec:
+      securityContext:
+        fsGroup: 1000
       initContainers:
         - name: ocis-init
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
