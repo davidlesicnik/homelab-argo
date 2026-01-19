@@ -27,6 +27,7 @@ ddns:
     - vpn.lesicnik.eu
     - beam.lesicnik.eu
     - track.lesicnik.eu
+    - cloud.lesicnik.eu
 
 externalSecret:
   enabled: true
