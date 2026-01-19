@@ -26,9 +26,14 @@ spec:
             - /bin/sh
             - -c
             - |
-              if [ ! -f {{ .Values.persistence.mountPath }}/config/ocis.yaml ]; then
+              CONFIG_FILE="{{ .Values.persistence.mountPath }}/config/ocis.yaml"
+              if [ ! -f "$CONFIG_FILE" ]; then
                 mkdir -p {{ .Values.persistence.mountPath }}/config
                 ocis init --config-path {{ .Values.persistence.mountPath }}/config --insecure no
+              fi
+              # Add OIDC role mapping if not present
+              if ! grep -q "role_assignment:" "$CONFIG_FILE"; then
+                sed -i '/^proxy:/a\  role_assignment:\n    driver: oidc\n    oidc_role_mapper:\n      role_claim: groups\n      role_mapping:\n        - role_name: admin\n          claim_value: authentik Admins\n        - role_name: user\n          claim_value: ".*"' "$CONFIG_FILE"
               fi
           env:
             - name: OCIS_URL
@@ -95,9 +100,11 @@ spec:
               value: "preferred_username"
             - name: IDM_CREATE_DEMO_USERS
               value: "false"
-            # Role assignment via config file
-            - name: PROXY_CONFIG_FILE
-              value: "/etc/ocis/proxy.yaml"
+            # Role assignment from OIDC groups claim
+            - name: PROXY_ROLE_ASSIGNMENT_DRIVER
+              value: "oidc"
+            - name: PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM
+              value: "groups"
             # CSP config file to allow external IdP
             - name: PROXY_CSP_CONFIG_FILE_LOCATION
               value: "/etc/ocis/csp.yaml"
