@@ -1,0 +1,84 @@
+image:
+  repository: jetbrains/youtrack
+  pullPolicy: IfNotPresent
+  tag: 2025.3.114121
+
+podSecurityContext:
+  fsGroup: 13001
+
+securityContext:
+  runAsNonRoot: true
+  runAsGroup: 13001
+  runAsUser: 13001
+  privileged: false
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: false
+  capabilities:
+    drop:
+    - ALL
+  seccompProfile:
+    type: RuntimeDefault
+
+resources:
+  requests:
+    cpu: 300m
+    memory: 2000Mi
+  limits:
+    cpu: 500m
+    memory: 4096Mi
+
+persistence:
+  data:
+    name: youtrack-data
+    storageClassName: longhorn
+    storageSize: 50Gi
+    accessModes:
+      - ReadWriteOnce
+
+  logs:
+    name: youtrack-logs
+    storageClassName: longhorn
+    storageSize: 5Gi
+    accessModes:
+      - ReadWriteOnce
+
+  conf:
+    name: youtrack-config
+    storageClassName: longhorn
+    storageSize: 1Gi
+    accessModes:
+      - ReadWriteOnce
+
+  backups:
+    backupType: volumeStorage
+    name: youtrack-backup
+
+    volumeStorage:
+      storageClassName: longhorn
+      storageSize: 50Gi
+      accessModes:
+        - ReadWriteOnce
+
+config:
+  name: configmap
+  baseUrl: "https://track.lesicnik.eu"
+  youtrackDisableCheckForUpdate: true
+  statisticsUpload: false
+  xmx: 2048m
+  metaspaceSize: 350m
+  maxMetaspaceSize: 350m
+
+service:
+  enabled: true
+  name: http
+  port: 8080
+  protocol: TCP
+
+ingress:
+  enabled: true
+  name: youtrack-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
