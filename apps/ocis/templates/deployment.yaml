@@ -95,9 +95,13 @@ spec:
               value: "preferred_username"
             - name: IDM_CREATE_DEMO_USERS
               value: "false"
-            # Role assignment - default gives all users 'user' role
+            # Role assignment from OIDC groups claim
             - name: PROXY_ROLE_ASSIGNMENT_DRIVER
-              value: "default"
+              value: "oidc"
+            - name: PROXY_ROLE_ASSIGNMENT_OIDC_CLAIM
+              value: "groups"
+            - name: PROXY_ROLE_MAPPING
+              value: "authentik Admins:admin"
             # CSP config file to allow external IdP
             - name: PROXY_CSP_CONFIG_FILE_LOCATION
               value: "/etc/ocis/csp.yaml"
