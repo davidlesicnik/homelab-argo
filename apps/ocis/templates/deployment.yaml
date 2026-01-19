@@ -93,6 +93,9 @@ spec:
               value: "preferred_username"
             - name: IDM_CREATE_DEMO_USERS
               value: "false"
+            # Temporarily enable basic auth to allow admin login
+            - name: PROXY_ENABLE_BASIC_AUTH
+              value: "true"
             # CSP config file to allow external IdP
             - name: PROXY_CSP_CONFIG_FILE_LOCATION
               value: "/etc/ocis/csp.yaml"
