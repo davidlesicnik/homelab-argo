@@ -24,6 +24,12 @@ env:
   PROXY_TLS: "false"
   OCIS_INSECURE: "false"
 
+# Authentik OIDC SSO Configuration
+oidc:
+  enabled: true
+  issuer: "https://sso.lesicnik.eu/application/o/ocis/"
+  # clientId is stored in Vault as oidc_client_id
+
 containerPort: 9200
 
 externalSecret:

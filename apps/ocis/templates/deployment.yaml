@@ -68,6 +68,26 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.externalSecret.existingSecret }}
                   key: IDM_ADMIN_PASSWORD
+            {{- if .Values.oidc.enabled }}
+            # OIDC/SSO Configuration
+            - name: OCIS_OIDC_ISSUER
+              value: {{ .Values.oidc.issuer | quote }}
+            - name: WEB_OIDC_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.externalSecret.existingSecret }}
+                  key: OIDC_CLIENT_ID
+            - name: PROXY_OIDC_REWRITE_WELLKNOWN
+              value: "true"
+            - name: PROXY_OIDC_ACCESS_TOKEN_VERIFY_METHOD
+              value: "none"
+            - name: PROXY_AUTOPROVISION_ACCOUNTS
+              value: "true"
+            - name: PROXY_USER_OIDC_CLAIM
+              value: "preferred_username"
+            - name: IDM_CREATE_DEMO_USERS
+              value: "false"
+            {{- end }}
           volumeMounts:
             - name: data
               mountPath: {{ .Values.persistence.mountPath }}
