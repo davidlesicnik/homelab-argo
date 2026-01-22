@@ -1,0 +1,15 @@
+{{- if .Values.crowdsec.middleware.enabled }}
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: {{ .Values.crowdsec.middleware.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  plugin:
+    crowdsec-bouncer:
+      crowdsecMode: {{ .Values.crowdsec.mode | quote }}
+      crowdsecLapiScheme: {{ .Values.crowdsec.lapi.scheme | quote }}
+      crowdsecLapiHost: {{ .Values.crowdsec.lapi.host | quote }}
+      crowdsecLapiPath: {{ .Values.crowdsec.lapi.path | quote }}
+      crowdsecLapiKeyFile: {{ .Values.crowdsec.lapi.keyFile | quote }}
+{{- end }}

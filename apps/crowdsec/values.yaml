@@ -42,61 +42,9 @@ crowdsec:
         cpu: 500m
         memory: 512Mi
 
-# CrowdSec Traefik Bouncer Configuration
-bouncer:
-  image:
-    repository: fbonalair/traefik-crowdsec-bouncer
-    tag: v0.5.0
-  replicas: 1
-
-  # Bouncer mode: can be 'stream' or 'live'
-  # stream: maintains streaming connection to LAPI
-  # live: queries LAPI for each decision
-  mode: stream
-
-  # Port the bouncer API listens on
-  port: 8080
-
-  # Update frequency for bouncer decisions (in seconds)
-  updateIntervalSeconds: 60
-
-  # Default decision if CrowdSec is unreachable
-  # Can be 'allow' or 'deny'
-  defaultDecision: allow
-
-  # Resources
-  resources:
-    requests:
-      cpu: 50m
-      memory: 64Mi
-    limits:
-      cpu: 200m
-      memory: 256Mi
-
-# Traefik Middleware configuration
-middleware:
-  enabled: true
-  # The middleware will be named 'crowdsec' in the crowdsec namespace
-  name: crowdsec
-
-  # Custom ban page (optional)
-  banPage:
-    enabled: false
-    html: |
-      <!DOCTYPE html>
-      <html>
-      <head><title>Access Denied</title></head>
-      <body><h1>Access Denied</h1><p>Your IP has been blocked due to suspicious activity.</p></body>
-      </html>
-
 # Service configuration
 service:
   # LAPI service
   lapi:
-    type: ClusterIP
-    port: 8080
-
-  # Bouncer service
-  bouncer:
     type: ClusterIP
     port: 8080

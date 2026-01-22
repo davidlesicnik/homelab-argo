@@ -1,0 +1,10 @@
+apiVersion: v2
+name: traefik
+description: Traefik gateway stack (chart + gateway resources + wildcard TLS certificate)
+type: application
+version: 1.0.0
+
+dependencies:
+  - name: traefik
+    version: 37.3.0
+    repository: https://traefik.github.io/charts
