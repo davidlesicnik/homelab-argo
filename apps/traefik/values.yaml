@@ -67,18 +67,12 @@ traefik:
   logs:
     access:
       enabled: true
-      filePath: /var/log/traefik/access.log
 
   ports:
     web:
       port: 80
     websecure:
       port: 443
-
-  persistence:
-    enabled: true
-    existingClaim: traefik
-    path: /var/log/traefik
 
   additionalArguments:
     - "--entrypoints.web.http.middlewares=crowdsec-bouncer@kubernetescrd"

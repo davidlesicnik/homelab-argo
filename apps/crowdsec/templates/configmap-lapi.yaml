@@ -9,10 +9,10 @@ metadata:
 data:
   acquis.yaml: |
     ---
-    # Read Traefik access logs from shared volume
-    # Note: Traefik must be configured to write logs to /var/log/traefik/access.log
-    filenames:
-      - /var/log/traefik/access.log
+    # Read Traefik access logs from the Kubernetes API (stdout)
+    source: kubernetes
+    pod_name_regexp: "traefik.*"
+    namespace: traefik
     labels:
       type: traefik
 
