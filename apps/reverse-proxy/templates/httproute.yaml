@@ -1,0 +1,59 @@
+{{- $gatewayName := default "traefik-gateway" .Values.gateway.name }}
+{{- $gatewayNamespace := default "traefik" .Values.gateway.namespace }}
+{{- $sectionName := .Values.gateway.sectionName }}
+{{- range $name, $config := .Values.services }}
+{{- if $config.enabled }}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ $name }}-external
+  namespace: {{ $.Release.Namespace }}
+spec:
+  parentRefs:
+    - name: {{ $gatewayName }}
+      namespace: {{ $gatewayNamespace }}
+      {{- if $sectionName }}
+      sectionName: {{ $sectionName }}
+      {{- end }}
+  hostnames:
+    - {{ $config.host | quote }}
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: {{ default "/" $config.path | quote }}
+      backendRefs:
+        - group: traefik.io
+          kind: TraefikService
+          name: {{ $name }}-external-ts
+{{- end }}
+{{- end }}
+{{- range $name, $config := .Values.internalServices }}
+{{- if $config.enabled }}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: {{ $name }}-local
+  namespace: {{ $.Release.Namespace }}
+spec:
+  parentRefs:
+    - name: {{ $gatewayName }}
+      namespace: {{ $gatewayNamespace }}
+      {{- if $sectionName }}
+      sectionName: {{ $sectionName }}
+      {{- end }}
+  hostnames:
+    - {{ $config.host | quote }}
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: {{ default "/" $config.path | quote }}
+      backendRefs:
+        - group: traefik.io
+          kind: TraefikService
+          name: {{ $name }}-local-ts
+{{- end }}
+{{- end }}

@@ -83,25 +83,17 @@ services:
     enabled: true
     host: kiosk.lesicnik.eu
     ip: 192.168.10.90
-  ha:
-    enabled: true
-    host: ha.lesicnik.eu
-    ip: 192.168.10.90
   pve:
     enabled: true
     host: pve.lesicnik.eu
-    ip: 192.168.10.90
+    ip: 192.168.10.94
   ugi:
     enabled: true
     host: ugi.lesicnik.eu
-    ip: 192.168.10.90
+    ip: 192.168.10.94
   track:
     enabled: true
     host: track.lesicnik.eu
-    ip: 192.168.10.90
-  cloud:
-    enabled: true
-    host: cloud.lesicnik.eu
     ip: 192.168.10.90
 
 upstream:

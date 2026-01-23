@@ -1,9 +1,14 @@
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+
 services:
   homeassistant:
     enabled: true
     host: ha.lesicnik.eu
     ip: 192.168.10.8
     port: 8123
+    scheme: http
 
 internalServices:
   ugi:
@@ -11,20 +16,13 @@ internalServices:
     host: ugi.lesicnik.eu
     ip: 192.168.10.9
     port: 9443
-    annotations:
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      nginx.ingress.kubernetes.io/proxy-ssl-verify: "false"
+    scheme: https
+    insecureSkipVerify: true
 
   pve:
     enabled: true
     host: pve.lesicnik.eu
     ip: 192.168.10.10
     port: 8006
-
-ingress:
-  className: nginx
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-  tls:
-    enabled: true
-    secretName: reverse-proxy-tls
+    scheme: https
+    insecureSkipVerify: true

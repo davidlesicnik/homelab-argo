@@ -1,0 +1,42 @@
+{{- range $name, $config := .Values.services }}
+{{- if $config.enabled }}
+{{- $transportNeeded := or $config.insecureSkipVerify $config.serverName }}
+---
+apiVersion: traefik.io/v1alpha1
+kind: TraefikService
+metadata:
+  name: {{ $name }}-external-ts
+  namespace: {{ $.Release.Namespace }}
+spec:
+  weighted:
+    services:
+      - name: {{ $name }}-external
+        kind: Service
+        port: {{ $config.port }}
+        scheme: {{ default "http" $config.scheme | quote }}
+        {{- if $transportNeeded }}
+        serversTransport: {{ $name }}-external-transport
+        {{- end }}
+{{- end }}
+{{- end }}
+{{- range $name, $config := .Values.internalServices }}
+{{- if $config.enabled }}
+{{- $transportNeeded := or $config.insecureSkipVerify $config.serverName }}
+---
+apiVersion: traefik.io/v1alpha1
+kind: TraefikService
+metadata:
+  name: {{ $name }}-local-ts
+  namespace: {{ $.Release.Namespace }}
+spec:
+  weighted:
+    services:
+      - name: {{ $name }}-local
+        kind: Service
+        port: {{ $config.port }}
+        scheme: {{ default "http" $config.scheme | quote }}
+        {{- if $transportNeeded }}
+        serversTransport: {{ $name }}-local-transport
+        {{- end }}
+{{- end }}
+{{- end }}
