@@ -122,6 +122,9 @@ traefik:
             mountPath: /etc/crowdsec/collections
             subPath: collections
           - name: crowdsec-data
+            mountPath: /etc/crowdsec/contexts
+            subPath: contexts
+          - name: crowdsec-data
             mountPath: /etc/crowdsec/parsers
             subPath: parsers
           - name: crowdsec-data
@@ -184,6 +187,9 @@ traefik:
           - name: crowdsec-data
             mountPath: /etc/crowdsec/collections
             subPath: collections
+          - name: crowdsec-data
+            mountPath: /etc/crowdsec/contexts
+            subPath: contexts
           - name: crowdsec-data
             mountPath: /etc/crowdsec/parsers
             subPath: parsers
