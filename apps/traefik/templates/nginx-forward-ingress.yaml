@@ -1,5 +1,6 @@
 {{- if .Values.nginxForward.enabled }}
-{{- $hosts := .Values.nginxForward.hosts | default (list .Values.nginxForward.host) }}
+{{- $root := . }}
+{{- $hosts := $root.Values.nginxForward.hosts | default (list $root.Values.nginxForward.host) }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -28,8 +29,8 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ .Values.nginxForward.service.name | quote }}
+                name: {{ $root.Values.nginxForward.service.name | quote }}
                 port:
-                  number: {{ .Values.nginxForward.service.port }}
+                  number: {{ $root.Values.nginxForward.service.port }}
     {{- end }}
 {{- end }}
