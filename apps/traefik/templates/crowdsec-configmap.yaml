@@ -2,23 +2,20 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: crowdsec-lapi-config
-  namespace: crowdsec
+  namespace: {{ .Release.Namespace }}
   labels:
     app.kubernetes.io/name: crowdsec
     app.kubernetes.io/component: lapi
 data:
   acquis.yaml: |
     ---
-    # Read Traefik access logs from the Kubernetes API (stdout)
-    source: kubernetes
-    pod_name_regexp: "traefik.*"
-    namespace: traefik
+    filenames:
+      - /var/log/traefik/access.log
     labels:
       type: traefik
 
   profiles.yaml: |
     ---
-    # Profile for banning IPs
     name: default_ip_remediation
     filters:
      - Alert.Remediation == true && Alert.GetScope() == "Ip"
@@ -29,11 +26,8 @@ data:
 
   simulation.yaml: |
     ---
-    # Simulation mode configuration
-    # Set to true to enable simulation mode (no actual bans)
     simulation: false
 
-  # Empty patterns file - actual patterns come from hub installations
   init-patterns: |
     # Placeholder - patterns are loaded from hub
 
