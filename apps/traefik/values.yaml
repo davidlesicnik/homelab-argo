@@ -33,7 +33,7 @@ crowdsec:
   mode: stream
   lapi:
     scheme: http
-    host: 127.0.0.1:8080
+    host: 127.0.0.1:8081
     path: /
     keyFile: /etc/crowdsec/api-key
   persistence:
@@ -155,10 +155,10 @@ traefik:
           - name: DISABLE_ONLINE_API
             value: "false"
           - name: LOCAL_API_URL
-            value: "http://127.0.0.1:8080"
+            value: "http://127.0.0.1:8081"
         ports:
           - name: lapi
-            containerPort: 8080
+            containerPort: 8081
         resources:
           requests:
             cpu: 100m
