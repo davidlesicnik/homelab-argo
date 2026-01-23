@@ -182,17 +182,21 @@ spec:
             - name: crowdsec-data
               mountPath: /etc/crowdsec/patterns
               subPath: patterns
+            {{- if .Values.crowdsec.traefik.useLogFile }}
             - name: traefik-logs
               mountPath: /var/log/traefik
               readOnly: true
+            {{- end }}
       volumes:
         - name: crowdsec-config-files
           configMap:
             name: crowdsec-lapi-config
+        {{- if .Values.crowdsec.traefik.useLogFile }}
         - name: traefik-logs
           persistentVolumeClaim:
             claimName: traefik-logs
             readOnly: true
+        {{- end }}
         - name: crowdsec-data
           {{- if .Values.crowdsec.persistence.enabled }}
           persistentVolumeClaim:
