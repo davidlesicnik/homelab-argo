@@ -11,7 +11,8 @@ metadata:
     chart: {{ $.Chart.Name }}
 spec:
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: {{ $config.port }}
     targetPort: {{ $config.port }}
 {{- end }}
@@ -30,7 +31,8 @@ metadata:
     type: internal
 spec:
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: {{ $config.port }}
     targetPort: {{ $config.port }}
 {{- end }}
