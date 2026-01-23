@@ -66,7 +66,7 @@ data:
         credentials_path: /var/lib/crowdsec/data/local_api_credentials.yaml
       server:
         log_level: info
-        listen_uri: 0.0.0.0:8081
+        listen_uri: 0.0.0.0:8080
         profiles_path: /etc/crowdsec/profiles.yaml
         online_client:
           credentials_path: /var/lib/crowdsec/data/online_api_credentials.yaml
