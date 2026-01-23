@@ -109,6 +109,7 @@ traefik:
               touch /etc/crowdsec/patterns/.installed
             fi
             touch /var/lib/crowdsec/data/online_api_credentials.yaml
+            touch /var/lib/crowdsec/data/console.yaml
         volumeMounts:
           - name: crowdsec-data
             mountPath: /var/lib/crowdsec/data
@@ -121,6 +122,9 @@ traefik:
           - name: crowdsec-data
             mountPath: /etc/crowdsec/collections
             subPath: collections
+          - name: crowdsec-data
+            mountPath: /etc/crowdsec/console.yaml
+            subPath: console.yaml
           - name: crowdsec-data
             mountPath: /etc/crowdsec/contexts
             subPath: contexts
@@ -187,6 +191,9 @@ traefik:
           - name: crowdsec-data
             mountPath: /etc/crowdsec/collections
             subPath: collections
+          - name: crowdsec-data
+            mountPath: /etc/crowdsec/console.yaml
+            subPath: console.yaml
           - name: crowdsec-data
             mountPath: /etc/crowdsec/contexts
             subPath: contexts
