@@ -1,0 +1,30 @@
+{{- if .Values.nginxForward.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: traefik-nginx-forward
+  namespace: {{ .Release.Namespace }}
+  {{- with .Values.nginxForward.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  ingressClassName: {{ .Values.nginxForward.ingressClassName | default "nginx" | quote }}
+  {{- if .Values.nginxForward.tls.enabled }}
+  tls:
+    - hosts:
+        - {{ .Values.nginxForward.host | quote }}
+      secretName: {{ .Values.nginxForward.tls.secretName | quote }}
+  {{- end }}
+  rules:
+    - host: {{ .Values.nginxForward.host | quote }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.nginxForward.service.name | quote }}
+                port:
+                  number: {{ .Values.nginxForward.service.port }}
+{{- end }}

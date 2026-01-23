@@ -26,6 +26,20 @@ gateway:
       tls:
         secretName: default-tls-cert
 
+nginxForward:
+  enabled: true
+  host: ha.lesicnik.eu
+  ingressClassName: nginx
+  service:
+    name: traefik
+    port: 80
+  tls:
+    enabled: true
+    secretName: default-tls-cert
+  annotations:
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
+
 crowdsec:
   middleware:
     enabled: true
