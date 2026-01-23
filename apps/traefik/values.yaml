@@ -60,6 +60,7 @@ traefik:
       enabled: false
     kubernetesCRD:
       enabled: true
+      allowCrossNamespace: true
 
   gateway:
     enabled: false
@@ -230,8 +231,8 @@ traefik:
       exposedPort: 8082
 
   additionalArguments:
-    - "--entrypoints.web.http.middlewares=crowdsec-bouncer@kubernetescrd"
-    - "--entrypoints.websecure.http.middlewares=crowdsec-bouncer@kubernetescrd"
+    - "--entrypoints.web.http.middlewares=traefik-crowdsec-bouncer@kubernetescrd"
+    - "--entrypoints.websecure.http.middlewares=traefik-crowdsec-bouncer@kubernetescrd"
 
   volumes:
     - name: crowdsec-bouncer-api-key
