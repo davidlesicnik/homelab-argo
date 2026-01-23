@@ -22,6 +22,14 @@ spec:
         - path:
             type: PathPrefix
             value: {{ $path | quote }}
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Access-Control-Allow-Origin
+                value: "*"
+              - name: Cross-Origin-Resource-Policy
+                value: "cross-origin"
       backendRefs:
         - name: {{ .Values.youtrack.service.name }}
           kind: Service
