@@ -30,6 +30,7 @@ nginxForward:
   enabled: true
   hosts:
     - ha.lesicnik.eu
+    - grafana.lesicnik.eu
     - track.lesicnik.eu
   ingressClassName: nginx
   service:

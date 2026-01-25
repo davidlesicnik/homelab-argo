@@ -27,19 +27,7 @@ grafana:
     accessModes:
       - ReadWriteOnce
   ingress:
-    enabled: true
-    ingressClassName: nginx
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    hosts:
-      - grafana.lesicnik.eu
-    path: /
-    pathType: Prefix
-    tls:
-      - secretName: grafana-lesicnik-eu-tls
-        hosts:
-          - grafana.lesicnik.eu
+    enabled: false
   admin:
     existingSecret: grafana-admin-secret
     userKey: admin-user
@@ -107,3 +95,14 @@ grafana:
     limits:
       cpu: 250m
       memory: 512Mi
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: grafana.lesicnik.eu
+  path: /
