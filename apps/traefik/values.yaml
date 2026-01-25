@@ -69,6 +69,7 @@ traefik:
       enabled: true
       matchRule: Host(`traefik.lesicnik.eu`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       entryPoints:
+        - web
         - websecure
       tls:
         secretName: default-tls-cert
