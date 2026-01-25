@@ -125,6 +125,8 @@ traefik:
             cscli collections install crowdsecurity/base-http-scenarios --force
             echo "Installing parser: crowdsecurity/traefik-logs"
             cscli parsers install crowdsecurity/traefik-logs --force
+            echo "Installing parser: crowdsecurity/syslog-logs"
+            cscli parsers install crowdsecurity/syslog-logs --force
             if [ ! -f /etc/crowdsec/patterns/.installed ]; then
               echo "Copying base patterns..."
               cp -r /staging/etc/crowdsec/patterns/* /etc/crowdsec/patterns/ 2>/dev/null || true
