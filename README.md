@@ -14,8 +14,7 @@ All applications and services are deployed declaratively through ArgoCD, enablin
 ### IP Allocations
 | IP Address      | Service                                    |
 |-----------------|-------------------------------------------|
-| 192.168.10.90   | Ingress NGINX Controller (Primary)        |
+| 192.168.10.90   | Traefik (Gateway)                         |
 | 192.168.10.91   | DNS Server                                |
 | 192.168.10.92   | WireGuard VPN (wg-easy)                   |
 | 192.168.10.93   | qBittorrent                               |
-| 192.168.10.94   | Traefik (WIP)                             |
