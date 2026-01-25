@@ -86,6 +86,11 @@ traefik:
       enabled: true
       filePath: /var/log/traefik/access.log
       format: json
+      fields:
+        headers:
+          defaultmode: drop
+          names:
+            User-Agent: keep
 
   deployment:
     additionalVolumes:
