@@ -85,6 +85,7 @@ traefik:
     access:
       enabled: true
       filePath: /var/log/traefik/access.log
+      format: json
 
   deployment:
     additionalVolumes:
