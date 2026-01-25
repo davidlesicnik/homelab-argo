@@ -13,7 +13,7 @@ service:
   port: 8989
 
 ingress:
-  enabled: true
+  enabled: false
   hostname: sonarr.lesicnik.eu
   ingressClassName: nginx
   annotations:
@@ -23,6 +23,17 @@ ingress:
   tls:
     enabled: true
     secretName: sonarr-lesicnik-eu-tls
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: sonarr.lesicnik.eu
+  path: /
 
 # PVC for Sonarr config
 pvc:

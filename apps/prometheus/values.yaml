@@ -13,7 +13,7 @@ prometheus:
         - ReadWriteOnce
 
     ingress:
-      enabled: true
+      enabled: false
       ingressClassName: nginx
       annotations:
         cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -102,3 +102,14 @@ prometheus:
           scheme: https
           static_configs:
             - targets: ['ha.lesicnik.eu']
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: prometheus.lesicnik.eu
+  path: /

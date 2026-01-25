@@ -44,7 +44,7 @@ service:
   port: 6060
 
 ingress:
-  enabled: true
+  enabled: false
   className: nginx
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -60,6 +60,17 @@ ingress:
     - secretName: books-lesicnik-eu-tls
       hosts:
         - books.lesicnik.eu
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: books.lesicnik.eu
+  path: /
 
 resources:
   requests:

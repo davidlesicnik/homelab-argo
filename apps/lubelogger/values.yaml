@@ -8,7 +8,7 @@ image:
   pullPolicy: IfNotPresent
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   annotations:
     kubernetes.io/ingress.class: nginx
@@ -27,6 +27,17 @@ ingress:
     - secretName: fuel-lesicnik-eu-tls
       hosts:
         - fuel.lesicnik.eu
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: fuel.lesicnik.eu
+  path: /
 
 env:
   LANG: "en_US"

@@ -16,7 +16,7 @@ service:
   vpnPortProtocol: UDP
 
 ingress:
-  enabled: true
+  enabled: false
   hostname: wireguard.lesicnik.eu
   ingressClassName: nginx
   annotations:
@@ -25,6 +25,17 @@ ingress:
   tls:
     enabled: true
     secretName: wireguard-lesicnik-eu-tls
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: wireguard.lesicnik.eu
+  path: /
 
 # PVC for WireGuard config
 pvc:

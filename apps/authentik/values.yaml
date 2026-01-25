@@ -7,7 +7,7 @@ server:
       cpu: 1000m
       memory: 1Gi
   ingress:
-    enabled: true
+    enabled: false
     hostname: sso.lesicnik.eu
     ingressClassName: nginx
     annotations:
@@ -49,3 +49,14 @@ redis:
     limits:
       cpu: 100m
       memory: 50Mi
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: sso.lesicnik.eu
+  path: /

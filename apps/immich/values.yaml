@@ -28,7 +28,7 @@ service:
   port: 2283
 
 ingress:
-  enabled: true
+  enabled: false
   className: "nginx"
   hostname: photos.lesicnik.eu
   annotations:
@@ -40,6 +40,17 @@ ingress:
   tls:
     enabled: true
     secretName: immich-tls
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: photos.lesicnik.eu
+  path: /
 
 # Main storage for photos/videos
 persistence:
@@ -126,7 +137,7 @@ kiosk:
   service:
     port: 3000
   ingress:
-    enabled: true
+    enabled: false
     className: "nginx"
     hostname: kiosk.lesicnik.eu
     annotations:
@@ -135,6 +146,10 @@ kiosk:
     tls:
       enabled: true
       secretName: immich-kiosk-tls
+  route:
+    enabled: true
+    hostname: kiosk.lesicnik.eu
+    path: /
   # Kiosk display settings
   album: "b763a854-58fb-4cbb-9d7f-808c22a0421e"
   duration: "600"  # 10 minutes per image (in seconds)

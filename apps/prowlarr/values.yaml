@@ -13,7 +13,7 @@ service:
   port: 9696
 
 ingress:
-  enabled: true
+  enabled: false
   hostname: prowlarr.lesicnik.eu
   ingressClassName: nginx
   annotations:
@@ -23,6 +23,17 @@ ingress:
   tls:
     enabled: true
     secretName: prowlarr-lesicnik-eu-tls
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: prowlarr.lesicnik.eu
+  path: /
 
 # PVC for Prowlarr config
 pvc:

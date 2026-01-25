@@ -17,7 +17,7 @@ service:
   torrentPortUDP: true
 
 ingress:
-  enabled: true
+  enabled: false
   hostname: torrent.lesicnik.eu
   ingressClassName: nginx
   annotations:
@@ -27,6 +27,17 @@ ingress:
   tls:
     enabled: true
     secretName: torrent-lesicnik-eu-tls
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: torrent.lesicnik.eu
+  path: /
 
 # PVC for qBittorrent config
 pvc:

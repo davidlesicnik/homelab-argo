@@ -11,8 +11,19 @@ resources:
     memory: 32Mi
 
 ingress:
-  enabled: true
+  enabled: false
   host: ddns.lesicnik.eu
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: ddns.lesicnik.eu
+  path: /
 
 ddns:
   zoneIdentifier: "07492488333c2516382af2a54f294d56"

@@ -13,7 +13,7 @@ service:
   port: 8181
 
 ingress:
-  enabled: true
+  enabled: false
   hostname: tautulli.lesicnik.eu
   ingressClassName: nginx
   annotations:
@@ -23,6 +23,17 @@ ingress:
   tls:
     enabled: true
     secretName: tautulli-lesicnik-eu-tls
+
+gateway:
+  name: traefik-gateway
+  namespace: traefik
+  httpSectionName: http
+  httpsSectionName: https
+
+route:
+  enabled: true
+  hostname: tautulli.lesicnik.eu
+  path: /
 
 # PVC for Tautulli config
 pvc:
