@@ -26,6 +26,9 @@ gateway:
       tls:
         secretName: default-tls-cert
 
+updateStrategy:
+  type: Recreate
+
 crowdsec:
   middleware:
     enabled: true
