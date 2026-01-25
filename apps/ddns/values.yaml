@@ -10,10 +10,6 @@ resources:
     cpu: 25m
     memory: 32Mi
 
-ingress:
-  enabled: false
-  host: ddns.lesicnik.eu
-
 gateway:
   name: traefik-gateway
   namespace: traefik

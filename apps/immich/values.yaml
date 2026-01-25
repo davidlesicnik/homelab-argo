@@ -27,20 +27,6 @@ service:
   type: ClusterIP
   port: 2283
 
-ingress:
-  enabled: false
-  className: "nginx"
-  hostname: photos.lesicnik.eu
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
-  tls:
-    enabled: true
-    secretName: immich-tls
-
 gateway:
   name: traefik-gateway
   namespace: traefik
@@ -136,16 +122,6 @@ kiosk:
     pullPolicy: IfNotPresent
   service:
     port: 3000
-  ingress:
-    enabled: false
-    className: "nginx"
-    hostname: kiosk.lesicnik.eu
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    tls:
-      enabled: true
-      secretName: immich-kiosk-tls
   route:
     enabled: true
     hostname: kiosk.lesicnik.eu

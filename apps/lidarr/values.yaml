@@ -12,18 +12,6 @@ service:
   type: ClusterIP
   port: 8686
 
-ingress:
-  enabled: false
-  hostname: lidarr.lesicnik.eu
-  ingressClassName: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-  tls:
-    enabled: true
-    secretName: lidarr-lesicnik-eu-tls
-
 gateway:
   name: traefik-gateway
   namespace: traefik

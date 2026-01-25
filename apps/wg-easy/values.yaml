@@ -15,17 +15,6 @@ service:
   vpnPort: 51820
   vpnPortProtocol: UDP
 
-ingress:
-  enabled: false
-  hostname: wireguard.lesicnik.eu
-  ingressClassName: nginx
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-  tls:
-    enabled: true
-    secretName: wireguard-lesicnik-eu-tls
-
 gateway:
   name: traefik-gateway
   namespace: traefik

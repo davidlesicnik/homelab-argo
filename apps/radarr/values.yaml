@@ -12,18 +12,6 @@ service:
   type: ClusterIP
   port: 7878
 
-ingress:
-  enabled: false
-  hostname: radarr.lesicnik.eu
-  ingressClassName: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-  tls:
-    enabled: true
-    secretName: radarr-lesicnik-eu-tls
-
 gateway:
   name: traefik-gateway
   namespace: traefik

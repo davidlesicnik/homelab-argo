@@ -16,18 +16,6 @@ service:
   torrentPortTCP: true
   torrentPortUDP: true
 
-ingress:
-  enabled: false
-  hostname: torrent.lesicnik.eu
-  ingressClassName: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/use-forwarded-headers: "true"
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-  tls:
-    enabled: true
-    secretName: torrent-lesicnik-eu-tls
-
 gateway:
   name: traefik-gateway
   namespace: traefik

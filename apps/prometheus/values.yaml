@@ -12,22 +12,6 @@ prometheus:
       accessModes:
         - ReadWriteOnce
 
-    ingress:
-      enabled: false
-      ingressClassName: nginx
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-      hosts:
-        - prometheus.lesicnik.eu
-      paths:
-        - /
-      pathType: Prefix
-      tls:
-        - secretName: prometheus-lesicnik-eu-tls
-          hosts:
-            - prometheus.lesicnik.eu
-
     resources:
       requests:
         cpu: 10m
