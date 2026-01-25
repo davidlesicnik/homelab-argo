@@ -1,6 +1,0 @@
-apiVersion: v2
-name: traefik-test
-description: Simple hello world app exposed via Gateway API
-type: application
-version: 1.0.0
-appVersion: "0.2.3"
