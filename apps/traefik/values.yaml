@@ -56,6 +56,15 @@ externalSecret:
     property: api_key
 
 traefik:
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/name: traefik
+            topologyKey: kubernetes.io/hostname
   providers:
     kubernetesGateway:
       enabled: true
@@ -96,6 +105,7 @@ traefik:
             User-Agent: keep
 
   deployment:
+    replicas: 2
     additionalVolumes:
       - name: traefik-logs
         emptyDir: {}
