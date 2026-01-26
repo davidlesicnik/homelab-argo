@@ -26,7 +26,7 @@ youtrack:
       memory: 2000Mi
     limits:
       cpu: 500m
-      memory: 4096Mi
+      memory: 2Gi
 
   persistence:
     data:
@@ -65,7 +65,7 @@ youtrack:
     baseUrl: "https://track.lesicnik.eu"
     youtrackDisableCheckForUpdate: true
     statisticsUpload: false
-    xmx: 2048m
+    xmx: 1536m
     metaspaceSize: 350m
     maxMetaspaceSize: 350m
 
