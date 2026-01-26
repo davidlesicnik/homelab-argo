@@ -2,7 +2,7 @@
 crowdsec:
   image:
     repository: crowdsecurity/crowdsec
-    tag: v1.7.4
+    tag: v1.7.6
   replicas: 1
 
   # Collections to install (for detecting attacks)

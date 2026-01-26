@@ -107,7 +107,7 @@ traefik:
           claimName: crowdsec-lapi-data
     initContainers:
       - name: crowdsec-install
-        image: crowdsecurity/crowdsec:v1.7.4
+        image: crowdsecurity/crowdsec:v1.7.6
         command:
           - sh
           - -c
@@ -166,7 +166,7 @@ traefik:
             subPath: patterns
     additionalContainers:
       - name: crowdsec
-        image: crowdsecurity/crowdsec:v1.7.4
+        image: crowdsecurity/crowdsec:v1.7.6
         imagePullPolicy: IfNotPresent
         command:
           - /bin/sh
