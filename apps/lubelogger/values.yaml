@@ -4,7 +4,7 @@ service:
 
 image:
   repository: ghcr.io/hargata/lubelogger
-  tag: v1.5.7
+  tag: v1.5.8
   pullPolicy: IfNotPresent
 
 gateway:
