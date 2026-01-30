@@ -3,5 +3,5 @@ name: youtrack
 version: 1.0.0
 dependencies:
   - name: youtrack
-    version: 1.0.21
+    version: 1.0.22
     repository: https://twenty-20.github.io/helm-charts/
