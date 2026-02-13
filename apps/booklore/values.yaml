@@ -2,7 +2,7 @@ mariadb:
   enabled: true
   image:
     repository: mariadb
-    tag: "11.8.5"
+    tag: "11.8.6"
   auth:
     database: booklore
     username: booklore-user
