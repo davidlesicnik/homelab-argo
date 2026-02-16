@@ -43,6 +43,10 @@ services:
     enabled: true
     host: lidarr.lesicnik.eu
     ip: 192.168.10.90
+  lemur:
+    enabled: true
+    host: lemur.lesicnik.eu
+    ip: 192.168.10.90
   prowlarr:
     enabled: true
     host: prowlarr.lesicnik.eu

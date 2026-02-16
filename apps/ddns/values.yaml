@@ -35,6 +35,7 @@ ddns:
     - beam.lesicnik.eu
     - track.lesicnik.eu
     - cloud.lesicnik.eu
+    - lemur.lesicnik.eu
 
 externalSecret:
   enabled: true
