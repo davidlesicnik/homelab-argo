@@ -8,7 +8,7 @@ image:
   tag: "latest"
   # Preferred for production pinning. Use the GHCR image/package digest,
   # not the GitHub Actions artifact (.dockerbuild) digest.
-  digest: "sha256:1040482215b95428c0e21fa96814f4f32072680d5f421fcc8263584123fc21ad"
+  digest: "sha256:92ea3fa11946f167e4fd553d9655ad7b870b4796b7acafcc1b6e4b499eb772a2"
   pullPolicy: IfNotPresent
 
 service:
