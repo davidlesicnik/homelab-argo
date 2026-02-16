@@ -36,6 +36,7 @@ ddns:
     - track.lesicnik.eu
     - cloud.lesicnik.eu
     - lemur.lesicnik.eu
+    - pitwall.lesicnik.eu
 
 externalSecret:
   enabled: true

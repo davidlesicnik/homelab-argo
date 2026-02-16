@@ -47,6 +47,10 @@ services:
     enabled: true
     host: lemur.lesicnik.eu
     ip: 192.168.10.90
+  pitwall:
+    enabled: true
+    host: pitwall.lesicnik.eu
+    ip: 192.168.10.90
   prowlarr:
     enabled: true
     host: prowlarr.lesicnik.eu
