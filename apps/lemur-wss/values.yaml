@@ -6,6 +6,9 @@ strategy:
 image:
   repository: ghcr.io/stephanrutter/lemur_wss
   tag: "latest"
+  # Preferred for production pinning. Use the GHCR image/package digest,
+  # not the GitHub Actions artifact (.dockerbuild) digest.
+  digest: "sha256:17a796bf489be422cffa1595c8f53632139011e497f4ec31cb77bacbf7915cb2"
   pullPolicy: IfNotPresent
 
 service:

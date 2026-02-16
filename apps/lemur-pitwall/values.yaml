@@ -6,6 +6,9 @@ strategy:
 image:
   repository: ghcr.io/stephanrutter/lemur-pitwall
   tag: "latest"
+  # Preferred for production pinning. Use the GHCR image/package digest,
+  # not the GitHub Actions artifact (.dockerbuild) digest.
+  digest: "sha256:1040482215b95428c0e21fa96814f4f32072680d5f421fcc8263584123fc21ad"
   pullPolicy: IfNotPresent
 
 service:

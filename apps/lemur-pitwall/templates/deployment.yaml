@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: lemur-pitwall
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ if .Values.image.digest }}{{ .Values.image.repository }}@{{ .Values.image.digest }}{{ else }}{{ .Values.image.repository }}:{{ .Values.image.tag }}{{ end }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: web
@@ -42,4 +42,3 @@ spec:
               port: web
             initialDelaySeconds: 5
             periodSeconds: 5
-
