@@ -1,6 +1,6 @@
 dependencies:
 - name: youtrack
   repository: https://twenty-20.github.io/helm-charts/
-  version: 1.0.22
-digest: sha256:8f7f285e2cf8cbad0dfba672ab49ab6f7bed2b626115f088bada4b8c7c38f148
-generated: "2026-01-30T13:54:56.674576677Z"
+  version: 1.0.25
+digest: sha256:c42815fca50f813452dc33fa118e274ae775101a9bc333d1ca31511e2c9e4810
+generated: "2026-02-17T12:38:38.152975969Z"
