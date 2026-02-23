@@ -118,7 +118,7 @@ kiosk:
   enabled: true
   image:
     repository: ghcr.io/damongolding/immich-kiosk
-    tag: "0.31.0"
+    tag: "0.32.1"
     pullPolicy: IfNotPresent
   service:
     port: 3000
