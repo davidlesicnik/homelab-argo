@@ -26,9 +26,6 @@ gateway:
       tls:
         secretName: default-tls-cert
 
-updateStrategy:
-  type: Recreate
-
 crowdsec:
   middleware:
     enabled: true
@@ -56,6 +53,8 @@ externalSecret:
     property: api_key
 
 traefik:
+  updateStrategy:
+    type: Recreate
   affinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
