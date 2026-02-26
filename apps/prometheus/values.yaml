@@ -20,7 +20,7 @@ prometheus:
         cpu: 300m
         memory: 1024Mi
 
-    retention: "90d"
+    retention: "14d"
 
     global:
       scrape_interval: 30s
