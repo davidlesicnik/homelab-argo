@@ -103,6 +103,10 @@ services:
     enabled: true
     host: track.lesicnik.eu
     ip: 192.168.10.90
+  change:
+    enabled: true
+    host: change.lesicnik.eu
+    ip: 192.168.10.90
   traefik:
     enabled: true
     host: traefik.lesicnik.eu
