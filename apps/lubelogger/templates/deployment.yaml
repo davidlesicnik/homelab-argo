@@ -5,6 +5,8 @@ metadata:
   labels:
     {{- include "lubelogger.labels" . | nindent 4 }}
 spec:
+  strategy:
+    type: Recreate
   replicas: {{ .Values.replicaCount | default 1 }}
   selector:
     matchLabels:
