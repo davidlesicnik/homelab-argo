@@ -20,7 +20,7 @@ mariadb:
 image:
   repository: booklore/booklore
   pullPolicy: IfNotPresent
-  tag: v2.0.1
+  tag: v2.0.2
 
 imagePullSecrets: []
 nameOverride: ""
