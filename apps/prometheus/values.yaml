@@ -97,3 +97,5 @@ route:
   enabled: true
   hostname: prometheus.lesicnik.eu
   path: /
+  allowHttpRemoteWrite: true
+  remoteWritePath: /api/v1/write

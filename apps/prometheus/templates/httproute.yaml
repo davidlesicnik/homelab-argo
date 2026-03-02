@@ -5,6 +5,8 @@
 {{- $httpsSection := default "https" .Values.gateway.httpsSectionName }}
 {{- $host := .Values.route.hostname }}
 {{- $path := default "/" .Values.route.path }}
+{{- $allowHttpRemoteWrite := default false .Values.route.allowHttpRemoteWrite }}
+{{- $remoteWritePath := default "/api/v1/write" .Values.route.remoteWritePath }}
 {{- $prometheus := index .Subcharts "prometheus" }}
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -41,6 +43,16 @@ spec:
   hostnames:
     - {{ $host | quote }}
   rules:
+    {{- if $allowHttpRemoteWrite }}
+    - matches:
+        - path:
+            type: Exact
+            value: {{ $remoteWritePath | quote }}
+      backendRefs:
+        - name: {{ include "prometheus.server.fullname" $prometheus }}
+          kind: Service
+          port: {{ $prometheus.Values.server.service.servicePort }}
+    {{- end }}
     - matches:
         - path:
             type: PathPrefix
