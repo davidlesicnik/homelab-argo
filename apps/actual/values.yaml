@@ -5,7 +5,7 @@ strategy:
 
 image:
   repository: docker.io/actualbudget/actual-server
-  tag: 26.2.1
+  tag: 26.3.0
   pullPolicy: IfNotPresent
 
 containerPort: 5006
