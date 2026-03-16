@@ -40,3 +40,10 @@ internalServices:
     ip: 192.168.10.20
     port: 80
     scheme: http
+
+  torrent:
+    enabled: true
+    host: torrent.lesicnik.eu
+    ip: 192.168.10.20
+    port: 80
+    scheme: http

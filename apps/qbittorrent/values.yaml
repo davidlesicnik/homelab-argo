@@ -24,7 +24,7 @@ gateway:
 
 route:
   enabled: true
-  hostname: torrent.lesicnik.eu
+  hostname: torren-old.lesicnik.eu
   path: /
 
 # PVC for qBittorrent config
