@@ -47,3 +47,10 @@ internalServices:
     ip: 192.168.10.20
     port: 80
     scheme: http
+
+  fuel:
+    enabled: true
+    host: fuel.lesicnik.eu
+    ip: 192.168.10.20
+    port: 80
+    scheme: http

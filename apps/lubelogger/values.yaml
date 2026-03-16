@@ -15,7 +15,7 @@ gateway:
 
 route:
   enabled: true
-  hostname: fuel.lesicnik.eu
+  hostname: fuel-old.lesicnik.eu
   path: /
 
 env:
