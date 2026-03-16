@@ -34,9 +34,9 @@ internalServices:
     port: 80
     scheme: http
 
-  actual-dev:
+  actual:
     enabled: true
-    host: actual-dev.lesicnik.eu
+    host: actual.lesicnik.eu
     ip: 192.168.10.20
     port: 80
     scheme: http

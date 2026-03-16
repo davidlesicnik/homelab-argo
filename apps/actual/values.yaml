@@ -1,4 +1,4 @@
-replicaCount: 1
+replicaCount: 0
 
 strategy:
   type: Recreate
@@ -48,5 +48,5 @@ gateway:
 
 route:
   enabled: true
-  hostname: actual.lesicnik.eu
+  hostname: actual-old.lesicnik.eu
   path: /
