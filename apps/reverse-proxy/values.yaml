@@ -26,3 +26,11 @@ internalServices:
     port: 8006
     scheme: https
     insecureSkipVerify: true
+
+  login:
+    enabled: true
+    host: login.lesicnik.eu
+    ip: 192.168.10.20
+    port: 443
+    scheme: https
+    insecureSkipVerify: true

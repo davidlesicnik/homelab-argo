@@ -94,18 +94,10 @@ services:
   pve:
     enabled: true
     host: pve.lesicnik.eu
-    ip: 192.168.10.94
+    ip: 192.168.10.90
   ugi:
     enabled: true
     host: ugi.lesicnik.eu
-    ip: 192.168.10.94
-  track:
-    enabled: true
-    host: track.lesicnik.eu
-    ip: 192.168.10.90
-  change:
-    enabled: true
-    host: change.lesicnik.eu
     ip: 192.168.10.90
   traefik:
     enabled: true
