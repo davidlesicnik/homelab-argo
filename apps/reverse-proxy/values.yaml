@@ -33,3 +33,10 @@ internalServices:
     ip: 192.168.10.20
     port: 80
     scheme: http
+
+  actual-new:
+    enabled: true
+    host: actual-new.lesicnik.eu
+    ip: 192.168.10.20
+    port: 80
+    scheme: http
