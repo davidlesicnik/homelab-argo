@@ -1,6 +1,0 @@
-apiVersion: v2
-name: changedetection
-description: changedetection.io website change monitoring
-type: application
-version: 1.0.0
-appVersion: "0.54.1"
