@@ -54,3 +54,10 @@ internalServices:
     ip: 192.168.10.20
     port: 80
     scheme: http
+
+  photos:
+    enabled: true
+    host: photos.lesicnik.eu
+    ip: 192.168.10.20
+    port: 80
+    scheme: http

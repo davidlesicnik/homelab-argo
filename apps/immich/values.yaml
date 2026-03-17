@@ -35,7 +35,7 @@ gateway:
 
 route:
   enabled: true
-  hostname: photos.lesicnik.eu
+  hostname: photos-old.lesicnik.eu
   path: /
 
 # Main storage for photos/videos
